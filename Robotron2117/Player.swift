@@ -7,7 +7,13 @@
 //
 
 import UIKit
+import SpriteKit
 
-class Player: NSObject {
+enum PlayerNumber {
+    case one
+    case two
+}
+
+class Player: Hittable {
 
 }
