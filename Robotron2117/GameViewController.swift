@@ -9,11 +9,13 @@
 import UIKit
 import SpriteKit
 import GameplayKit
+import GameController
 
 class GameViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.startWatchingForControllers()
         
         // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
         // including entities and graphs.
@@ -27,9 +29,31 @@ class GameViewController: UIViewController {
             view.showsNodeCount = true
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
+    
+    
+    func startWatchingForControllers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(GameViewController.notify), name: .GCControllerDidConnect, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(GameViewController.notify), name: .GCControllerDidDisconnect, object: nil)
+        GCController.startWirelessControllerDiscovery(completionHandler: {})
     }
+    
+    func stopWatchingForControllers() {
+        GCController.stopWirelessControllerDiscovery()
+    }
+    
+    func notify(note: Notification) {
+        if note.name == .GCControllerDidConnect {
+            if let ctrl = note.object as? GCController,
+                let gamepad = ctrl.microGamepad,
+                ctrl.extendedGamepad == nil {
+                GameUniverse.shared.playerOne.controller = RemoteControl(gamepad)
+            }
+        } else if note.name == .GCControllerDidDisconnect {
+            if let ctrl = note.object as? GCController,
+                let _ = ctrl.microGamepad {
+                GameUniverse.shared.playerOne.controller = nil
+            }
+        }
+    }
+    
 }
