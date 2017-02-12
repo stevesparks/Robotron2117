@@ -9,6 +9,8 @@
 import SpriteKit
 
 class Movable : GameNode {
+    var dead = false
+
     enum WalkDirection : Int {
         case north = 0
         case south = 1
@@ -44,6 +46,10 @@ class Movable : GameNode {
     }
     
     func move(_ direction : CGVector) {
+        guard !dead else {
+            return
+        }
+        
         var vec = direction
         vec.dx *= nodeSpeed
         vec.dy *= nodeSpeed

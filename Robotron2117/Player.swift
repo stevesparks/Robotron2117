@@ -23,11 +23,20 @@ class Player: Hittable {
 
     override init(texture: SKTexture?, color: UIColor, size: CGSize) {
         super.init(texture: texture, color: color, size: size)
-        nodeSpeed = 15
+        setupPlayer()
     }
     
     required init?(coder aCoder: NSCoder) {
         super.init(coder: aCoder)
+        setupPlayer()
+    }
+    
+    func setupPlayer() {
+        let bod = SKPhysicsBody(rectangleOf: size)
+        bod.collisionBitMask = 0x0
+        bod.contactTestBitMask = CollisionType.Enemy.rawValue
+        bod.categoryBitMask = CollisionType.Player.rawValue
+        self.physicsBody = bod
         nodeSpeed = 15
     }
 
@@ -90,7 +99,9 @@ extension Player : Shooter {
             let shoot = ctrl.shootVector
             if ctrl.trigger, shoot != .zero {
                 shotCountdown = 5
-                return Bullet.aimedAt(shoot, by: self)
+                let shot = Bullet.aimedAt(shoot, by: self)
+                shot.physicsBody?.contactTestBitMask = CollisionType.Enemy.rawValue | CollisionType.Civilian.rawValue
+                return shot
             }
         }
         return nil

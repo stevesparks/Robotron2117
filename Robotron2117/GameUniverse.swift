@@ -8,6 +8,13 @@
 
 import SpriteKit
 
+enum CollisionType : UInt32 {
+    case Player = 0x01
+    case Enemy = 0x02
+    case Civilian = 0x04
+    case Bullet = 0x08
+}
+
 class GameNode : SKSpriteNode {
     weak var universe : GameUniverse!
 }
@@ -153,12 +160,12 @@ extension GameUniverse {
     }
     
     func moveNextEnemy() {
-        let enemy = enemies[enemyIndex]
-        enemy.walk()
-        enemyIndex = enemyIndex + 1
         if enemyIndex >= enemies.count {
             enemyIndex = 0
         }
+        let enemy = enemies[enemyIndex]
+        enemy.walk()
+        enemyIndex = enemyIndex + 1
     }
 }
 
@@ -173,6 +180,38 @@ extension CGPoint {
     }
 }
 
+extension GameUniverse :SKPhysicsContactDelegate {
+    func didBegin(_ contact: SKPhysicsContact) {
+        var hittable : Hittable?
+        var bullet : Bullet?
+        if let h1 = contact.bodyA.node as? Hittable {
+            hittable = h1
+            bullet = contact.bodyB.node as? Bullet
+        } else if let h2 = contact.bodyB.node as? Hittable {
+            hittable = h2
+            bullet = contact.bodyA.node as? Bullet
+        }
+        if let target = hittable, let bullet = bullet {
+            bullet.removeFromParent()
+            if let enemy = target as? Enemy {
+                enemy.dead = true
+                if allDead() {
+                    resetUniverse()
+                }
+                enemy.removeFromParent()
+            }
+        }
+    }
+    
+    func allDead() -> Bool {
+        for enemy in enemies {
+            if (!enemy.dead) {
+                return false
+            }
+        }
+        return true
+    }
+}
 
 // MARK: Generation
 extension GameUniverse {
@@ -188,6 +227,8 @@ extension GameUniverse {
         tockTimer = Timer.scheduledTimer(withTimeInterval: 0.033, repeats: true) {_ in
             self.tock()
         }
+        physicsWorld.gravity = .zero
+        physicsWorld.contactDelegate = self
     }
     
     func randomColor() -> SKColor {

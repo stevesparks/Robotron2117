@@ -9,10 +9,20 @@
 import SpriteKit
 
 class FootSoldier: Enemy, Shooter {
+    convenience init() {
+        self.init(texture: SKTexture(imageNamed: "robo-center"), color: UIColor.black, size: CGSize(width: 18*3, height: 28*3))
+        self.nodeSpeed = 5
+    }
+
     func shoot() -> Bullet? {
+        guard !dead else {
+            return nil
+        }
         if((arc4random()%20)==0) { // 5% chance
             let shotVector = universe.shootingDirectionToNearestPlayer(from: self)
-            return Bullet.aimedAt(shotVector, by: self)
+            let shot = Bullet.aimedAt(shotVector, by: self)
+            shot.physicsBody?.collisionBitMask = CollisionType.Player.rawValue
+            return shot
         }
         return nil
     }

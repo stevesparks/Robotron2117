@@ -10,9 +10,23 @@ import SpriteKit
 
 class Enemy: Hittable {
     
-    convenience init() {
-        self.init(texture: SKTexture(imageNamed: "robo-center"), color: UIColor.black, size: CGSize(width: 18*3, height: 28*3))
-        self.nodeSpeed = 5
+    
+    override init(texture: SKTexture?, color: UIColor, size: CGSize) {
+        super.init(texture: texture, color: color, size: size)
+        setupEnemy()
+    }
+
+    required init?(coder aCoder: NSCoder) {
+        super.init(coder: aCoder)
+        setupEnemy()
+    }
+    
+    func setupEnemy() {
+        let bod = SKPhysicsBody(rectangleOf: size)
+        bod.categoryBitMask = CollisionType.Enemy.rawValue
+        bod.collisionBitMask = 0x0
+        bod.contactTestBitMask = CollisionType.Player.rawValue
+        self.physicsBody = bod
     }
     
     override func walk() {

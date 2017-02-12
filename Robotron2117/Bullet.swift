@@ -12,8 +12,13 @@ import SpriteKit
 class Bullet: GameNode {
     
     static func aimedAt(_ vector: CGVector, by node: GameNode) -> Bullet {
-        let bullet = Bullet(texture: nil, color: UIColor.red, size: CGSize(width: 10, height: 10))
+        let size = CGSize(width: 10, height: 10)
+        let bullet = Bullet(texture: nil, color: UIColor.red, size: size)
         bullet.position = node.position
+        let body = SKPhysicsBody(rectangleOf: size)
+        body.categoryBitMask = CollisionType.Bullet.rawValue
+        body.collisionBitMask = 0x0
+        bullet.physicsBody = body
         node.universe.addChild(bullet)
         
         let bulletAction = SKAction.sequence([
