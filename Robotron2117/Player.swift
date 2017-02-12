@@ -43,21 +43,6 @@ class Player: Hittable {
             }
         }
     }
-
-    override func walk() {
-        if let ctrl = controller {
-            let vec = ctrl.moveVector
-            if vec != .zero {
-                move(vec)
-                nextSprite()
-            }
-            let shoot = ctrl.shootVector
-            if ctrl.trigger, shoot != .zero {
-                
-            }
-                
-        }
-    }
     
     var step = Int(arc4random()%4)
     let textures : [[SKTexture]] = {
@@ -72,6 +57,23 @@ class Player: Hittable {
         return ret
     }()
     
+}
+
+extension Player {
+    override func walk() {
+        if let ctrl = controller {
+            let vec = ctrl.moveVector
+            if vec != .zero {
+                move(vec)
+                nextSprite()
+            }
+            let shoot = ctrl.shootVector
+            if ctrl.trigger, shoot != .zero {
+                
+            }                
+        }
+    }
+    
     func nextSprite() {
         let set = lastWalkVector.walkDirection.rawValue
         texture = textures[set][step]
@@ -80,5 +82,4 @@ class Player: Hittable {
             step = 0
         }
     }
-
 }

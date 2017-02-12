@@ -205,7 +205,7 @@ extension GameUniverse {
     func addFriendlies() {
         var friendliesRemaining = friendlyCount
         while(friendliesRemaining>0) {
-            if let friendly = findEmptySpace({ return Civilian(texture: nil, color: SKColor.green, size: enemySize) }) as? Civilian {
+            if let friendly = findEmptySpace({ return Civilian() }) as? Civilian {
                 addChild(friendly)
                 friendlies.append(friendly)
                 friendliesRemaining = friendliesRemaining - 1
