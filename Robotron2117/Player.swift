@@ -67,7 +67,9 @@ class Player: Hittable {
             let shoot = ctrl.shootVector
             if ctrl.trigger, shoot != .zero {
                 
-            }                
+            }
+        } else {
+            print("No controller")
         }
     }
     
@@ -78,5 +80,11 @@ class Player: Hittable {
         if(step >= textures.count) {
             step = 0
         }
+    }
+}
+
+extension Player : Shooter {
+    func shoot() {
+        
     }
 }

@@ -19,6 +19,11 @@ class Civilian: Hittable {
         self.init(texture: SKTexture(imageNamed: "lady-front-1"), color: UIColor.green, size: CGSize(width: 14*3, height: 28*3))
     }
     
+    convenience init(_ type: CivilianType) {
+        self.init(texture: nil, color: UIColor.green, size: CGSize(width: 14*3, height: 28*3))
+        self.type = type        
+    }
+    
     var type : CivilianType = .lady
     var direction = WalkDirection.random()
     var stepCount = 0
@@ -32,7 +37,7 @@ class Civilian: Hittable {
         super.init(coder: aCoder)
         nodeSpeed = 3
     }
-    
+  
     override func walk() {
         move(direction.vector())
 
@@ -65,7 +70,7 @@ class Civilian: Hittable {
         let set = lastWalkVector.walkDirection.rawValue
         texture = textures[set][step]
         step = step + 1
-        if(step >= textures.count) {
+        if(step >= textures[set].count) {
             step = 0
         }
     }

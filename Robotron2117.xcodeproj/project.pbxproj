@@ -24,6 +24,8 @@
 		0E42C2271E4F35EF0069B1D4 /* Civilian.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E42C2261E4F35EF0069B1D4 /* Civilian.swift */; };
 		0E42C2291E4F35FE0069B1D4 /* Barrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E42C2281E4F35FE0069B1D4 /* Barrier.swift */; };
 		0E42C22B1E4F40CB0069B1D4 /* GameUniverse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E42C22A1E4F40CB0069B1D4 /* GameUniverse.swift */; };
+		0E47C2D81E50AEE300AD999E /* Movable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E47C2D71E50AEE300AD999E /* Movable.swift */; };
+		0E47C2DA1E50AF7F00AD999E /* Shooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E47C2D91E50AF7F00AD999E /* Shooter.swift */; };
 		0EC5FA741E4FAA1C006AC1A4 /* Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5FA731E4FAA1C006AC1A4 /* Control.swift */; };
 		0EC5FA771E4FAAEA006AC1A4 /* RemoteControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5FA761E4FAAEA006AC1A4 /* RemoteControl.swift */; };
 /* End PBXBuildFile section */
@@ -48,6 +50,8 @@
 		0E42C2261E4F35EF0069B1D4 /* Civilian.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Civilian.swift; sourceTree = "<group>"; };
 		0E42C2281E4F35FE0069B1D4 /* Barrier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Barrier.swift; sourceTree = "<group>"; };
 		0E42C22A1E4F40CB0069B1D4 /* GameUniverse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameUniverse.swift; sourceTree = "<group>"; };
+		0E47C2D71E50AEE300AD999E /* Movable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Movable.swift; sourceTree = "<group>"; };
+		0E47C2D91E50AF7F00AD999E /* Shooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shooter.swift; sourceTree = "<group>"; };
 		0EC5FA731E4FAA1C006AC1A4 /* Control.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Control.swift; sourceTree = "<group>"; };
 		0EC5FA761E4FAAEA006AC1A4 /* RemoteControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -110,6 +114,8 @@
 				0E42C2261E4F35EF0069B1D4 /* Civilian.swift */,
 				0E42C2281E4F35FE0069B1D4 /* Barrier.swift */,
 				0E42C22A1E4F40CB0069B1D4 /* GameUniverse.swift */,
+				0E47C2D71E50AEE300AD999E /* Movable.swift */,
+				0E47C2D91E50AF7F00AD999E /* Shooter.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -209,9 +215,11 @@
 			files = (
 				0E42C2271E4F35EF0069B1D4 /* Civilian.swift in Sources */,
 				0E42C2251E4F35E60069B1D4 /* Enemy.swift in Sources */,
+				0E47C2D81E50AEE300AD999E /* Movable.swift in Sources */,
 				0E42C22B1E4F40CB0069B1D4 /* GameUniverse.swift in Sources */,
 				0E42C2291E4F35FE0069B1D4 /* Barrier.swift in Sources */,
 				0E42C2231E4F35D30069B1D4 /* Hittable.swift in Sources */,
+				0E47C2DA1E50AF7F00AD999E /* Shooter.swift in Sources */,
 				0E42C2191E4E01620069B1D4 /* Player.swift in Sources */,
 				0EC5FA741E4FAA1C006AC1A4 /* Control.swift in Sources */,
 				0E42C20A1E4DFEA20069B1D4 /* GameScene.swift in Sources */,

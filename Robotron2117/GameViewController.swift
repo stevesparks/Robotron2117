@@ -30,7 +30,15 @@ class GameViewController: UIViewController {
         }
     }
     
+    override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+        if presses.first?.type == .playPause {
+            GameUniverse.shared.resetUniverse()
+        } else {
+            super.pressesBegan(presses, with: event)
+        }
+    }
     
+
     func startWatchingForControllers() {
         NotificationCenter.default.addObserver(self, selector: #selector(GameViewController.notify), name: .GCControllerDidConnect, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(GameViewController.notify), name: .GCControllerDidDisconnect, object: nil)

@@ -16,7 +16,7 @@ class GameUniverse: SKScene {
     static let shared = GameUniverse(size: CGSize(width: 1920, height: 1080))
     
     let enemyCount = 30
-    let barrierCount = 40
+    let barrierCount = 0
     let friendlyCount = 4
     
     let enemySize = CGSize(width: 20, height: 20)
@@ -205,7 +205,13 @@ extension GameUniverse {
     func addFriendlies() {
         var friendliesRemaining = friendlyCount
         while(friendliesRemaining>0) {
-            if let friendly = findEmptySpace({ return Civilian() }) as? Civilian {
+            if let friendly = findEmptySpace({
+                if (Int(arc4random()%2)==0) {
+                    return Civilian(.lady)
+                } else {
+                    return Civilian(.boy)
+                }
+            }) as? Civilian {
                 addChild(friendly)
                 friendlies.append(friendly)
                 friendliesRemaining = friendliesRemaining - 1
