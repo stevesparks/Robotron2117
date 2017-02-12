@@ -15,6 +15,7 @@ enum PlayerNumber {
 }
 
 class Player: Hittable {
+    var shotCountdown = 0
     
     convenience init() {
         self.init(texture: SKTexture(imageNamed: "dude-front-1"), color: UIColor.black, size: CGSize(width: 14*3, height: 24*3))
@@ -81,10 +82,15 @@ class Player: Hittable {
 
 extension Player : Shooter {
     func shoot()  -> Bullet? {
+        if(shotCountdown > 0) {
+            shotCountdown -= 1
+            return nil
+        }
         if let ctrl = controller {
             let shoot = ctrl.shootVector
             if ctrl.trigger, shoot != .zero {
-                
+                shotCountdown = 5
+                return Bullet.aimedAt(shoot, by: self)
             }
         }
         return nil

@@ -31,7 +31,7 @@ class RemoteControl: Control {
         var shootVector : CGVector = .zero
         if let motion = pad.controller?.motion {
             let acc = motion.gravity
-            shootVector = CGVector(dx: acc.x, dy: acc.y)
+            shootVector = CGVector(dx: acc.x, dy: 0-acc.y)
         }
         return shootVector
     }
