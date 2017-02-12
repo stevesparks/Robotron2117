@@ -17,6 +17,14 @@ class Civilian: Hittable {
     
     convenience init() {
         self.init(texture: SKTexture(imageNamed: "lady-front-1"), color: UIColor.green, size: CGSize(width: 14*3, height: 28*3))
+        switch (arc4random()%3) {
+        case 0:
+            self.type = .lady
+        case 1:
+            self.type = .man
+        default:
+            self.type = .boy
+        }
     }
     
     convenience init(_ type: CivilianType) {
@@ -38,14 +46,21 @@ class Civilian: Hittable {
         nodeSpeed = 3
     }
   
+    var walkDelay = 0
     override func walk() {
-        move(direction.vector())
-
-        if(stepCount <= 0) {
-            newDirection()
+        if(walkDelay == 0) {
+            move(direction.vector())
+            
+            if(stepCount <= 0) {
+                newDirection()
+            }
+            stepCount = stepCount - 1
+            nextSprite()
         }
-        stepCount = stepCount - 1
-        nextSprite()
+        walkDelay += 1
+        if walkDelay > 3 {
+            walkDelay = 0
+        }
     }
     
     func newDirection() {

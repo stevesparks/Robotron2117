@@ -17,7 +17,7 @@ class GameUniverse: SKScene {
     
     let enemyCount = 20
     let barrierCount = 0
-    let friendlyCount = 4
+    let friendlyCount = 12
     
     let enemySize = CGSize(width: 20, height: 20)
     let friendlySize = CGSize(width: 20, height: 20)
@@ -259,13 +259,7 @@ extension GameUniverse {
     func addFriendlies() {
         var friendliesRemaining = friendlyCount
         while(friendliesRemaining>0) {
-            if let friendly = findEmptySpace({
-                if (Int(arc4random()%2)==0) {
-                    return Civilian(.lady)
-                } else {
-                    return Civilian(.boy)
-                }
-            }) as? Civilian {
+            if let friendly = findEmptySpace({ return Civilian() }) as? Civilian {
                 addChild(friendly)
                 friendlies.append(friendly)
                 friendliesRemaining = friendliesRemaining - 1
