@@ -57,9 +57,6 @@ class Player: Hittable {
         return ret
     }()
     
-}
-
-extension Player {
     override func walk() {
         if let ctrl = controller {
             let vec = ctrl.moveVector
