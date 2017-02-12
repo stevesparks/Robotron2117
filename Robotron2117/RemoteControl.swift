@@ -41,4 +41,8 @@ class RemoteControl: Control {
             blk(moveVector, shootVector)
         }
     }
+    
+    var trigger: Bool {
+        return (pad.buttonA.isPressed || pad.buttonX.isPressed)
+    }
 }

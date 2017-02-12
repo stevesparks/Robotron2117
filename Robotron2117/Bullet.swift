@@ -9,6 +9,6 @@
 import UIKit
 import SpriteKit
 
-class Bullet: SKSpriteNode {
+class Bullet: GameNode {
 
 }

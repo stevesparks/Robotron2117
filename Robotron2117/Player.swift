@@ -15,8 +15,21 @@ enum PlayerNumber {
 }
 
 class Player: Hittable {
-
     
+    convenience init() {
+        self.init(texture: SKTexture(imageNamed: "dude-front-1"), color: UIColor.black, size: CGSize(width: 14*3, height: 24*3))
+    }
+
+    override init(texture: SKTexture?, color: UIColor, size: CGSize) {
+        super.init(texture: texture, color: color, size: size)
+        nodeSpeed = 15
+    }
+    
+    required init?(coder aCoder: NSCoder) {
+        super.init(coder: aCoder)
+        nodeSpeed = 15
+    }
+
     var controller : Control? {
         willSet {
             if var ctrl = controller {
@@ -34,10 +47,38 @@ class Player: Hittable {
     override func walk() {
         if let ctrl = controller {
             let vec = ctrl.moveVector
-            var pos = self.position
-            pos.x = pos.x + (vec.dx * 15)
-            pos.y = pos.y + (vec.dy * 15)
-            self.position = pos
+            if vec != .zero {
+                move(vec)
+                nextSprite()
+            }
+            let shoot = ctrl.shootVector
+            if ctrl.trigger, shoot != .zero {
+                
+            }
+                
         }
     }
+    
+    var step = Int(arc4random()%4)
+    let textures : [[SKTexture]] = {
+        var ret : [[SKTexture]] = []
+        for set in ["back", "front", "right", "left"] {
+            var arr : [SKTexture] = []
+            for frame in [ 1, 2, 3, 2 ] {
+                arr.append(SKTexture(imageNamed: "dude-\(set)-\(frame)"))
+            }
+            ret.append(arr)
+        }
+        return ret
+    }()
+    
+    func nextSprite() {
+        let set = lastWalkVector.walkDirection.rawValue
+        texture = textures[set][step]
+        step = step + 1
+        if(step >= textures.count) {
+            step = 0
+        }
+    }
+
 }

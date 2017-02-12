@@ -6,48 +6,29 @@
 //  Copyright © 2017 Big Nerd Ranch. All rights reserved.
 //
 
-import UIKit
+import SpriteKit
 
 class Civilian: Hittable {
-    enum WalkDirection {
-        case north
-        case south
-        case east
-        case west
-        
-        func vector() -> CGVector {
-            switch self {
-            case .north: return CGVector(dx: 0, dy: -1)
-            case .south: return CGVector(dx: 0, dy: 1)
-            case .east: return CGVector(dx: 1, dy: 0)
-            case .west: return CGVector(dx: -1, dy: 0)
-            }
-        }
-        
-        static func random() -> WalkDirection {
-            switch (Int(arc4random() % 4)) {
-            case 0: return .north
-            case 1: return .south
-            case 2: return .east
-            default: return .west
-            }
-        }
-    }
-
     var direction = WalkDirection.random()
-    var stepCount = 15 + Int(arc4random()%10)
+    var stepCount = 0
     
+    override init(texture: SKTexture?, color: UIColor, size: CGSize) {
+        super.init(texture: texture, color: color, size: size)
+        nodeSpeed = 3
+    }
+    
+    required init?(coder aCoder: NSCoder) {
+        super.init(coder: aCoder)
+        nodeSpeed = 3
+    }
     
     override func walk() {
-        let vec = direction.vector()
-        var pos = self.position
-        pos.x = pos.x + (vec.dx * 3)
-        pos.y = pos.y + (vec.dy * 3)
-        self.position = pos
-        stepCount = stepCount - 1
-        if(stepCount == 0) {
+        move(direction.vector())
+
+        if(stepCount <= 0) {
             newDirection()
         }
+        stepCount = stepCount - 1
     }
     
     func newDirection() {

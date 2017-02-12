@@ -14,5 +14,7 @@ protocol Control {
     var valueChangedBlock : ((CGVector, CGVector) -> Void)? { get set }
    
     var moveVector: CGVector { get }
-    var shootVector: CGVector { get } 
+    var shootVector: CGVector { get }
+    
+    var trigger : Bool { get }
 }
