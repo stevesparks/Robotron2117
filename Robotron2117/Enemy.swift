@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class Enemy: Hittable, Shooter {
+class Enemy: Hittable {
     
     convenience init() {
         self.init(texture: SKTexture(imageNamed: "robo-center"), color: UIColor.black, size: CGSize(width: 18*3, height: 28*3))
@@ -42,9 +42,5 @@ class Enemy: Hittable, Shooter {
         if(step >= textures.count) {
             step = 0
         }
-    }
-    
-    func shoot() {
-        
     }
 }

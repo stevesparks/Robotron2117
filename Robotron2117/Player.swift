@@ -64,10 +64,6 @@ class Player: Hittable {
                 move(vec)
                 nextSprite()
             }
-            let shoot = ctrl.shootVector
-            if ctrl.trigger, shoot != .zero {
-                
-            }
         } else {
             print("No controller")
         }
@@ -84,7 +80,13 @@ class Player: Hittable {
 }
 
 extension Player : Shooter {
-    func shoot() {
-        
+    func shoot()  -> Bullet? {
+        if let ctrl = controller {
+            let shoot = ctrl.shootVector
+            if ctrl.trigger, shoot != .zero {
+                
+            }
+        }
+        return nil
     }
 }

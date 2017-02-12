@@ -26,6 +26,7 @@
 		0E42C22B1E4F40CB0069B1D4 /* GameUniverse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E42C22A1E4F40CB0069B1D4 /* GameUniverse.swift */; };
 		0E47C2D81E50AEE300AD999E /* Movable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E47C2D71E50AEE300AD999E /* Movable.swift */; };
 		0E47C2DA1E50AF7F00AD999E /* Shooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E47C2D91E50AF7F00AD999E /* Shooter.swift */; };
+		0E47C2DC1E50B20200AD999E /* FootSoldier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E47C2DB1E50B20200AD999E /* FootSoldier.swift */; };
 		0EC5FA741E4FAA1C006AC1A4 /* Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5FA731E4FAA1C006AC1A4 /* Control.swift */; };
 		0EC5FA771E4FAAEA006AC1A4 /* RemoteControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5FA761E4FAAEA006AC1A4 /* RemoteControl.swift */; };
 /* End PBXBuildFile section */
@@ -52,6 +53,7 @@
 		0E42C22A1E4F40CB0069B1D4 /* GameUniverse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameUniverse.swift; sourceTree = "<group>"; };
 		0E47C2D71E50AEE300AD999E /* Movable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Movable.swift; sourceTree = "<group>"; };
 		0E47C2D91E50AF7F00AD999E /* Shooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shooter.swift; sourceTree = "<group>"; };
+		0E47C2DB1E50B20200AD999E /* FootSoldier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FootSoldier.swift; sourceTree = "<group>"; };
 		0EC5FA731E4FAA1C006AC1A4 /* Control.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Control.swift; sourceTree = "<group>"; };
 		0EC5FA761E4FAAEA006AC1A4 /* RemoteControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -107,15 +109,14 @@
 		0E42C21A1E4E01670069B1D4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0E47C2DD1E50B35D00AD999E /* Protocols */,
 				0E42C2181E4E01620069B1D4 /* Player.swift */,
 				0E42C2201E4F35C30069B1D4 /* Bullet.swift */,
-				0E42C2221E4F35D30069B1D4 /* Hittable.swift */,
 				0E42C2241E4F35E60069B1D4 /* Enemy.swift */,
 				0E42C2261E4F35EF0069B1D4 /* Civilian.swift */,
 				0E42C2281E4F35FE0069B1D4 /* Barrier.swift */,
 				0E42C22A1E4F40CB0069B1D4 /* GameUniverse.swift */,
-				0E47C2D71E50AEE300AD999E /* Movable.swift */,
-				0E47C2D91E50AF7F00AD999E /* Shooter.swift */,
+				0E47C2DB1E50B20200AD999E /* FootSoldier.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -127,6 +128,16 @@
 				0E42C21D1E4E017C0069B1D4 /* GameplayKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0E47C2DD1E50B35D00AD999E /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				0E47C2D71E50AEE300AD999E /* Movable.swift */,
+				0E47C2D91E50AF7F00AD999E /* Shooter.swift */,
+				0E42C2221E4F35D30069B1D4 /* Hittable.swift */,
+			);
+			name = Protocols;
 			sourceTree = "<group>";
 		};
 		0EC5FA751E4FAAD7006AC1A4 /* Control Abstraction */ = {
@@ -226,6 +237,7 @@
 				0E42C2211E4F35C30069B1D4 /* Bullet.swift in Sources */,
 				0E42C20C1E4DFEA20069B1D4 /* GameViewController.swift in Sources */,
 				0E42C2021E4DFEA20069B1D4 /* AppDelegate.swift in Sources */,
+				0E47C2DC1E50B20200AD999E /* FootSoldier.swift in Sources */,
 				0EC5FA771E4FAAEA006AC1A4 /* RemoteControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

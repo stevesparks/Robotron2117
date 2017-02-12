@@ -8,6 +8,6 @@
 
 import UIKit
 
-class Barrier: Hittable {
+class Barrier: GameNode {
 
 }

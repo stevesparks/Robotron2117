@@ -9,5 +9,7 @@
 import SpriteKit
 
 protocol Shooter {
-    func shoot()
+    func shoot() -> Bullet?
+    
 }
+

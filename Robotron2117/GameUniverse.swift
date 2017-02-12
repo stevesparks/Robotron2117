@@ -15,7 +15,7 @@ class GameNode : SKSpriteNode {
 class GameUniverse: SKScene {
     static let shared = GameUniverse(size: CGSize(width: 1920, height: 1080))
     
-    let enemyCount = 30
+    let enemyCount = 20
     let barrierCount = 0
     let friendlyCount = 4
     
@@ -51,6 +51,18 @@ class GameUniverse: SKScene {
         resetUniverse()
         super.pressesBegan(presses, with: event)
     }
+
+    override func addChild(_ node: SKNode) {
+        if let gameNode = node as? GameNode {
+            gameNode.universe = self
+        }
+        super.addChild(node)
+    }
+    
+}
+
+// MARK: Targeting 
+extension GameUniverse {
     
     func nearestPlayer(to node: GameNode) -> Player {
         let pos = node.position
@@ -81,15 +93,74 @@ class GameUniverse: SKScene {
         return ret
     }
     
-    override func addChild(_ node: SKNode) {
-        if let gameNode = node as? GameNode {
-            gameNode.universe = self
+    func shootingDirectionToNearestPlayer(from node: GameNode) -> CGVector {
+        let c1 = node.position
+        let player = nearestPlayer(to: node)
+        let c2 = player.position
+        var ret = CGVector(dx: 0, dy: 0)
+        
+        let diff = CGVector(dx: c2.x - c1.x, dy: c1.y - c2.y)
+        
+        // These indicate whether we should shoot straight.
+        let biasX = (fabs(diff.dx) > fabs(diff.dy*2))
+        let biasY = (fabs(diff.dy) > fabs(diff.dx*2))
+        if(!biasY) {
+            switch (player.position.x, c1.x) {
+            case let(them, me) where them < me : ret.dx = -1
+            case let(them, me) where them > me: ret.dx = 1
+            default: break
+            }
         }
-        super.addChild(node)
+        if(!biasX) {
+            switch (player.position.y, c1.y) {
+            case let(them, me) where them < me: ret.dy = -1
+            case let(them, me) where them > me: ret.dy = 1
+            default: break
+            }
+        }
+        return ret
     }
-    
+
 }
 
+// MARK: Game Controll
+extension GameUniverse {
+    func tock() {
+        friendlyTurn()
+        enemyTurn()
+    }
+    
+    func friendlyTurn() {
+        for hittable in self.friendlies {
+            hittable.walk()
+            if let shooter = hittable as? Shooter {
+                _ = shooter.shoot()
+            }
+        }
+    }
+    
+    func enemyTurn() {
+        moveNextEnemy()
+        moveNextEnemy()
+        moveNextEnemy()
+        
+        if enemies.count > 0 {
+            let shooterIndex = (enemyIndex + (enemies.count/2)) % enemies.count
+            if let shooter = enemies[shooterIndex] as? Shooter {
+                _ = shooter.shoot()
+            }
+        }
+    }
+    
+    func moveNextEnemy() {
+        let enemy = enemies[enemyIndex]
+        enemy.walk()
+        enemyIndex = enemyIndex + 1
+        if enemyIndex >= enemies.count {
+            enemyIndex = 0
+        }
+    }
+}
 
 // MARK: Targeting
 
@@ -114,25 +185,8 @@ extension GameUniverse {
         addPlayer()
         
         tockTimer?.invalidate()
-        tockTimer = Timer.scheduledTimer(withTimeInterval: 0.016, repeats: true) {_ in
+        tockTimer = Timer.scheduledTimer(withTimeInterval: 0.033, repeats: true) {_ in
             self.tock()
-            self.tock()
-            self.tock()
-//            for enemy in self.enemies {
-//                enemy.walk()
-//            }
-            for hittable in self.friendlies {
-                hittable.walk()
-            }
-        }
-    }
-    
-    func tock() {
-        let enemy = enemies[enemyIndex]
-        enemy.walk()
-        enemyIndex = enemyIndex + 1
-        if enemyIndex >= enemies.count {
-            enemyIndex = 0
         }
     }
     
@@ -194,7 +248,7 @@ extension GameUniverse {
     func addEnemies() {
         var enemiesRemaining = enemyCount
         while(enemiesRemaining>0) {
-            if let enemy = findEmptySpace({ return Enemy() }) as? Enemy {
+            if let enemy = findEmptySpace({ return FootSoldier() }) as? Enemy {
                 addChild(enemy)
                 enemies.append(enemy)
                 enemiesRemaining = enemiesRemaining - 1
