@@ -10,12 +10,18 @@ import UIKit
 import GameController
 
 class RemoteControl: Control {
+    let controller : GCController
     let pad : GCMicroGamepad
     
     var valueChangedBlock: ((CGVector, CGVector) -> Void)?
     
-    init(_ pad : GCMicroGamepad) {
-        self.pad = pad
+    var priority: Int {
+        return 20
+    }
+    
+    init(_ controller : GCController) {
+        self.controller = controller
+        self.pad = controller.microGamepad!
         
         pad.valueChangedHandler = { pad in
             self.readPad()

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GameController
 
 protocol Control {
     // Vector 1 = movement direction
@@ -16,5 +17,10 @@ protocol Control {
     var moveVector: CGVector { get }
     var shootVector: CGVector { get }
     
+    var controller : GCController { get }
+    
     var trigger : Bool { get }
+    
+    // lower number is higher priority
+    var priority : Int { get }
 }

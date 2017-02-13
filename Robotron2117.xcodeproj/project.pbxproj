@@ -9,9 +9,7 @@
 /* Begin PBXBuildFile section */
 		0E42C2021E4DFEA20069B1D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E42C2011E4DFEA20069B1D4 /* AppDelegate.swift */; };
 		0E42C2041E4DFEA20069B1D4 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0E42C2031E4DFEA20069B1D4 /* GameScene.sks */; };
-		0E42C2061E4DFEA20069B1D4 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0E42C2051E4DFEA20069B1D4 /* Actions.sks */; };
 		0E42C2081E4DFEA20069B1D4 /* Game.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E42C2071E4DFEA20069B1D4 /* Game.xcassets */; };
-		0E42C20A1E4DFEA20069B1D4 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E42C2091E4DFEA20069B1D4 /* GameScene.swift */; };
 		0E42C20C1E4DFEA20069B1D4 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E42C20B1E4DFEA20069B1D4 /* GameViewController.swift */; };
 		0E42C20F1E4DFEA20069B1D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E42C20D1E4DFEA20069B1D4 /* Main.storyboard */; };
 		0E42C2111E4DFEA20069B1D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E42C2101E4DFEA20069B1D4 /* Assets.xcassets */; };
@@ -31,6 +29,7 @@
 		0E65454E1E520A0F000CC5F0 /* GameUniverse+Targeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E65454D1E520A0F000CC5F0 /* GameUniverse+Targeting.swift */; };
 		0E6545501E520A4C000CC5F0 /* GameUniverse+Generation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E65454F1E520A4C000CC5F0 /* GameUniverse+Generation.swift */; };
 		0E6545521E520AD6000CC5F0 /* GameUniverse+GameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6545511E520AD6000CC5F0 /* GameUniverse+GameLogic.swift */; };
+		0E6545541E52292E000CC5F0 /* GameUniverse+Controllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6545531E52292E000CC5F0 /* GameUniverse+Controllers.swift */; };
 		0EC5FA741E4FAA1C006AC1A4 /* Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5FA731E4FAA1C006AC1A4 /* Control.swift */; };
 		0EC5FA771E4FAAEA006AC1A4 /* RemoteControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5FA761E4FAAEA006AC1A4 /* RemoteControl.swift */; };
 		0EC9F7401E51D63100515A4B /* Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0EC9F73F1E51D63100515A4B /* Explosion.sks */; };
@@ -41,9 +40,7 @@
 		0E42C1FE1E4DFEA20069B1D4 /* Robotron2117.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Robotron2117.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E42C2011E4DFEA20069B1D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0E42C2031E4DFEA20069B1D4 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		0E42C2051E4DFEA20069B1D4 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		0E42C2071E4DFEA20069B1D4 /* Game.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Game.xcassets; sourceTree = "<group>"; };
-		0E42C2091E4DFEA20069B1D4 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		0E42C20B1E4DFEA20069B1D4 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		0E42C20E1E4DFEA20069B1D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0E42C2101E4DFEA20069B1D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -64,6 +61,7 @@
 		0E65454D1E520A0F000CC5F0 /* GameUniverse+Targeting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GameUniverse+Targeting.swift"; sourceTree = "<group>"; };
 		0E65454F1E520A4C000CC5F0 /* GameUniverse+Generation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GameUniverse+Generation.swift"; sourceTree = "<group>"; };
 		0E6545511E520AD6000CC5F0 /* GameUniverse+GameLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GameUniverse+GameLogic.swift"; sourceTree = "<group>"; };
+		0E6545531E52292E000CC5F0 /* GameUniverse+Controllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GameUniverse+Controllers.swift"; sourceTree = "<group>"; };
 		0EC5FA731E4FAA1C006AC1A4 /* Control.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Control.swift; sourceTree = "<group>"; };
 		0EC5FA761E4FAAEA006AC1A4 /* RemoteControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteControl.swift; sourceTree = "<group>"; };
 		0EC9F73F1E51D63100515A4B /* Explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Explosion.sks; sourceTree = "<group>"; };
@@ -106,9 +104,7 @@
 				0EC9F7411E51DE1500515A4B /* robotaur.ttf */,
 				0E42C2011E4DFEA20069B1D4 /* AppDelegate.swift */,
 				0E42C2031E4DFEA20069B1D4 /* GameScene.sks */,
-				0E42C2051E4DFEA20069B1D4 /* Actions.sks */,
 				0E42C2071E4DFEA20069B1D4 /* Game.xcassets */,
-				0E42C2091E4DFEA20069B1D4 /* GameScene.swift */,
 				0E42C20B1E4DFEA20069B1D4 /* GameViewController.swift */,
 				0E42C20D1E4DFEA20069B1D4 /* Main.storyboard */,
 				0E42C2101E4DFEA20069B1D4 /* Assets.xcassets */,
@@ -159,6 +155,7 @@
 				0E65454D1E520A0F000CC5F0 /* GameUniverse+Targeting.swift */,
 				0E65454F1E520A4C000CC5F0 /* GameUniverse+Generation.swift */,
 				0E6545511E520AD6000CC5F0 /* GameUniverse+GameLogic.swift */,
+				0E6545531E52292E000CC5F0 /* GameUniverse+Controllers.swift */,
 			);
 			name = Universe;
 			sourceTree = "<group>";
@@ -253,7 +250,6 @@
 			files = (
 				0E42C2041E4DFEA20069B1D4 /* GameScene.sks in Resources */,
 				0EC9F7421E51DE1500515A4B /* robotaur.ttf in Resources */,
-				0E42C2061E4DFEA20069B1D4 /* Actions.sks in Resources */,
 				0E42C2081E4DFEA20069B1D4 /* Game.xcassets in Resources */,
 				0E42C20F1E4DFEA20069B1D4 /* Main.storyboard in Resources */,
 				0E42C2111E4DFEA20069B1D4 /* Assets.xcassets in Resources */,
@@ -280,8 +276,8 @@
 				0E6545501E520A4C000CC5F0 /* GameUniverse+Generation.swift in Sources */,
 				0E5222A31E50D62500B246EA /* ExtendedGamepadControl.swift in Sources */,
 				0EC5FA741E4FAA1C006AC1A4 /* Control.swift in Sources */,
-				0E42C20A1E4DFEA20069B1D4 /* GameScene.swift in Sources */,
 				0E42C2211E4F35C30069B1D4 /* Bullet.swift in Sources */,
+				0E6545541E52292E000CC5F0 /* GameUniverse+Controllers.swift in Sources */,
 				0E65454E1E520A0F000CC5F0 /* GameUniverse+Targeting.swift in Sources */,
 				0E42C20C1E4DFEA20069B1D4 /* GameViewController.swift in Sources */,
 				0E42C2021E4DFEA20069B1D4 /* AppDelegate.swift in Sources */,

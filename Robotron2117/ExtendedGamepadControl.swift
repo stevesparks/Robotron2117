@@ -9,12 +9,18 @@
 import GameController
 
 class ExtendedGamepadControl: Control {
+    let controller : GCController
     let pad : GCExtendedGamepad
     
+    var priority: Int {
+        return 10
+    }
+
     var valueChangedBlock: ((CGVector, CGVector) -> Void)?
     
-    init(_ pad : GCExtendedGamepad) {
-        self.pad = pad
+    init(_ controller : GCController) {
+        self.controller = controller
+        self.pad = controller.extendedGamepad!
         
         pad.valueChangedHandler = { pad in
             self.readPad()

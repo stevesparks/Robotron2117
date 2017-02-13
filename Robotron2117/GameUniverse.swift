@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import GameController
 
 enum CollisionType : UInt32 {
     case Player = 0x01
@@ -22,9 +23,11 @@ class GameNode : SKSpriteNode {
 class GameUniverse: SKScene {
     static let shared = GameUniverse(size: CGSize(width: 1920, height: 1080))
     
-    let enemyCount = 25
-    let barrierCount = 0
-    let friendlyCount = 8
+    var controllers : [GCController] = []
+    
+    let enemyCount = 1
+    let barrierCount = 50
+    let friendlyCount = 0
     
     let enemySize = CGSize(width: 20, height: 20)
     let friendlySize = CGSize(width: 20, height: 20)
