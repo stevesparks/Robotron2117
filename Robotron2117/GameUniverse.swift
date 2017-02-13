@@ -22,9 +22,9 @@ class GameNode : SKSpriteNode {
 class GameUniverse: SKScene {
     static let shared = GameUniverse(size: CGSize(width: 1920, height: 1080))
     
-    let enemyCount = 20
+    let enemyCount = 25
     let barrierCount = 0
-    let friendlyCount = 12
+    let friendlyCount = 8
     
     let enemySize = CGSize(width: 20, height: 20)
     let friendlySize = CGSize(width: 20, height: 20)

@@ -53,6 +53,10 @@ extension GameUniverse {
     }
     
     func findEmptySpace(_ t : (Void) -> SKSpriteNode) -> SKSpriteNode? {
+        return findEmptySpace(t, avoiding: nil)
+    }
+    
+    func findEmptySpace(_ t : (Void) -> SKSpriteNode, avoiding space: CGRect?) -> SKSpriteNode? {
         let mySize = self.frame.size
         let possible = CGSize(width: mySize.width-(2*screenBorderWidth), height: mySize.height-(2*screenBorderWidth))
         
@@ -63,17 +67,22 @@ extension GameUniverse {
             let test = t()
             let newLoc = randomPointWithinSize(possible)
             test.position = newLoc
-            var clean = true
-            for child in self.children {
-                if child.frame.intersects(test.frame) {
-                    clean = false
-                    break
-                }
-            }
-            if (clean) {
-                result = test
+            let frame = test.frame
+            if let rect = space, test.frame.intersects(rect) {
+                // false
             } else {
-                triesRemaining = triesRemaining - 1
+                var clean = true
+                for child in self.children {
+                    if child.frame.intersects(frame) {
+                        clean = false
+                        break
+                    }
+                }
+                if (clean) {
+                    result = test
+                } else {
+                    triesRemaining = triesRemaining - 1
+                }
             }
         } while result == nil && triesRemaining > 0
         
@@ -95,16 +104,16 @@ extension GameUniverse {
         var enemiesRemaining = enemyCount
         
         let centerBlock = SKSpriteNode(texture: nil, color: UIColor.clear, size: CGSize(width: 200, height: 200))
-        addChild(centerBlock)
+        let mySize = self.frame.size
+        centerBlock.position = CGPoint(x: mySize.width/2.0, y: mySize.height/2.0)
         
         while(enemiesRemaining>0) {
-            if let enemy = findEmptySpace({ return FootSoldier() }) as? Enemy {
+            if let enemy = findEmptySpace({ return FootSoldier() }, avoiding: centerBlock.frame) as? Enemy {
                 addChild(enemy)
                 enemies.append(enemy)
                 enemiesRemaining = enemiesRemaining - 1
             }
         }
-        centerBlock.removeFromParent()
     }
     
     func addFriendlies() {

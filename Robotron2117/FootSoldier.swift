@@ -30,9 +30,3 @@ class FootSoldier: Enemy, Shooter {
 
 }
 
-extension CGVector {
-    var bulletVector : CGVector {
-        let bulletSpeed : CGFloat = 2000.0
-        return CGVector(dx: dx*bulletSpeed, dy: dy*bulletSpeed)
-    }
-}

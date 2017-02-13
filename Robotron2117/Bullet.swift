@@ -24,7 +24,7 @@ class Bullet: GameNode {
         node.universe.addChild(bullet)
         bullets.append(bullet)
         let bulletAction = SKAction.sequence([
-            SKAction.move(by: vector.bulletVector, duration: 5.0),
+            SKAction.move(by: vector.bulletVector, duration: 2.5),
             SKAction.removeFromParent()
             ])
         bullet.run(bulletAction, completion: {
@@ -34,5 +34,11 @@ class Bullet: GameNode {
         })
         return bullet
     }
+}
 
+extension CGVector {
+    var bulletVector : CGVector {
+        let bulletSpeed : CGFloat = 2000.0
+        return CGVector(dx: dx*bulletSpeed, dy: dy*bulletSpeed)
+    }
 }

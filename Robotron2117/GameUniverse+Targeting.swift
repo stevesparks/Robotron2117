@@ -47,7 +47,6 @@ extension GameUniverse {
         
         let diff = CGVector(dx: c2.x - c1.x, dy: c2.y - c1.y)
         let vec = diff.simplifiedVector
-        print("Shooting \(vec)");
         return vec
     }
     

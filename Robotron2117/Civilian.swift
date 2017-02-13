@@ -25,11 +25,13 @@ class Civilian: Hittable {
         default:
             self.type = .boy
         }
+        nextSprite()
     }
     
     convenience init(_ type: CivilianType) {
         self.init(texture: nil, color: UIColor.green, size: CGSize(width: 14*3, height: 28*3))
         self.type = type        
+        nextSprite()
     }
     
     var type : CivilianType = .lady
