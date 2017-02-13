@@ -28,6 +28,9 @@
 		0E47C2DA1E50AF7F00AD999E /* Shooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E47C2D91E50AF7F00AD999E /* Shooter.swift */; };
 		0E47C2DC1E50B20200AD999E /* FootSoldier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E47C2DB1E50B20200AD999E /* FootSoldier.swift */; };
 		0E5222A31E50D62500B246EA /* ExtendedGamepadControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5222A21E50D62500B246EA /* ExtendedGamepadControl.swift */; };
+		0E65454E1E520A0F000CC5F0 /* GameUniverse+Targeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E65454D1E520A0F000CC5F0 /* GameUniverse+Targeting.swift */; };
+		0E6545501E520A4C000CC5F0 /* GameUniverse+Generation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E65454F1E520A4C000CC5F0 /* GameUniverse+Generation.swift */; };
+		0E6545521E520AD6000CC5F0 /* GameUniverse+GameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6545511E520AD6000CC5F0 /* GameUniverse+GameLogic.swift */; };
 		0EC5FA741E4FAA1C006AC1A4 /* Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5FA731E4FAA1C006AC1A4 /* Control.swift */; };
 		0EC5FA771E4FAAEA006AC1A4 /* RemoteControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5FA761E4FAAEA006AC1A4 /* RemoteControl.swift */; };
 		0EC9F7401E51D63100515A4B /* Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0EC9F73F1E51D63100515A4B /* Explosion.sks */; };
@@ -58,6 +61,9 @@
 		0E47C2D91E50AF7F00AD999E /* Shooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shooter.swift; sourceTree = "<group>"; };
 		0E47C2DB1E50B20200AD999E /* FootSoldier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FootSoldier.swift; sourceTree = "<group>"; };
 		0E5222A21E50D62500B246EA /* ExtendedGamepadControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtendedGamepadControl.swift; sourceTree = "<group>"; };
+		0E65454D1E520A0F000CC5F0 /* GameUniverse+Targeting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GameUniverse+Targeting.swift"; sourceTree = "<group>"; };
+		0E65454F1E520A4C000CC5F0 /* GameUniverse+Generation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GameUniverse+Generation.swift"; sourceTree = "<group>"; };
+		0E6545511E520AD6000CC5F0 /* GameUniverse+GameLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GameUniverse+GameLogic.swift"; sourceTree = "<group>"; };
 		0EC5FA731E4FAA1C006AC1A4 /* Control.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Control.swift; sourceTree = "<group>"; };
 		0EC5FA761E4FAAEA006AC1A4 /* RemoteControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteControl.swift; sourceTree = "<group>"; };
 		0EC9F73F1E51D63100515A4B /* Explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Explosion.sks; sourceTree = "<group>"; };
@@ -117,14 +123,12 @@
 		0E42C21A1E4E01670069B1D4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0E65454C1E5209F8000CC5F0 /* Universe */,
 				0E47C2DD1E50B35D00AD999E /* Protocols */,
-				0E42C2181E4E01620069B1D4 /* Player.swift */,
+				0EC9F7441E51EC1C00515A4B /* Friendlies */,
 				0E42C2201E4F35C30069B1D4 /* Bullet.swift */,
-				0E42C2241E4F35E60069B1D4 /* Enemy.swift */,
-				0E42C2261E4F35EF0069B1D4 /* Civilian.swift */,
+				0EC9F7431E51EC1100515A4B /* Enemies */,
 				0E42C2281E4F35FE0069B1D4 /* Barrier.swift */,
-				0E42C22A1E4F40CB0069B1D4 /* GameUniverse.swift */,
-				0E47C2DB1E50B20200AD999E /* FootSoldier.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -148,6 +152,17 @@
 			name = Protocols;
 			sourceTree = "<group>";
 		};
+		0E65454C1E5209F8000CC5F0 /* Universe */ = {
+			isa = PBXGroup;
+			children = (
+				0E42C22A1E4F40CB0069B1D4 /* GameUniverse.swift */,
+				0E65454D1E520A0F000CC5F0 /* GameUniverse+Targeting.swift */,
+				0E65454F1E520A4C000CC5F0 /* GameUniverse+Generation.swift */,
+				0E6545511E520AD6000CC5F0 /* GameUniverse+GameLogic.swift */,
+			);
+			name = Universe;
+			sourceTree = "<group>";
+		};
 		0EC5FA751E4FAAD7006AC1A4 /* Control Abstraction */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,6 +171,24 @@
 				0E5222A21E50D62500B246EA /* ExtendedGamepadControl.swift */,
 			);
 			name = "Control Abstraction";
+			sourceTree = "<group>";
+		};
+		0EC9F7431E51EC1100515A4B /* Enemies */ = {
+			isa = PBXGroup;
+			children = (
+				0E42C2241E4F35E60069B1D4 /* Enemy.swift */,
+				0E47C2DB1E50B20200AD999E /* FootSoldier.swift */,
+			);
+			name = Enemies;
+			sourceTree = "<group>";
+		};
+		0EC9F7441E51EC1C00515A4B /* Friendlies */ = {
+			isa = PBXGroup;
+			children = (
+				0E42C2181E4E01620069B1D4 /* Player.swift */,
+				0E42C2261E4F35EF0069B1D4 /* Civilian.swift */,
+			);
+			name = Friendlies;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -235,6 +268,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E6545521E520AD6000CC5F0 /* GameUniverse+GameLogic.swift in Sources */,
 				0E42C2271E4F35EF0069B1D4 /* Civilian.swift in Sources */,
 				0E42C2251E4F35E60069B1D4 /* Enemy.swift in Sources */,
 				0E47C2D81E50AEE300AD999E /* Movable.swift in Sources */,
@@ -243,10 +277,12 @@
 				0E42C2231E4F35D30069B1D4 /* Hittable.swift in Sources */,
 				0E47C2DA1E50AF7F00AD999E /* Shooter.swift in Sources */,
 				0E42C2191E4E01620069B1D4 /* Player.swift in Sources */,
+				0E6545501E520A4C000CC5F0 /* GameUniverse+Generation.swift in Sources */,
 				0E5222A31E50D62500B246EA /* ExtendedGamepadControl.swift in Sources */,
 				0EC5FA741E4FAA1C006AC1A4 /* Control.swift in Sources */,
 				0E42C20A1E4DFEA20069B1D4 /* GameScene.swift in Sources */,
 				0E42C2211E4F35C30069B1D4 /* Bullet.swift in Sources */,
+				0E65454E1E520A0F000CC5F0 /* GameUniverse+Targeting.swift in Sources */,
 				0E42C20C1E4DFEA20069B1D4 /* GameViewController.swift in Sources */,
 				0E42C2021E4DFEA20069B1D4 /* AppDelegate.swift in Sources */,
 				0E47C2DC1E50B20200AD999E /* FootSoldier.swift in Sources */,
@@ -364,6 +400,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = LPR82YBESG;
 				INFOPLIST_FILE = Robotron2117/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -379,6 +416,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = LPR82YBESG;
 				INFOPLIST_FILE = Robotron2117/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
