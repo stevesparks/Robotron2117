@@ -26,6 +26,10 @@
 	<array>
 		<string>arm64</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>robotaur.ttf</string>
+	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Automatic</string>
 </dict>

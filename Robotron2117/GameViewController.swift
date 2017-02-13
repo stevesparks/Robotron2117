@@ -50,11 +50,19 @@ class GameViewController: UIViewController {
     }
     
     func notify(note: Notification) {
-        if note.name == .GCControllerDidConnect {
-            if let ctrl = note.object as? GCController,
-                let gamepad = ctrl.microGamepad,
+        let p1 = GameUniverse.shared.playerOne
+        let p2 = GameUniverse.shared.playerTwo
+        
+        if note.name == .GCControllerDidConnect, let ctrl = note.object as? GCController {
+            if let gamepad = ctrl.microGamepad,
                 ctrl.extendedGamepad == nil {
-                GameUniverse.shared.playerOne.controller = RemoteControl(gamepad)
+                if let _ = p1.controller as? ExtendedGamepadControl {
+                    p2.controller = RemoteControl(gamepad)
+                } else {
+                    p1.controller = RemoteControl(gamepad)
+                }
+            } else if let gamepad = ctrl.extendedGamepad {
+                p1.controller = ExtendedGamepadControl(gamepad)
             }
         } else if note.name == .GCControllerDidDisconnect {
             if let ctrl = note.object as? GCController,

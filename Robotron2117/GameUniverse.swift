@@ -104,28 +104,11 @@ extension GameUniverse {
         let c1 = node.position
         let player = nearestPlayer(to: node)
         let c2 = player.position
-        var ret = CGVector(dx: 0, dy: 0)
         
-        let diff = CGVector(dx: c2.x - c1.x, dy: c1.y - c2.y)
-        
-        // These indicate whether we should shoot straight.
-        let biasX = (fabs(diff.dx) > fabs(diff.dy*2))
-        let biasY = (fabs(diff.dy) > fabs(diff.dx*2))
-        if(!biasY) {
-            switch (player.position.x, c1.x) {
-            case let(them, me) where them < me : ret.dx = -1
-            case let(them, me) where them > me: ret.dx = 1
-            default: break
-            }
-        }
-        if(!biasX) {
-            switch (player.position.y, c1.y) {
-            case let(them, me) where them < me: ret.dy = -1
-            case let(them, me) where them > me: ret.dy = 1
-            default: break
-            }
-        }
-        return ret
+        let diff = CGVector(dx: c2.x - c1.x, dy: c2.y - c1.y)
+        let vec = diff.simplifiedVector
+        print("Shooting \(vec)");
+        return vec
     }
 
 }
@@ -167,6 +150,45 @@ extension GameUniverse {
         enemy.walk()
         enemyIndex = enemyIndex + 1
     }
+    
+    
+    func gameEndedByShootingPlayer(_ player: Player, bullet: Bullet) {
+        tockTimer?.invalidate()
+        blowUp(player)
+    }
+    
+    func gameEndedByTouchingPlayer(_ player: Player, enemy: Enemy) {
+        tockTimer?.invalidate()
+        blowUp(player)
+    }
+    
+    func blowUp(_ target: Hittable) {
+        if let player = target as? Player {
+            stopGame()
+            player.alpha = 0
+            explode(at: player.position, for: 2.5, completion: {
+                player.alpha = 1
+                self.resetUniverse()
+            })
+        } else if let enemy = target as? Enemy {
+            explode(at: enemy.position, for: 0.25, completion: {
+            })
+        }
+    }
+    
+    func explode(at point: CGPoint, for duration: TimeInterval, completion block: @escaping () -> Swift.Void) {
+        if let explosion = SKEmitterNode(fileNamed: "Explosion") {
+            explosion.particlePosition = point
+            explosion.particleLifetime = CGFloat(duration)
+            self.addChild(explosion)
+            // Don't forget to remove the emitter node after the explosion
+            run(SKAction.wait(forDuration: duration), completion: {
+                explosion.removeFromParent()
+                block()
+            })
+        }
+    }
+    
 }
 
 // MARK: Targeting
@@ -182,23 +204,33 @@ extension CGPoint {
 
 extension GameUniverse :SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
-        var hittable : Hittable?
+        var hit : Hittable?
         var bullet : Bullet?
-        if let h1 = contact.bodyA.node as? Hittable {
-            hittable = h1
-            bullet = contact.bodyB.node as? Bullet
-        } else if let h2 = contact.bodyB.node as? Hittable {
-            hittable = h2
-            bullet = contact.bodyA.node as? Bullet
+        if let shot = contact.bodyA.node as? Bullet {
+            hit = contact.bodyB.node as? Hittable
+            bullet = shot
+        } else if let shot = contact.bodyB.node as? Bullet {
+            bullet = shot
+            hit = contact.bodyA.node as? Hittable
+        } else if let p1 = contact.bodyA.node as? Player,
+            let p2 = contact.bodyB.node as? Enemy {
+            gameEndedByTouchingPlayer(p1, enemy: p2)
+        } else if let p1 = contact.bodyB.node as? Player,
+            let p2 = contact.bodyA.node as? Enemy {
+            gameEndedByTouchingPlayer(p1, enemy: p2)
         }
-        if let target = hittable, let bullet = bullet {
+        
+        if let target = hit, let bullet = bullet {
             bullet.removeFromParent()
             if let enemy = target as? Enemy {
+                blowUp(enemy)
                 enemy.dead = true
                 if allDead() {
                     resetUniverse()
                 }
                 enemy.removeFromParent()
+            } else if let player = target as? Player {
+                gameEndedByShootingPlayer(player, bullet: bullet)
             }
         }
     }
@@ -215,6 +247,19 @@ extension GameUniverse :SKPhysicsContactDelegate {
 
 // MARK: Generation
 extension GameUniverse {
+    
+    func startGame() {
+        tockTimer?.invalidate()
+        tockTimer = Timer.scheduledTimer(withTimeInterval: 0.033, repeats: true) {_ in
+            self.tock()
+        }
+    }
+    
+    func stopGame() {
+        tockTimer?.invalidate()
+        
+    }
+    
     func resetUniverse() {
         clearUniverse()
         
@@ -223,12 +268,21 @@ extension GameUniverse {
         addFriendlies()
         addPlayer()
         
-        tockTimer?.invalidate()
-        tockTimer = Timer.scheduledTimer(withTimeInterval: 0.033, repeats: true) {_ in
-            self.tock()
-        }
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
+        
+        let label = SKLabelNode(text: "READY!")
+        label.fontName = "Robotaur"
+        label.fontSize = 48
+        let sz = self.frame.size
+        label.position = CGPoint(x: sz.width/2.0, y: sz.height/2.0)
+        addChild(label)
+        
+        label.run(SKAction.sequence([SKAction.scale(to: 0.001, duration: 2)]), completion: {
+            label.removeFromParent()
+            self.startGame()
+        })
+        
     }
     
     func randomColor() -> SKColor {
@@ -288,6 +342,10 @@ extension GameUniverse {
     
     func addEnemies() {
         var enemiesRemaining = enemyCount
+        
+        let centerBlock = SKSpriteNode(texture: nil, color: UIColor.clear, size: CGSize(width: 200, height: 200))
+        addChild(centerBlock)
+        
         while(enemiesRemaining>0) {
             if let enemy = findEmptySpace({ return FootSoldier() }) as? Enemy {
                 addChild(enemy)
@@ -295,6 +353,7 @@ extension GameUniverse {
                 enemiesRemaining = enemiesRemaining - 1
             }
         }
+        centerBlock.removeFromParent()
     }
     
     func addFriendlies() {

@@ -27,8 +27,11 @@
 		0E47C2D81E50AEE300AD999E /* Movable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E47C2D71E50AEE300AD999E /* Movable.swift */; };
 		0E47C2DA1E50AF7F00AD999E /* Shooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E47C2D91E50AF7F00AD999E /* Shooter.swift */; };
 		0E47C2DC1E50B20200AD999E /* FootSoldier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E47C2DB1E50B20200AD999E /* FootSoldier.swift */; };
+		0E5222A31E50D62500B246EA /* ExtendedGamepadControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5222A21E50D62500B246EA /* ExtendedGamepadControl.swift */; };
 		0EC5FA741E4FAA1C006AC1A4 /* Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5FA731E4FAA1C006AC1A4 /* Control.swift */; };
 		0EC5FA771E4FAAEA006AC1A4 /* RemoteControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5FA761E4FAAEA006AC1A4 /* RemoteControl.swift */; };
+		0EC9F7401E51D63100515A4B /* Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0EC9F73F1E51D63100515A4B /* Explosion.sks */; };
+		0EC9F7421E51DE1500515A4B /* robotaur.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0EC9F7411E51DE1500515A4B /* robotaur.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,8 +57,11 @@
 		0E47C2D71E50AEE300AD999E /* Movable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Movable.swift; sourceTree = "<group>"; };
 		0E47C2D91E50AF7F00AD999E /* Shooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shooter.swift; sourceTree = "<group>"; };
 		0E47C2DB1E50B20200AD999E /* FootSoldier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FootSoldier.swift; sourceTree = "<group>"; };
+		0E5222A21E50D62500B246EA /* ExtendedGamepadControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtendedGamepadControl.swift; sourceTree = "<group>"; };
 		0EC5FA731E4FAA1C006AC1A4 /* Control.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Control.swift; sourceTree = "<group>"; };
 		0EC5FA761E4FAAEA006AC1A4 /* RemoteControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteControl.swift; sourceTree = "<group>"; };
+		0EC9F73F1E51D63100515A4B /* Explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Explosion.sks; sourceTree = "<group>"; };
+		0EC9F7411E51DE1500515A4B /* robotaur.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = robotaur.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +97,7 @@
 		0E42C2001E4DFEA20069B1D4 /* Robotron2117 */ = {
 			isa = PBXGroup;
 			children = (
+				0EC9F7411E51DE1500515A4B /* robotaur.ttf */,
 				0E42C2011E4DFEA20069B1D4 /* AppDelegate.swift */,
 				0E42C2031E4DFEA20069B1D4 /* GameScene.sks */,
 				0E42C2051E4DFEA20069B1D4 /* Actions.sks */,
@@ -99,6 +106,7 @@
 				0E42C20B1E4DFEA20069B1D4 /* GameViewController.swift */,
 				0E42C20D1E4DFEA20069B1D4 /* Main.storyboard */,
 				0E42C2101E4DFEA20069B1D4 /* Assets.xcassets */,
+				0EC9F73F1E51D63100515A4B /* Explosion.sks */,
 				0E42C2121E4DFEA20069B1D4 /* Info.plist */,
 				0E42C21A1E4E01670069B1D4 /* Models */,
 				0EC5FA751E4FAAD7006AC1A4 /* Control Abstraction */,
@@ -145,6 +153,7 @@
 			children = (
 				0EC5FA731E4FAA1C006AC1A4 /* Control.swift */,
 				0EC5FA761E4FAAEA006AC1A4 /* RemoteControl.swift */,
+				0E5222A21E50D62500B246EA /* ExtendedGamepadControl.swift */,
 			);
 			name = "Control Abstraction";
 			sourceTree = "<group>";
@@ -210,10 +219,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E42C2041E4DFEA20069B1D4 /* GameScene.sks in Resources */,
+				0EC9F7421E51DE1500515A4B /* robotaur.ttf in Resources */,
 				0E42C2061E4DFEA20069B1D4 /* Actions.sks in Resources */,
 				0E42C2081E4DFEA20069B1D4 /* Game.xcassets in Resources */,
 				0E42C20F1E4DFEA20069B1D4 /* Main.storyboard in Resources */,
 				0E42C2111E4DFEA20069B1D4 /* Assets.xcassets in Resources */,
+				0EC9F7401E51D63100515A4B /* Explosion.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,6 +243,7 @@
 				0E42C2231E4F35D30069B1D4 /* Hittable.swift in Sources */,
 				0E47C2DA1E50AF7F00AD999E /* Shooter.swift in Sources */,
 				0E42C2191E4E01620069B1D4 /* Player.swift in Sources */,
+				0E5222A31E50D62500B246EA /* ExtendedGamepadControl.swift in Sources */,
 				0EC5FA741E4FAA1C006AC1A4 /* Control.swift in Sources */,
 				0E42C20A1E4DFEA20069B1D4 /* GameScene.swift in Sources */,
 				0E42C2211E4F35C30069B1D4 /* Bullet.swift in Sources */,
