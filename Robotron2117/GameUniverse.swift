@@ -20,14 +20,21 @@ class GameNode : SKSpriteNode {
     weak var universe : GameUniverse!
 }
 
+protocol GameDelegate : NSObjectProtocol {
+    func gameOver(_ universe: GameUniverse)
+}
+
 class GameUniverse: SKScene {
-    static let shared = GameUniverse(size: CGSize(width: 1920, height: 1080))
+    static var shared = GameUniverse(size: CGSize(width: 1920, height: 1080))
+    weak var gameDelegate: GameDelegate?
+    
+    var stateMachine : GameLevelStateMachine?
     
     var controllers : [GCController] = []
     
-    let enemyCount = 1
-    let barrierCount = 50
-    let friendlyCount = 0
+    var enemyCount = 20
+    var barrierCount = 0
+    var friendlyCount = 6
     
     let enemySize = CGSize(width: 20, height: 20)
     let friendlySize = CGSize(width: 20, height: 20)

@@ -11,31 +11,49 @@ import SpriteKit
 import GameplayKit
 import GameController
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, GameDelegate {
+    
+    var currentUniverse : GameUniverse?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.startWatchingForControllers()
         
         // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
         // including entities and graphs.
-        let sceneNode = GameUniverse.shared
+        newGame()
         if let view = self.view as! SKView? {
-            view.presentScene(sceneNode)
             view.ignoresSiblingOrder = true
             view.showsFPS = true
             view.showsNodeCount = true
         }
+        self.startWatchingForControllers()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.stopWatchingForControllers()
     }
     
     override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
         if presses.first?.type == .playPause {
-            GameUniverse.shared.resetUniverse()
+            newGame()
         } else {
             super.pressesBegan(presses, with: event)
         }
     }
     
+    func newGame() {
+        let newUniverse = GameUniverse(size: UIApplication.shared.keyWindow?.bounds.size ?? CGSize(width: 1920, height: 1080))
+        newUniverse.gameDelegate = self
+        if let u = currentUniverse {
+            newUniverse.playerOne.controller = u.playerOne.controller
+            newUniverse.playerTwo.controller = u.playerTwo.controller            
+        }
+        if let view = self.view as! SKView? {
+            view.presentScene(newUniverse, transition: SKTransition.push(with: .up, duration: 0.5))
+        }
+        GameUniverse.shared = newUniverse
+        currentUniverse = newUniverse
+    }
 
     func startWatchingForControllers() {
         NotificationCenter.default.addObserver(self, selector: #selector(GameViewController.notify), name: .GCControllerDidConnect, object: nil)
@@ -54,6 +72,12 @@ class GameViewController: UIViewController {
             if let ctrl = note.object as? GCController {
                 GameUniverse.shared.removeController(ctrl)
             }
+        }
+    }
+    
+    func gameOver(_ universe: GameUniverse) {
+        universe.showGameOverLabel {
+            self.newGame()
         }
     }
     

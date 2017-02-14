@@ -13,7 +13,6 @@ extension GameUniverse {
     
     func resetUniverse() {
         clearUniverse()
-        
         addBarriers()
         addEnemies()
         addFriendlies()
@@ -22,18 +21,8 @@ extension GameUniverse {
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
         
-        let label = SKLabelNode(text: "READY!")
-        label.fontName = "Robotaur"
-        label.fontSize = 48
-        let sz = self.frame.size
-        label.position = CGPoint(x: sz.width/2.0, y: sz.height/2.0)
-        addChild(label)
-        
-        label.run(SKAction.sequence([SKAction.scale(to: 0.001, duration: 2)]), completion: {
-            label.removeFromParent()
-            self.startGame()
-        })
-        
+        stateMachine = GameLevelStateMachine(self)
+        stateMachine?.begin()
     }
     
     func randomColor() -> SKColor {

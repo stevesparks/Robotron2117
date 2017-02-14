@@ -50,6 +50,10 @@ extension GameUniverse {
     }
     
     func moveNextEnemy() {
+        guard enemies.count > 0 else {
+            return
+        }
+        
         if enemyIndex >= enemies.count {
             enemyIndex = 0
         }
@@ -59,12 +63,12 @@ extension GameUniverse {
     }
     
     func gameEndedByShootingPlayer(_ player: Player, bullet: Bullet) {
-        tockTimer?.invalidate()
+        stateMachine?.lose()
         blowUp(player)
     }
     
     func gameEndedByTouchingPlayer(_ player: Player, enemy: Enemy) {
-        tockTimer?.invalidate()
+        stateMachine?.lose()
         blowUp(player)
     }
     
@@ -74,7 +78,6 @@ extension GameUniverse {
             player.alpha = 0
             explode(at: player.position, for: 2.5, completion: {
                 player.alpha = 1
-                self.resetUniverse()
             })
         } else if let enemy = target as? Enemy {
             explode(at: enemy.position, for: 0.25, completion: {
@@ -99,6 +102,7 @@ extension GameUniverse {
 
 extension GameUniverse :SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
+        
         var hit : Hittable?
         var bullet : Bullet?
         if let shot = contact.bodyA.node as? Bullet {
@@ -120,17 +124,26 @@ extension GameUniverse :SKPhysicsContactDelegate {
             if let enemy = target as? Enemy {
                 blowUp(enemy)
                 enemy.dead = true
+                if let enemyIdx = enemies.index(of: enemy) {
+                    enemies.remove(at: enemyIdx)
+                }
                 if allDead() {
-                    resetUniverse()
+                    stateMachine?.win()
                 }
                 enemy.removeFromParent()
             } else if let player = target as? Player {
+                guard stateMachine?.currentState != stateMachine?.lost else {
+                    return
+                }
                 gameEndedByShootingPlayer(player, bullet: bullet)
             }
         }
     }
     
     func allDead() -> Bool {
+        if enemies.count == 0 {
+            return true
+        }
         for enemy in enemies {
             if (!enemy.dead) {
                 return false
