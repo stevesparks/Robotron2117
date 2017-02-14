@@ -8,11 +8,16 @@
 
 import SpriteKit
 
+class Wall : SKSpriteNode {
+    
+}
+
 // MARK: Generation
 extension GameUniverse {
     
     func resetUniverse() {
         clearUniverse()
+        addBorder()
         addBarriers()
         addEnemies()
         addFriendlies()
@@ -36,8 +41,8 @@ extension GameUniverse {
     }
     
     func randomPointWithinSize(_ size: CGSize) -> CGPoint {
-        let x = (CGFloat(Int(arc4random())%Int(size.width))+screenBorderWidth)
-        let y = (CGFloat(Int(arc4random())%Int(size.height))+screenBorderWidth)
+        let x = (CGFloat(Int(arc4random())%Int(size.width)))
+        let y = (CGFloat(Int(arc4random())%Int(size.height)))
         return CGPoint(x: x, y: y)
     }
     
@@ -47,7 +52,7 @@ extension GameUniverse {
     
     func findEmptySpace(_ t : (Void) -> SKSpriteNode, avoiding space: CGRect?) -> SKSpriteNode? {
         let mySize = self.frame.size
-        let possible = CGSize(width: mySize.width-(2*screenBorderWidth), height: mySize.height-(2*screenBorderWidth))
+        let possible = CGSize(width: mySize.width-(4*screenBorderWidth), height: mySize.height-(4*screenBorderWidth))
         
         var result : SKSpriteNode?
         var triesRemaining = 100
@@ -55,7 +60,8 @@ extension GameUniverse {
         repeat {
             let test = t()
             let newLoc = randomPointWithinSize(possible)
-            test.position = newLoc
+            let offs = screenBorderWidth + screenBorderWidth
+            test.position = CGPoint(x: newLoc.x + offs, y: newLoc.y + offs)
             let frame = test.frame
             if let rect = space, test.frame.intersects(rect) {
                 // false
@@ -151,6 +157,41 @@ extension GameUniverse {
         Bullet.bullets.removeAll()
         
         barriers.removeAll()
+    }
+    
+    func addBorder() {
+        let mySize = self.frame.size
+        addWall(CGRect(x:0, y:0, width: screenBorderWidth, height: mySize.height))
+        addWall(CGRect(x:mySize.width-screenBorderWidth, y:0, width: screenBorderWidth, height: mySize.height))
+
+        addWall(CGRect(x:0, y:0, width: mySize.width, height: screenBorderWidth))
+        addWall(CGRect(x:0, y:mySize.height-screenBorderWidth, width: mySize.width, height: screenBorderWidth))
+        
+//        let bod = SKPhysicsBody(edgeLoopFrom: borderRect)
+//        bod.categoryBitMask = CollisionType.Wall.rawValue
+//        bod.contactTestBitMask = CollisionType.Player.rawValue
+//        bod.collisionBitMask = CollisionType.Player.rawValue
+//        physicsBody = bod
+    }
+    
+    func addWall(_ rect: CGRect) {
+                let wallNode = Wall(color: UIColor.red, size: rect.size)
+        let bod = SKPhysicsBody(rectangleOf: rect.size)
+//        let bod = SKPhysicsBody(edgeLoopFrom: self.frame)
+        bod.affectedByGravity = false
+        bod.pinned = true
+        bod.friction = 100000
+        bod.linearDamping = 1000
+        bod.angularDamping = 1000
+        bod.contactTestBitMask = CollisionType.Player.rawValue
+        bod.categoryBitMask = CollisionType.Wall.rawValue
+        bod.collisionBitMask = 0x00
+        wallNode.physicsBody = bod
+        let center = CGPoint(x: rect.origin.x + (rect.size.width/2), y: rect.origin.y + (rect.size.height/2))
+        wallNode.position = center
+        
+        
+        addChild(wallNode)
     }
 }
 

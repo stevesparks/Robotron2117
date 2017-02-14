@@ -55,23 +55,24 @@ class Player: Hittable {
     }
     
     var step = Int(arc4random()%4)
-    let textures : [[SKTexture]] = {
-        var ret : [[SKTexture]] = []
+    
+    static let textures : [String : [SKTexture]] = {
+        var ret : [String : [SKTexture]] = [:]
         for set in ["back", "front", "right", "left"] {
             var arr : [SKTexture] = []
             for frame in [ 1, 2, 3, 2 ] {
                 arr.append(SKTexture(imageNamed: "dude-\(set)-\(frame)"))
             }
-            ret.append(arr)
+            ret[set] = arr
         }
         return ret
     }()
-    
+
     override func walk() {
         if let ctrl = controller {
             let vec = ctrl.moveVector
             if vec != .zero {
-                move(vec)
+                _ = move(vec)
                 nextSprite()
             }
         } else {
@@ -80,10 +81,10 @@ class Player: Hittable {
     }
     
     func nextSprite() {
-        let set = lastWalkVector.walkDirection.rawValue
-        texture = textures[set][step]
+        let set = lastWalkVector.walkDirection.spriteView()
+        texture = Player.textures[set]![step]
         step = step + 1
-        if(step >= textures.count) {
+        if(step >= Player.textures.count) {
             step = 0
         }
     }
@@ -101,7 +102,7 @@ extension Player : Shooter {
                 shotCountdown = 5
                 let shot = Bullet.aimedAt(shoot, by: self)
                 shot.color = UIColor.green
-                shot.physicsBody?.contactTestBitMask = CollisionType.Enemy.rawValue | CollisionType.Civilian.rawValue
+                shot.physicsBody?.contactTestBitMask = CollisionType.Enemy.rawValue 
                 return shot
             }
         }

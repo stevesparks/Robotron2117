@@ -12,8 +12,8 @@ import GameController
 enum CollisionType : UInt32 {
     case Player = 0x01
     case Enemy = 0x02
-    case Civilian = 0x04
     case Bullet = 0x08
+    case Wall = 0x10
 }
 
 class GameNode : SKSpriteNode {
@@ -34,14 +34,14 @@ class GameUniverse: SKScene {
     
     var enemyCount = 20
     var barrierCount = 0
-    var friendlyCount = 6
+    var friendlyCount = 10
     
     let enemySize = CGSize(width: 20, height: 20)
     let friendlySize = CGSize(width: 20, height: 20)
     let barrierSize = CGSize(width: 5, height: 30)
     static let playerSize = CGSize(width: 40, height: 40)
     
-    let screenBorderWidth = CGFloat(10.0)
+    let screenBorderWidth = CGFloat(50.0)
     
     var playerOne : Player = Player()
     var playerTwo : Player = Player()

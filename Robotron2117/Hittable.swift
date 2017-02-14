@@ -21,7 +21,8 @@ class Hittable: Movable {
     }
     
     func setupHittable() {
-        self.physicsBody?.categoryBitMask = 0x01
+        self.physicsBody?.categoryBitMask = CollisionType.Player.rawValue
+        self.physicsBody?.contactTestBitMask = CollisionType.Bullet.rawValue | CollisionType.Wall.rawValue
         
     }
 }

@@ -105,7 +105,14 @@ extension GameUniverse :SKPhysicsContactDelegate {
         
         var hit : Hittable?
         var bullet : Bullet?
-        if let shot = contact.bodyA.node as? Bullet {
+        
+        if let wall = contact.bodyA.node as? Wall,
+            let walker = contact.bodyB.node as? Movable {
+            walker.revert(wall)
+        } else if let wall = contact.bodyB.node as? Wall,
+            let walker = contact.bodyA.node as? Movable  {
+            walker.revert(wall)
+        } else if let shot = contact.bodyA.node as? Bullet {
             hit = contact.bodyB.node as? Hittable
             bullet = shot
         } else if let shot = contact.bodyB.node as? Bullet {

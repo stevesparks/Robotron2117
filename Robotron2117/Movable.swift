@@ -9,13 +9,15 @@
 import SpriteKit
 
 class Movable : GameNode {
+    var previousPosition : CGPoint = .zero
+
     var dead = false
 
-    enum WalkDirection : Int {
-        case north = 0
-        case south = 1
-        case east = 2
-        case west = 3
+    enum WalkDirection : String {
+        case north = "north"
+        case south = "south"
+        case east = "east"
+        case west = "west"
         
         func vector() -> CGVector {
             switch self {
@@ -35,6 +37,23 @@ class Movable : GameNode {
             }
         }
         
+        func reverse() -> WalkDirection {
+            switch self {
+            case .north: return .south
+            case .south: return .north
+            case .east: return .west
+            case .west: return .east
+            }
+        }
+        
+        func spriteView() -> String {
+            switch self {
+            case .north: return "back"
+            case .south: return "front"
+            case .east: return "right"
+            case .west: return "left"
+            }
+        }
     }
     
     var nodeSpeed : CGFloat = 1.0
@@ -45,19 +64,33 @@ class Movable : GameNode {
         
     }
     
-    func move(_ direction : CGVector) {
+    // called when walker hits a wall
+    func revert(_ obstacle: SKSpriteNode) {
+        self.position = self.previousPosition
+    }
+    
+    func move(_ direction : CGVector) -> Bool {
         guard !dead else {
-            return
+            return false
         }
-        
+        previousPosition = position
         var vec = direction
         vec.dx *= nodeSpeed
         vec.dy *= nodeSpeed
         var pos = position
         pos.x = pos.x + vec.dx
         pos.y = pos.y + vec.dy
-        lastWalkVector = vec
-        position = pos
+        
+        let mySize = universe.frame.size
+        let screenBorderWidth = universe.screenBorderWidth
+        let borderRect = CGRect(x: screenBorderWidth*1.2, y: screenBorderWidth*2, width: mySize.width-(2.8*screenBorderWidth), height: mySize.height-(4*screenBorderWidth))
+        if borderRect.contains(pos) {
+            previousPosition = position
+            lastWalkVector = vec
+            position = pos
+            return true
+        }
+        return false
     }
 
 }
