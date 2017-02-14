@@ -23,4 +23,31 @@ protocol Control {
     
     // lower number is higher priority
     var priority : Int { get }
+            
+}
+
+
+extension CGVector {
+    
+    // returns a vector where dx = [-1, 0, 1] and dy = [-1, 0, 1]
+    var simplifiedVector : CGVector {
+        var ret = CGVector(dx: 0, dy: 0)
+        let biasX = (fabs(dx) > fabs(dy*2))
+        let biasY = (fabs(dy) > fabs(dx*2))
+        if(!biasY) {
+            switch (dx) {
+            case let(me) where 0 > me : ret.dx = -1
+            case let(me) where 0 < me : ret.dx = 1
+            default: break
+            }
+        }
+        if(!biasX) {
+            switch (dy) {
+            case let(me) where 0 > me : ret.dy = -1
+            case let(me) where 0 < me : ret.dy = 1
+            default: break
+            }
+        }
+        return ret
+    }
 }

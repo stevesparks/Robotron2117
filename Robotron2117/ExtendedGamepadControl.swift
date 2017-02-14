@@ -27,14 +27,27 @@ class ExtendedGamepadControl: Control {
         }
     }
     
-    var moveVector : CGVector {
+    var leftThumbstickVector : CGVector {
         return CGVector(dx: Double(pad.leftThumbstick.xAxis.value),
                         dy: Double(pad.leftThumbstick.yAxis.value))
     }
     
+    var dpadVector : CGVector {
+        return CGVector(dx: Double(pad.dpad.xAxis.value),
+                        dy: Double(pad.dpad.yAxis.value))
+    }
+    
+    var moveVector : CGVector {
+        let thumb = leftThumbstickVector
+        if thumb == .zero {
+            return dpadVector.simplifiedVector
+        }
+        return thumb.simplifiedVector
+    }
+    
     var shootVector : CGVector {
         return CGVector(dx: Double(pad.rightThumbstick.xAxis.value),
-                        dy: Double(pad.rightThumbstick.yAxis.value))
+                        dy: Double(pad.rightThumbstick.yAxis.value)).simplifiedVector
     }
     
     func readPad() {
@@ -44,7 +57,8 @@ class ExtendedGamepadControl: Control {
     }
     
     var trigger: Bool {
-        return (pad.buttonB.isPressed || pad.rightTrigger.isPressed || pad.leftTrigger.isPressed)
+        return shootVector != .zero
+//        return (pad.buttonB.isPressed || pad.rightTrigger.isPressed || pad.leftTrigger.isPressed)
     }
 
 }

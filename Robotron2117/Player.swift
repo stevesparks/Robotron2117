@@ -37,7 +37,7 @@ class Player: Hittable {
         bod.contactTestBitMask = CollisionType.Enemy.rawValue
         bod.categoryBitMask = CollisionType.Player.rawValue
         self.physicsBody = bod
-        nodeSpeed = 15
+        nodeSpeed = 10
     }
 
     var controller : Control? {
@@ -96,8 +96,8 @@ extension Player : Shooter {
             return nil
         }
         if let ctrl = controller {
-            let shoot = ctrl.shootVector.simplifiedVector
-            if shoot != .zero {
+            let shoot = ctrl.shootVector
+            if shoot != .zero && ctrl.trigger {
                 shotCountdown = 5
                 let shot = Bullet.aimedAt(shoot, by: self)
                 shot.color = UIColor.green
@@ -106,31 +106,6 @@ extension Player : Shooter {
             }
         }
         return nil
-    }
-}
-
-extension CGVector {
-    
-    // returns a vector where dx = [-1, 0, 1] and dy = [-1, 0, 1] 
-    var simplifiedVector : CGVector {
-        var ret = CGVector(dx: 0, dy: 0)
-        let biasX = (fabs(dx) > fabs(dy*2))
-        let biasY = (fabs(dy) > fabs(dx*2))
-        if(!biasY) {
-            switch (dx) {
-            case let(me) where 0 > me : ret.dx = -1
-            case let(me) where 0 < me : ret.dx = 1
-            default: break
-            }
-        }
-        if(!biasX) {
-            switch (dy) {
-            case let(me) where 0 > me : ret.dy = -1
-            case let(me) where 0 < me : ret.dy = 1
-            default: break
-            }
-        }
-        return ret
     }
 }
 
