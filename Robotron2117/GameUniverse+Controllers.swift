@@ -35,7 +35,7 @@ extension GameUniverse {
         
         if let prio = playerOne.controller?.priority, prio > control.priority {
             // replacing the existing controller with the new one
-            
+            playerOne.controller = control
         } else if playerOne.controller == nil {
             // setting it is easy
             playerOne.controller = control
