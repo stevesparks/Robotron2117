@@ -20,15 +20,10 @@ class GameNode : SKSpriteNode {
     weak var universe : GameUniverse!
 }
 
-protocol GameDelegate : NSObjectProtocol {
-    func gameOver(_ universe: GameUniverse)
-}
-
 class GameUniverse: SKScene {
     static var shared = GameUniverse(size: CGSize(width: 1920, height: 1080))
-    weak var gameDelegate: GameDelegate?
     
-    var stateMachine : GameLevelStateMachine?
+    var stateMachine : GameLevelStateMachine!
     
     var controllers : [GCController] = []
     
@@ -63,11 +58,6 @@ class GameUniverse: SKScene {
     
     var tockTimer : Timer?
     
-    override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
-        resetUniverse()
-        super.pressesBegan(presses, with: event)
-    }
-
     override func addChild(_ node: SKNode) {
         if let gameNode = node as? GameNode {
             gameNode.universe = self
@@ -75,5 +65,16 @@ class GameUniverse: SKScene {
         super.addChild(node)
     }
     
+    override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+        if presses.first?.type == .playPause {
+            if(tockTimer == nil) {
+                startGame()
+            } else {
+                stopGame()
+            }
+        } else {
+            super.pressesBegan(presses, with: event)
+        }
+    }
 }
 

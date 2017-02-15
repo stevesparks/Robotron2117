@@ -75,8 +75,8 @@ class Player: Hittable {
                 _ = move(vec)
                 nextSprite()
             }
-        } else {
-            print("No controller")
+//        } else {
+//            print("No controller")
         }
     }
     

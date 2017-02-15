@@ -12,8 +12,7 @@ import GameplayKit
 import GameController
 
 class GameViewController: UIViewController, GameDelegate {
-    
-    var currentUniverse : GameUniverse?
+    var currentGame : GameStateMachine?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -34,25 +33,18 @@ class GameViewController: UIViewController, GameDelegate {
     }
     
     override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
-        if presses.first?.type == .playPause {
-            newGame()
+        if let game = currentGame {
+            game.pressesBegan(presses, with: event)
         } else {
             super.pressesBegan(presses, with: event)
         }
     }
     
     func newGame() {
-        let newUniverse = GameUniverse(size: UIApplication.shared.keyWindow?.bounds.size ?? CGSize(width: 1920, height: 1080))
-        newUniverse.gameDelegate = self
-        if let u = currentUniverse {
-            newUniverse.playerOne.controller = u.playerOne.controller
-            newUniverse.playerTwo.controller = u.playerTwo.controller            
+        if let view = self.view as? SKView {
+            currentGame = GameStateMachine(view, gameDelegate: self)
+            currentGame?.begin()
         }
-        if let view = self.view as! SKView? {
-            view.presentScene(newUniverse, transition: SKTransition.push(with: .up, duration: 0.5))
-        }
-        GameUniverse.shared = newUniverse
-        currentUniverse = newUniverse
     }
 
     func startWatchingForControllers() {
@@ -75,10 +67,11 @@ class GameViewController: UIViewController, GameDelegate {
         }
     }
     
-    func gameOver(_ universe: GameUniverse) {
-        universe.showGameOverLabel {
-            self.newGame()
-        }
+    func gameStateDidChange(_ game: GameStateMachine) {
+        
     }
     
+    func gameOver(_ game: GameStateMachine) {
+        
+    }
 }

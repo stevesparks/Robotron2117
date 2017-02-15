@@ -16,6 +16,7 @@ class Wall : SKSpriteNode {
 extension GameUniverse {
     
     func resetUniverse() {
+        stateMachine = GameLevelStateMachine(self)
         clearUniverse()
         addBorder()
         addBarriers()
@@ -26,8 +27,7 @@ extension GameUniverse {
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
         
-        stateMachine = GameLevelStateMachine(self)
-        stateMachine?.begin()
+        stateMachine.begin()
     }
     
     func randomColor() -> SKColor {

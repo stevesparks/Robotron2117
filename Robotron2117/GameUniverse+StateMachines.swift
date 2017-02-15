@@ -8,8 +8,13 @@
 
 import GameplayKit
 
+protocol GameLevelDelegate : NSObjectProtocol {
+    func levelOver(_ universe: GameUniverse)
+}
+
 class GameLevelStateMachine : GKStateMachine {
     weak var universe : GameUniverse?
+    weak var levelDelegate : GameLevelDelegate?
     
     let playing = Playing()
     let ready = Ready()
@@ -23,16 +28,16 @@ class GameLevelStateMachine : GKStateMachine {
     
     override func enter(_ stateClass: AnyClass) -> Bool {
         let ret = super.enter(stateClass)
-        if(ret) {
+        if ret, let universe = universe {
             switch(stateClass) {
             case is Ready.Type:
-                universe?.showReadyLabel({
+                universe.showReadyLabel({
                     _ = self.enter(Playing.self)
                 })
             case is Playing.Type:
-                universe?.startGame()
+                universe.startGame()
             case is Won.Type:
-                gameOver()
+                self.levelDelegate?.levelOver(universe)
             case is Lost.Type:
                 gameOver()
             default: break;
@@ -43,8 +48,7 @@ class GameLevelStateMachine : GKStateMachine {
     
     func gameOver() {
         if let universe = universe {
-            universe.stopGame()
-            universe.gameDelegate?.gameOver(universe)
+            self.levelDelegate?.levelOver(universe)
         }
     }
     
@@ -71,10 +75,10 @@ class GameLevelStateMachine : GKStateMachine {
         }
     }
     class Won : GKState {
-        
+        override func isValidNextState(_ stateClass: AnyClass) -> Bool { return false }
     }
     class Lost : GKState {
-        
+        override func isValidNextState(_ stateClass: AnyClass) -> Bool { return false }
     }
 }
 
@@ -84,7 +88,7 @@ extension GameUniverse {
         label.fontName = "Robotaur"
         label.fontSize = 100
         let sz = self.frame.size
-        label.position = CGPoint(x: sz.width/2.0, y: sz.height*0.7)
+        label.position = CGPoint(x: sz.width/2.0, y: sz.height*0.6)
         addChild(label)
         
         let group = SKAction.group([SKAction.scale(to: 0.001, duration: 2), SKAction.fadeOut(withDuration: 2)])
@@ -99,7 +103,7 @@ extension GameUniverse {
         label.fontName = "Robotaur"
         label.fontSize = 200
         let sz = self.frame.size
-        label.position = CGPoint(x: sz.width/2.0, y: sz.height*0.7)
+        label.position = CGPoint(x: sz.width/2.0, y: sz.height*0.6)
         addChild(label)
         
         let group = SKAction.group([SKAction.scale(to: 0.001, duration: 2), SKAction.fadeOut(withDuration: 2)])
@@ -108,5 +112,26 @@ extension GameUniverse {
             block()
         })
     }
-    
+
+    func showLivesRemainingLabel(_ lives: Int, block: @escaping () -> Void) {
+        let livesLabel : String!
+        if lives == 1 {
+            livesLabel = "LIFE"
+        } else {
+            livesLabel = "LIVES"
+        }
+        let label = SKLabelNode(text: "\(lives) \(livesLabel) LEFT")
+        label.fontName = "Robotaur"
+        label.fontSize = 200
+        let sz = self.frame.size
+        label.position = CGPoint(x: sz.width/2.0, y: sz.height*0.6)
+        addChild(label)
+        
+        let group = SKAction.group([SKAction.scale(to: 0.001, duration: 2), SKAction.fadeOut(withDuration: 2)])
+        label.run(SKAction.sequence([group]), completion: {
+            label.removeFromParent()
+            block()
+        })
+    }
+
 }
