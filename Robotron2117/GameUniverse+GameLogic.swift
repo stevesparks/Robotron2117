@@ -40,8 +40,12 @@ extension GameUniverse {
     
     func enemyTurn() {
         moveNextEnemy()
-        moveNextEnemy()
-        moveNextEnemy()
+        if(enemies.count > 3) {
+            moveNextEnemy()
+        }
+        if(enemies.count > 10) {
+            moveNextEnemy()
+        }
         
         if enemies.count > 0 {
             let shooterIndex = (enemyIndex + (enemies.count/2)) % enemies.count

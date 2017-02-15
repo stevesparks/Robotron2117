@@ -7,7 +7,7 @@
 //
 
 import GameplayKit
-
+import GameController
 
 protocol GameDelegate : NSObjectProtocol {
     func gameStateDidChange(_ game: GameStateMachine)
@@ -22,6 +22,10 @@ class GameStateMachine : GKStateMachine, GameLevelDelegate, AttractScreenDelegat
     var attractScreen : AttractScreen?
     var currentUniverse : GameUniverse?
     let initialLives = 3
+    
+    var playerOneController : Control?
+    var playerTwoController : Control?
+    var benchedController : [Control] = []
     
     var level = 0
     var lives = 3
@@ -67,6 +71,7 @@ class GameStateMachine : GKStateMachine, GameLevelDelegate, AttractScreenDelegat
         if(ret) {
             switch(stateClass) {
             case is Playing.Type:
+                attractScreen = nil
                 level = 0
                 lives = initialLives
                 nextLevel()
@@ -80,6 +85,7 @@ class GameStateMachine : GKStateMachine, GameLevelDelegate, AttractScreenDelegat
                 let att = AttractScreen()
                 att.attractScreenDelegate = self
                 attractScreen = att
+                currentUniverse = nil
                 if let view = scenekitView {
                     view.presentScene(att, transition: SKTransition.reveal(with: .down, duration: 0.5))
                 }
@@ -126,17 +132,59 @@ class GameStateMachine : GKStateMachine, GameLevelDelegate, AttractScreenDelegat
             newUniverse.stateMachine.levelDelegate = self
             newUniverse.friendlyCount = friendliesPerLevel[levelElement]
             newUniverse.enemyCount = enemiesPerLevel[levelElement]
-            if let u = currentUniverse {
-                newUniverse.playerOne.controller = u.playerOne.controller
-                newUniverse.playerTwo.controller = u.playerTwo.controller
-            }
+            newUniverse.level = level
             view.presentScene(newUniverse, transition: SKTransition.reveal(with: .down, duration: 0.5))
             GameUniverse.shared = newUniverse
             currentUniverse = newUniverse
+            assignControllers()
         }
     }
     
+    func assignControllers() {
+        if let universe = currentUniverse {
+            print("Assigning \(playerOneController)!")
+            universe.playerOne.controller = playerOneController
+            universe.playerTwo.controller = playerTwoController
+        } else {
+            print("No Universe! Attracting?")
+        }
+    }
     
+    func addController(_ controller: GCController) {
+        var control : Control!
+        if controller.microGamepad != nil,
+            controller.extendedGamepad == nil {
+            control = RemoteControl(controller)
+        } else if controller.extendedGamepad != nil {
+            control = ExtendedGamepadControl(controller)
+        } else {
+            return
+        }
+        
+        if let prio = playerOneController?.priority, prio > control.priority {
+            // replacing the existing controller with the new one
+            print("Replace P1 Controller -> \(control)")
+            playerOneController = control
+            assignControllers()
+        } else if playerOneController == nil {
+            // setting it is easy
+            print("Initial P1 Controller -> \(control)")
+            playerOneController = control
+            assignControllers()
+        } else {
+            print("Ignore P1 Controller -> \(control)")
+            // a second player!!
+        }
+    }
+    
+    func removeController(_ controller: GCController) {
+        if playerOneController?.controller == controller, let playerOne = currentUniverse?.playerOne {
+            playerOne.controller = nil
+        } else if playerTwoController?.controller == controller {
+            
+        }
+    }
+
     
     func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
         if let level = currentUniverse {

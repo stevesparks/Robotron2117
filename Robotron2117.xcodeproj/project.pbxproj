@@ -40,6 +40,7 @@
 		0E985AF11E53B64200612EEA /* pic1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E985ADB1E53B62400612EEA /* pic1.png */; };
 		0E985AF31E548C5F00612EEA /* AttractScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E985AF21E548C5F00612EEA /* AttractScreen.swift */; };
 		0E985AF51E548EB000612EEA /* GameStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E985AF41E548EB000612EEA /* GameStateMachine.swift */; };
+		0E985AF81E5494F200612EEA /* robotaur.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0EC9F7411E51DE1500515A4B /* robotaur.ttf */; };
 		0EC5FA741E4FAA1C006AC1A4 /* Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5FA731E4FAA1C006AC1A4 /* Control.swift */; };
 		0EC5FA771E4FAAEA006AC1A4 /* RemoteControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5FA761E4FAAEA006AC1A4 /* RemoteControl.swift */; };
 		0EC9F7401E51D63100515A4B /* Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0EC9F73F1E51D63100515A4B /* Explosion.sks */; };
@@ -374,6 +375,7 @@
 			files = (
 				0E985AF11E53B64200612EEA /* pic1.png in Resources */,
 				0E985AF01E53B64200612EEA /* pic2.png in Resources */,
+				0E985AF81E5494F200612EEA /* robotaur.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

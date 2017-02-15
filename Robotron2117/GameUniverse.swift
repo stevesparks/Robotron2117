@@ -27,6 +27,8 @@ class GameUniverse: SKScene {
     
     var controllers : [GCController] = []
     
+    var level = 1
+    
     var enemyCount = 20
     var barrierCount = 0
     var friendlyCount = 10
@@ -48,11 +50,16 @@ class GameUniverse: SKScene {
     
     override init(size: CGSize) {
         super.init(size: size)
-        resetUniverse()
+        stateMachine = GameLevelStateMachine(self)
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        stateMachine = GameLevelStateMachine(self)
+    }
+    
+    override func didMove(to view: SKView) {
+        super.didMove(to: view)
         resetUniverse()
     }
     

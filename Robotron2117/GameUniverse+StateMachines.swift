@@ -84,8 +84,8 @@ class GameLevelStateMachine : GKStateMachine {
 
 extension GameUniverse {
     func showReadyLabel(_ block: @escaping () -> Void) {
-        let label = SKLabelNode(text: "READY!")
-        label.fontName = "Robotaur"
+        let label = SKLabelNode(text: "LEVEL \(level)")
+        label.fontName = UIFont.customFontName
         label.fontSize = 100
         let sz = self.frame.size
         label.position = CGPoint(x: sz.width/2.0, y: sz.height*0.6)
@@ -100,7 +100,7 @@ extension GameUniverse {
 
     func showGameOverLabel(_ block: @escaping () -> Void) {
         let label = SKLabelNode(text: "GAME OVER")
-        label.fontName = "Robotaur"
+        label.fontName = UIFont.customFontName
         label.fontSize = 200
         let sz = self.frame.size
         label.position = CGPoint(x: sz.width/2.0, y: sz.height*0.6)
@@ -114,17 +114,19 @@ extension GameUniverse {
     }
 
     func showLivesRemainingLabel(_ lives: Int, block: @escaping () -> Void) {
-        let livesLabel : String!
-        if lives == 1 {
-            livesLabel = "LIFE"
-        } else {
-            livesLabel = "LIVES"
-        }
-        let label = SKLabelNode(text: "\(lives) \(livesLabel) LEFT")
-        label.fontName = "Robotaur"
-        label.fontSize = 200
+        let livesStr : String = {
+            if lives==1 {
+                return "LIFE"
+            } else {
+                return "LIVES"
+            }
+        }()
+        
+        let label = SKLabelNode(text: "\(lives) \(livesStr) LEFT")
+        label.fontName = UIFont.customFontName
+        label.fontSize = 100
         let sz = self.frame.size
-        label.position = CGPoint(x: sz.width/2.0, y: sz.height*0.6)
+        label.position = CGPoint(x: sz.width/2.0, y: sz.height*0.65)
         addChild(label)
         
         let group = SKAction.group([SKAction.scale(to: 0.001, duration: 2), SKAction.fadeOut(withDuration: 2)])

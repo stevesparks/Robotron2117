@@ -16,7 +16,6 @@ class Wall : SKSpriteNode {
 extension GameUniverse {
     
     func resetUniverse() {
-        stateMachine = GameLevelStateMachine(self)
         clearUniverse()
         addBorder()
         addBarriers()

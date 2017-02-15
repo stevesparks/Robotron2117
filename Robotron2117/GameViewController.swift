@@ -33,17 +33,23 @@ class GameViewController: UIViewController, GameDelegate {
     }
     
     override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+        if presses.first?.type == .menu {
+            super.pressesBegan(presses, with: event)
+            return
+        }
         if let game = currentGame {
             game.pressesBegan(presses, with: event)
-        } else {
-            super.pressesBegan(presses, with: event)
+            return;
         }
+        super.pressesBegan(presses, with: event)
     }
     
     func newGame() {
         if let view = self.view as? SKView {
             currentGame = GameStateMachine(view, gameDelegate: self)
             currentGame?.begin()
+        } else {
+            print("No")
         }
     }
 
@@ -59,10 +65,10 @@ class GameViewController: UIViewController, GameDelegate {
     
     func notify(note: Notification) {
         if note.name == .GCControllerDidConnect, let ctrl = note.object as? GCController {
-            GameUniverse.shared.addController(ctrl)
+            currentGame?.addController(ctrl)
         } else if note.name == .GCControllerDidDisconnect {
             if let ctrl = note.object as? GCController {
-                GameUniverse.shared.removeController(ctrl)
+                currentGame?.removeController(ctrl)
             }
         }
     }
