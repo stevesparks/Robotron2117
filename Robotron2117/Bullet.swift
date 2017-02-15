@@ -35,6 +35,18 @@ class Bullet: GameNode {
         })
         return bullet
     }
+    
+    static func freezeBullets() {
+        for bullet in bullets {
+            bullet.isPaused = true
+        }
+    }
+
+    static func releaseBullets() {
+        for bullet in bullets {
+            bullet.isPaused = false
+        }
+    }
 }
 
 extension CGVector {

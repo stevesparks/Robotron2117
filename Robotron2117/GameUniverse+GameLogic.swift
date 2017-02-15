@@ -15,11 +15,13 @@ extension GameUniverse {
         tockTimer = Timer.scheduledTimer(withTimeInterval: 0.033, repeats: true) {_ in
             self.tock()
         }
+        Bullet.releaseBullets()
     }
     
     func stopGame() {
+        Bullet.freezeBullets()
         tockTimer?.invalidate()
-        
+        tockTimer = nil
     }
     
     func tock() {
