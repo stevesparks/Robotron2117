@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0E264AF31E55D87900013568 /* WalkContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E264AF21E55D87900013568 /* WalkContext.swift */; };
+		0E264AFB1E56545E00013568 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E264AFA1E56545E00013568 /* GameKit.framework */; };
 		0E42C2021E4DFEA20069B1D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E42C2011E4DFEA20069B1D4 /* AppDelegate.swift */; };
 		0E42C2041E4DFEA20069B1D4 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0E42C2031E4DFEA20069B1D4 /* GameScene.sks */; };
 		0E42C2081E4DFEA20069B1D4 /* Game.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E42C2071E4DFEA20069B1D4 /* Game.xcassets */; };
@@ -74,6 +75,7 @@
 
 /* Begin PBXFileReference section */
 		0E264AF21E55D87900013568 /* WalkContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalkContext.swift; sourceTree = "<group>"; };
+		0E264AFA1E56545E00013568 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		0E42C1FE1E4DFEA20069B1D4 /* Robotron2117.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Robotron2117.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E42C2011E4DFEA20069B1D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0E42C2031E4DFEA20069B1D4 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E264AFB1E56545E00013568 /* GameKit.framework in Frameworks */,
 				0E42C21E1E4E017C0069B1D4 /* GameController.framework in Frameworks */,
 				0E42C21F1E4E017C0069B1D4 /* GameplayKit.framework in Frameworks */,
 			);
@@ -188,6 +191,7 @@
 		0E42C21B1E4E017C0069B1D4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0E264AFA1E56545E00013568 /* GameKit.framework */,
 				0E42C21C1E4E017C0069B1D4 /* GameController.framework */,
 				0E42C21D1E4E017C0069B1D4 /* GameplayKit.framework */,
 				0E985AE31E53B63B00612EEA /* TVServices.framework */,
