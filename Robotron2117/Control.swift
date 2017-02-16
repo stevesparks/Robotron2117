@@ -17,6 +17,8 @@ protocol Control {
     var moveVector: CGVector { get }
     var shootVector: CGVector { get }
     
+    var buttonAPressed : Bool { get }
+    
     var controller : GCController { get }
     
     var trigger : Bool { get }

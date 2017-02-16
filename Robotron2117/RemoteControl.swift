@@ -48,6 +48,9 @@ class RemoteControl: Control {
         }
     }
     
+    var buttonAPressed: Bool {
+        return pad.buttonA.isPressed
+    }
     var trigger: Bool {
         return (pad.buttonA.isPressed || pad.buttonX.isPressed)
     }

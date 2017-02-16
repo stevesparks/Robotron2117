@@ -34,6 +34,9 @@ class GameViewController: UIViewController, GameDelegate {
     
     override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
         if presses.first?.type == .menu {
+            if let ctrl = currentGame?.playerOneController, ctrl.buttonAPressed {
+                return
+            }
             super.pressesBegan(presses, with: event)
             return
         }

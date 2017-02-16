@@ -45,6 +45,10 @@ class ExtendedGamepadControl: Control {
         return thumb.simplifiedVector
     }
     
+    var buttonAPressed: Bool {
+        return pad.buttonA.isPressed
+    }
+
     var shootVector : CGVector {
         return CGVector(dx: Double(pad.rightThumbstick.xAxis.value),
                         dy: Double(pad.rightThumbstick.yAxis.value)).simplifiedVector
