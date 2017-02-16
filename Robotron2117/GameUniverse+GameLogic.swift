@@ -87,21 +87,22 @@ extension GameUniverse {
         if let player = target as? Player {
             stopGame()
             player.alpha = 0
-            explode(at: player.position, for: 2.5, completion: {
+            explode(at: player.position, for: 2.5, color: UIColor.white) {
                 player.alpha = 1
-            })
+            }
         } else if let enemy = target as? Enemy {
-            explode(at: enemy.position, for: 0.25, completion: {
-            })
+            explode(at: enemy.position, for: 0.25) {
+            }
         } else if let civ = target as? Civilian {
-            explode(at: civ.position, for: 0.5, completion: {
-            })
+            explode(at: civ.position, for: 0.5, color: UIColor.red) {
+            }
         }
     }
     
-    func explode(at point: CGPoint, for duration: TimeInterval, completion block: @escaping () -> Swift.Void) {
+    func explode(at point: CGPoint, for duration: TimeInterval, color: UIColor = UIColor.boomColor, completion block: @escaping () -> Swift.Void) {
         if let explosion = SKEmitterNode(fileNamed: "Explosion") {
             explosion.particlePosition = point
+            explosion.particleColorSequence = SKKeyframeSequence(keyframeValues: [color], times: [1])
             explosion.particleLifetime = CGFloat(duration)
             self.addChild(explosion)
             // Don't forget to remove the emitter node after the explosion
@@ -188,4 +189,9 @@ extension GameUniverse :SKPhysicsContactDelegate {
     }
 }
 
+extension UIColor {
+    static var boomColor : UIColor {
+        return UIColor.yellow
+    }
+}
 

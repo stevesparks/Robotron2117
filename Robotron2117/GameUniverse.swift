@@ -30,8 +30,8 @@ class GameUniverse: SKScene {
         let label = SKLabelNode(text: "")
         label.fontName = UIFont.customFontName
         label.fontSize = 36
-        label.fontColor = UIColor.black
-        label.position = CGPoint(x: 200, y: 25)
+        label.fontColor = UIColor.white
+        label.position = CGPoint(x: 300, y: 70)
         label.zPosition = 1
         return label
     }()
@@ -41,7 +41,7 @@ class GameUniverse: SKScene {
         label.fontName = UIFont.customFontName
         label.fontSize = 30
         label.fontColor = UIColor.black
-        label.position = CGPoint(x: 1720, y: 25)
+        label.position = CGPoint(x: 1620, y: 70)
         label.zPosition = 1
         return label
     }()
