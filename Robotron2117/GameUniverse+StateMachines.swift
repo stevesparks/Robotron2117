@@ -84,7 +84,15 @@ class GameLevelStateMachine : GKStateMachine {
 
 extension GameUniverse {
     func showReadyLabel(_ block: @escaping () -> Void) {
-        let label = SKLabelNode(text: "LEVEL \(level)")
+        showLabel("LEVEL \(level)", block: block)
+    }
+
+    func showGameOverLabel(_ block: @escaping () -> Void) {
+        showLabel("GAME OVER", block: block)
+    }
+
+    func showLabel(_ text: String, block: @escaping () -> Void) {
+        let label = SKLabelNode(text: text)
         label.fontName = UIFont.customFontName
         label.fontSize = 100
         let sz = self.frame.size
@@ -97,22 +105,9 @@ extension GameUniverse {
             block()
         })
     }
+    
 
-    func showGameOverLabel(_ block: @escaping () -> Void) {
-        let label = SKLabelNode(text: "GAME OVER")
-        label.fontName = UIFont.customFontName
-        label.fontSize = 200
-        let sz = self.frame.size
-        label.position = CGPoint(x: sz.width/2.0, y: sz.height*0.6)
-        addChild(label)
-        
-        let group = SKAction.group([SKAction.scale(to: 0.001, duration: 2), SKAction.fadeOut(withDuration: 2)])
-        label.run(SKAction.sequence([group]), completion: {
-            label.removeFromParent()
-            block()
-        })
-    }
-
+    
     func showLivesRemainingLabel(_ lives: Int, block: @escaping () -> Void) {
         let livesStr : String = {
             if lives==1 {

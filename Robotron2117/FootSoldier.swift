@@ -14,19 +14,7 @@ class FootSoldier: Enemy, Shooter {
         self.physicsBody?.contactTestBitMask = CollisionType.Player.rawValue
         self.nodeSpeed = 5
         self.walkContext = PursuitContext(self)
-        self.spriteTextures = {
-            var arr : [SKTexture] = []
-            let left = SKTexture(imageNamed: "robo-left")
-            let ctr = SKTexture(imageNamed: "robo-center")
-            let right = SKTexture(imageNamed: "robo-right")
-            
-            arr.append(left)
-            arr.append(ctr)
-            arr.append(right)
-            arr.append(ctr)
-            
-            return arr
-        }()
+        self.spriteTextures = FootSoldier.soldierTextures
     }
 
     func shoot() -> Bullet? {
@@ -41,5 +29,13 @@ class FootSoldier: Enemy, Shooter {
         }
         return nil
     }
+
+    static var soldierTextures : [SKTexture] = {
+        return [SKTexture(imageNamed: "robo-left"),
+                SKTexture(imageNamed: "robo-center"),
+                SKTexture(imageNamed: "robo-right"),
+                SKTexture(imageNamed: "robo-center")]
+    }()
+    
 }
 

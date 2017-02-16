@@ -39,6 +39,7 @@ class Player: Hittable {
         bod.categoryBitMask = CollisionType.Player.rawValue
         self.physicsBody = bod
         nodeSpeed = 10
+        didChangeDirection(.south)
     }
 
     var controller : Control? {

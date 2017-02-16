@@ -88,10 +88,13 @@ class PursuitContext : WalkContext {
             return
         }
         let vec = node.universe.directionToNearestPlayer(from: node)
-        if vec != node.lastWalkVector {
+        let lastVec = node.lastWalkVector.simplifiedVector
+        if vec.dx == lastVec.dx && vec.dy == lastVec.dy {
+            // same same
+        } else {
             node.didChangeDirection(vec.walkDirection)
-            _ = node.move(vec)
         }
+        _ = node.move(vec)
     }
 }
 

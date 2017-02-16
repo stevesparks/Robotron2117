@@ -24,10 +24,46 @@ class GameUniverse: SKScene {
     static var shared = GameUniverse(size: CGSize(width: 1920, height: 1080))
     
     var stateMachine : GameLevelStateMachine!
+
+    var scoreLabel : SKLabelNode = {
+        let label = SKLabelNode(text: "")
+        label.fontName = UIFont.customFontName
+        label.fontSize = 36
+        label.fontColor = UIColor.black
+        label.position = CGPoint(x: 200, y: 25)
+        label.zPosition = 1
+        return label
+    }()
+    
+    var livesLabel : SKLabelNode = {
+        let label = SKLabelNode(text: "")
+        label.fontName = UIFont.customFontName
+        label.fontSize = 30
+        label.fontColor = UIColor.black
+        label.position = CGPoint(x: 1720, y: 25)
+        label.zPosition = 1
+        return label
+    }()
     
     var controllers : [GCController] = []
     
     var level = 1
+    var livesLeft = 0 {
+        didSet {
+            livesLabel.text = ""
+            var lx = livesLeft
+            
+            while lx > 0 {
+                livesLabel.text = livesLabel.text?.appending("🤖")
+                lx -= 1
+            }
+        }
+    }
+    var score = 0 {
+        didSet {
+            scoreLabel.text = "SCORE: \(score)"
+        }
+    }
     
     var enemyCount = 20
     var barrierCount = 0
@@ -51,11 +87,15 @@ class GameUniverse: SKScene {
     override init(size: CGSize) {
         super.init(size: size)
         stateMachine = GameLevelStateMachine(self)
+        addChild(scoreLabel)
+        addChild(livesLabel)
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         stateMachine = GameLevelStateMachine(self)
+        addChild(scoreLabel)
+        addChild(livesLabel)
     }
     
     override func didMove(to view: SKView) {

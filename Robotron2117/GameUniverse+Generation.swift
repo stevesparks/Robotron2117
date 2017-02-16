@@ -26,7 +26,11 @@ extension GameUniverse {
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
         
-        stateMachine.begin()
+        if(level > 0) {
+            stateMachine.begin()
+        } else {
+            _ = stateMachine.enter(GameLevelStateMachine.Playing.self)
+        }
     }
     
     func randomColor() -> SKColor {
@@ -103,6 +107,7 @@ extension GameUniverse {
         
         while(enemiesRemaining>0) {
             if let enemy = findEmptySpace({ return FootSoldier() }, avoiding: centerBlock.frame) as? Enemy {
+                enemy.name = "FootSoldier-\(enemiesRemaining)"
                 addChild(enemy)
                 enemies.append(enemy)
                 enemiesRemaining = enemiesRemaining - 1
@@ -124,6 +129,7 @@ extension GameUniverse {
     func addPlayer() {
         let p1 = playerOne
         let mySize = self.frame.size
+        p1.name = "Player One"
         p1.position = CGPoint(x: mySize.width/2.0, y: mySize.height/2.0)
         addChild(p1)
         friendlies.append(p1)

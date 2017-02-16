@@ -135,13 +135,16 @@ extension GameUniverse :SKPhysicsContactDelegate {
         if let target = hit, let bullet = bullet {
             bullet.removeFromParent()
             if let enemy = target as? Enemy {
+                score += enemy.pointValue
                 blowUp(enemy)
                 enemy.dead = true
                 if let enemyIdx = enemies.index(of: enemy) {
                     enemies.remove(at: enemyIdx)
                 }
                 if allDead() {
-                    stateMachine?.win()
+                    showLabel("LEVEL COMPLETE") {
+                        self.stateMachine?.win()
+                    }
                 }
                 enemy.removeFromParent()
             } else if let player = target as? Player {

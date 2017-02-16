@@ -87,7 +87,7 @@ class GameStateMachine : GKStateMachine, GameLevelDelegate, AttractScreenDelegat
                 attractScreen = att
                 currentUniverse = nil
                 if let view = scenekitView {
-                    view.presentScene(att, transition: SKTransition.reveal(with: .down, duration: 0.5))
+                    view.presentScene(att, transition: SKTransition.doorsOpenHorizontal(withDuration:  0.5))
                 }
                 break
             }
@@ -130,10 +130,12 @@ class GameStateMachine : GKStateMachine, GameLevelDelegate, AttractScreenDelegat
         if let view = scenekitView {
             let newUniverse = GameUniverse(size: view.bounds.size)
             newUniverse.stateMachine.levelDelegate = self
-            newUniverse.friendlyCount = friendliesPerLevel[levelElement]
+            newUniverse.friendlyCount = 0 // friendliesPerLevel[levelElement]
             newUniverse.enemyCount = enemiesPerLevel[levelElement]
+            newUniverse.score = currentUniverse?.score ?? 0
+            newUniverse.livesLeft = lives
             newUniverse.level = level
-            view.presentScene(newUniverse, transition: SKTransition.reveal(with: .down, duration: 0.5))
+            view.presentScene(newUniverse, transition: SKTransition.doorsOpenHorizontal(withDuration:  0.5))
             GameUniverse.shared = newUniverse
             currentUniverse = newUniverse
             assignControllers()

@@ -12,11 +12,15 @@ protocol AttractScreenDelegate : NSObjectProtocol {
     func onePlayerStart()
 }
 
-class AttractScreen: SKScene {
+class AttractContext : WalkContext {
+    
+}
+
+class AttractScreen: GameUniverse {
 
     weak var attractScreenDelegate : AttractScreenDelegate?
     
-    convenience override init() {
+    convenience init() {
         self.init(size: UIScreen.main.bounds.size)
     }
     
@@ -49,11 +53,29 @@ class AttractScreen: SKScene {
         
         subtitle.run(SKAction.repeatForever(SKAction.sequence([SKAction.scale(to: 1.1, duration: 0.5), SKAction.scale(to: 0.91, duration: 0.5)])))
         addChild(subtitle)
+        
+        self.friendlyCount = 20
+        self.enemyCount = 1
+        self.level = 0
+        _ = stateMachine.enter(GameStateMachine.Playing.self)
     }
 
+    override func allDead() -> Bool {
+        return false
+    }
+    
+    override func addEnemies() {
+        
+    }
+    
+    override func addPlayer() {
+        
+    }
     
     override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
-        attractScreenDelegate?.onePlayerStart()
+        if let type = presses.first?.type , type == .playPause {
+            attractScreenDelegate?.onePlayerStart()
+        }
     }
     
 }

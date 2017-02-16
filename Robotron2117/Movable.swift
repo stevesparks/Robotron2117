@@ -105,13 +105,14 @@ class Movable : GameNode {
     var spriteTextures : [SKTexture] = []
     
     func nextSprite() {
-        guard spriteTextures.count == 4 else {
+        guard spriteTextures.count >= 2 else {
+            NSLog("No textures")
             return
         }
         
         texture = spriteTextures[spriteStep]
         spriteStep = spriteStep + 1
-        if(spriteStep >= 4) {
+        if(spriteStep >= spriteTextures.count) {
             spriteStep = 0
         }
     }
