@@ -42,7 +42,7 @@ class GameViewController: UIViewController, GameDelegate {
         }
         if let game = currentGame {
             game.pressesBegan(presses, with: event)
-            return;
+            return
         }
         super.pressesBegan(presses, with: event)
     }

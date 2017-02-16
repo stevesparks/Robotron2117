@@ -68,12 +68,8 @@ class AttractScreen: GameUniverse {
         
     }
     
-    override func addPlayer() {
-        
-    }
-    
     override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
-        if let type = presses.first?.type , type == .playPause {
+        if let type = presses.first?.type , (type == .playPause || type == .select) {
             attractScreenDelegate?.onePlayerStart()
         }
     }

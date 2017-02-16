@@ -130,7 +130,7 @@ class GameStateMachine : GKStateMachine, GameLevelDelegate, AttractScreenDelegat
         if let view = scenekitView {
             let newUniverse = GameUniverse(size: view.bounds.size)
             newUniverse.stateMachine.levelDelegate = self
-            newUniverse.friendlyCount = 0 // friendliesPerLevel[levelElement]
+            newUniverse.friendlyCount = friendliesPerLevel[levelElement]
             newUniverse.enemyCount = enemiesPerLevel[levelElement]
             newUniverse.score = currentUniverse?.score ?? 0
             newUniverse.livesLeft = lives
@@ -189,10 +189,10 @@ class GameStateMachine : GKStateMachine, GameLevelDelegate, AttractScreenDelegat
 
     
     func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
-        if let level = currentUniverse {
-            level.pressesBegan(presses, with: event)
-        } else if let attract = attractScreen {
+        if let attract = attractScreen {
             attract.pressesBegan(presses, with: event)
+        } else if let level = currentUniverse {
+            level.pressesBegan(presses, with: event)
         }
     }
     

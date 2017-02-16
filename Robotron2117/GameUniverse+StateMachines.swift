@@ -40,7 +40,7 @@ class GameLevelStateMachine : GKStateMachine {
                 self.levelDelegate?.levelOver(universe)
             case is Lost.Type:
                 gameOver()
-            default: break;
+            default: break
             }
         }
         return ret
