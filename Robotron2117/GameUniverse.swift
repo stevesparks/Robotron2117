@@ -61,6 +61,16 @@ class GameUniverse: SKScene {
         }
     }
     var score = 0 {
+        willSet {
+            if score != 0 {
+                // free life every 10k. Are we passing over?
+                let oldScoreLevel = score / 10000
+                let newScoreLevel = newValue / 10000
+                if oldScoreLevel != newScoreLevel {
+                    bonusLife()
+                }
+            }
+        }
         didSet {
             scoreLabel.text = "SCORE: \(score)"
         }

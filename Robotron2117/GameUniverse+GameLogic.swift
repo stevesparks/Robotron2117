@@ -112,6 +112,11 @@ extension GameUniverse {
             })
         }
     }
+    
+    func bonusLife() {
+        livesLeft += 1
+        showLabel("BONUS LIFE!", block: {})
+    }
 }
 
 
