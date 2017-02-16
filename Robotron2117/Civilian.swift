@@ -10,6 +10,68 @@ import SpriteKit
 
 class Civilian: Hittable {
     
+    enum CivilianType : String {
+        case lady = "lady"
+        case man = "man"
+        case boy = "boy"
+    }
+    
+    static var allTypes : [CivilianType] = [.lady, .man, .boy]
+    static var allTypeNames : [String] = {
+        return allTypes.map() { return $0.rawValue }
+    }()
+
+    convenience init() {
+        self.init(texture: SKTexture(imageNamed: "lady-front-1"), color: UIColor.green, size: CGSize(width: 14*3, height: 28*3))
+        setupCivilian()
+    }
+    
+    override init(texture: SKTexture?, color: UIColor, size: CGSize) {
+        super.init(texture: texture, color: color, size: size)
+        setupCivilian()
+    }
+    
+    required init?(coder aCoder: NSCoder) {
+        super.init(coder: aCoder)
+        setupCivilian()
+    }
+    
+    convenience init(_ type: CivilianType) {
+        self.init(texture: nil, color: UIColor.green, size: CGSize(width: 14*3, height: 28*3))
+        self.type = type
+        setupCivilian()
+    }
+    
+    func setupCivilian() {
+        self.physicsBody?.contactTestBitMask = CollisionType.Wall.rawValue
+        self.physicsBody?.categoryBitMask = CollisionType.Player.rawValue
+        didChangeDirection(.south)
+        nextSprite()
+        self.walkContext = WanderingNodeContext(self)
+        nodeSpeed = 3
+    }
+    
+    var type : CivilianType = {
+        switch (arc4random()%3) {
+        case 0:  return .lady
+        case 1:  return .man
+        default: return .boy
+        }
+    }()
+    
+
+    lazy var textureBanks : Dictionary<String, Array<SKTexture>> = {
+        return textureDictionary[self.type.rawValue]!
+    }()
+
+    override func didChangeDirection(_ direction: Movable.WalkDirection) {
+        let set = direction.spriteSet()
+        let textureBank : Array<SKTexture> = textureBanks[set]!
+        self.spriteTextures = textureBank
+    }
+}
+
+extension Civilian {
     static let textureDictionary : Dictionary<String, Dictionary<String, Array<SKTexture>>> = {
         var dict : Dictionary<String, Dictionary<String, Array<SKTexture>>> = [:]
         
@@ -27,98 +89,4 @@ class Civilian: Hittable {
         
         return dict
     }()
-    
-    enum CivilianType : String {
-        case lady = "lady"
-        case man = "man"
-        case boy = "boy"
-    }
-    
-    static var allTypes : [CivilianType] = [.lady, .man, .boy]
-    static var allTypeNames : [String] = {
-        return allTypes.map() { return $0.rawValue }
-    }()
-
-    convenience init() {
-        self.init(texture: SKTexture(imageNamed: "lady-front-1"), color: UIColor.green, size: CGSize(width: 14*3, height: 28*3))
-        switch (arc4random()%3) {
-        case 0:
-            self.type = .lady
-        case 1:
-            self.type = .man
-        default:
-            self.type = .boy
-        }
-        self.physicsBody?.contactTestBitMask = CollisionType.Wall.rawValue
-        self.physicsBody?.categoryBitMask = CollisionType.Player.rawValue
-        nextSprite()
-    }
-    
-    convenience init(_ type: CivilianType) {
-        self.init(texture: nil, color: UIColor.green, size: CGSize(width: 14*3, height: 28*3))
-        self.physicsBody?.contactTestBitMask = CollisionType.Wall.rawValue
-        self.physicsBody?.categoryBitMask = CollisionType.Player.rawValue
-        self.type = type
-        nextSprite()
-    }
-    
-    var type : CivilianType = .lady
-    var direction = WalkDirection.random()
-    var stepCount = 0
-    
-    override init(texture: SKTexture?, color: UIColor, size: CGSize) {
-        super.init(texture: texture, color: color, size: size)
-        nodeSpeed = 3
-    }
-    
-    required init?(coder aCoder: NSCoder) {
-        super.init(coder: aCoder)
-        nodeSpeed = 3
-    }
-  
-    var walkDelay = 0
-    override func walk() {
-        if(walkDelay == 0) {
-            if(!move(direction.vector())) {
-                direction = direction.reverse()
-            }
-            
-            if(stepCount <= 0) {
-                newDirection()
-            }
-            stepCount = stepCount - 1
-            nextSprite()
-        }
-        walkDelay += 1
-        if walkDelay > 3 {
-            walkDelay = 0
-        }
-    }
-    
-    override func revert(_ obstacle: SKSpriteNode) {
-        super.revert(obstacle)
-        direction = direction.reverse()
-        stepCount = 10 + Int(arc4random()%20)
-    }
-    
-    func newDirection() {
-        stepCount = 10 + Int(arc4random()%20)
-        direction = WalkDirection.random()
-    }
-    
-    var step = Int(arc4random()%4)
-    lazy var textures : Dictionary<String, Array<SKTexture>> = {
-        return textureDictionary[self.type.rawValue]!
-    }()
-
-    func nextSprite() {
-        let set = lastWalkVector.walkDirection.spriteView()
-        let textureBank : Array<SKTexture> = textures[set]!
-        texture = textureBank[step]
-        step = step + 1
-        if(step >= textureBank.count) {
-            step = 0
-        }
-    }
-
 }

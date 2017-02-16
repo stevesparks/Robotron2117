@@ -10,7 +10,8 @@ import SpriteKit
 
 class Movable : GameNode {
     var previousPosition : CGPoint = .zero
-
+    var walkContext : WalkContext?
+    
     var dead = false
 
     enum WalkDirection : String {
@@ -46,7 +47,7 @@ class Movable : GameNode {
             }
         }
         
-        func spriteView() -> String {
+        func spriteSet() -> String {
             switch self {
             case .north: return "back"
             case .south: return "front"
@@ -57,19 +58,24 @@ class Movable : GameNode {
     }
     
     var nodeSpeed : CGFloat = 1.0
-    
+    var stepDelay = 0
     var lastWalkVector : CGVector = .zero
     
-    func walk() {
+    public func walk() {
+        walkContext?.walk()
         
     }
     
+    public func didChangeDirection(_ direction: Movable.WalkDirection) {
+        nextSprite()
+    }
+    
     // called when walker hits a wall
-    func revert(_ obstacle: SKSpriteNode) {
+    public func revert(_ obstacle: SKSpriteNode) {
         self.position = self.previousPosition
     }
     
-    func move(_ direction : CGVector) -> Bool {
+    public func move(_ direction : CGVector) -> Bool {
         guard !dead else {
             return false
         }
@@ -88,11 +94,27 @@ class Movable : GameNode {
             previousPosition = position
             lastWalkVector = vec
             position = pos
+            nextSprite()
             return true
         }
         return false
     }
 
+    
+    var spriteStep = Int(arc4random()%4)
+    var spriteTextures : [SKTexture] = []
+    
+    func nextSprite() {
+        guard spriteTextures.count == 4 else {
+            return
+        }
+        
+        texture = spriteTextures[spriteStep]
+        spriteStep = spriteStep + 1
+        if(spriteStep >= 4) {
+            spriteStep = 0
+        }
+    }
 }
 
 

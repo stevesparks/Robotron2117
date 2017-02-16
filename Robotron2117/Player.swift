@@ -32,6 +32,7 @@ class Player: Hittable {
     }
     
     func setupPlayer() {
+        self.walkContext = PlayerContext(self)
         let bod = SKPhysicsBody(rectangleOf: size)
         bod.collisionBitMask = 0x0
         bod.contactTestBitMask = CollisionType.Enemy.rawValue
@@ -68,25 +69,9 @@ class Player: Hittable {
         return ret
     }()
 
-    override func walk() {
-        if let ctrl = controller {
-            let vec = ctrl.moveVector
-            if vec != .zero {
-                _ = move(vec)
-                nextSprite()
-            }
-//        } else {
-//            print("No controller")
-        }
-    }
-    
-    func nextSprite() {
-        let set = lastWalkVector.walkDirection.spriteView()
-        texture = Player.textures[set]![step]
-        step = step + 1
-        if(step >= Player.textures.count) {
-            step = 0
-        }
+    override func didChangeDirection(_ direction: Movable.WalkDirection) {
+        let set = direction.spriteSet()
+        spriteTextures = Player.textures[set]!
     }
 }
 
