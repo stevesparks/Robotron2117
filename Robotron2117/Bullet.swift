@@ -14,7 +14,7 @@ class Bullet: GameNode {
     static var bullets : [Bullet] = []
     
     static func aimedAt(_ vector: CGVector, by node: GameNode) -> Bullet {
-        let size = CGSize(width: 10, height: 10)
+        let size = CGSize(width: 5, height: 30)
         let bullet = Bullet(texture: nil, color: UIColor.red, size: size)
         bullet.position = node.position
         let body = SKPhysicsBody(rectangleOf: size)
@@ -33,6 +33,18 @@ class Bullet: GameNode {
                 bullets.remove(at: idx)
             }
         })
+        var angle = 0.0
+        let sv = vector.simplifiedVector
+        
+        if sv.dy == sv.dx && sv.dx != 0 {
+            angle -= M_PI_4
+        } else if sv.dy == -1*sv.dx && sv.dx != 0 {
+            angle += M_PI_4
+        }
+        if(sv.dx != 0 && sv.dy == 0) {
+            angle += M_PI_2
+        }
+        bullet.zRotation = CGFloat(angle)
         return bullet
     }
     
