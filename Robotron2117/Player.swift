@@ -88,7 +88,7 @@ extension Player : Shooter {
                 shotCountdown = 5
                 let shot = Bullet.aimedAt(shoot, by: self)
                 shot.color = UIColor.green
-                shot.physicsBody?.contactTestBitMask = CollisionType.Enemy.rawValue 
+                shot.physicsBody?.contactTestBitMask = CollisionType.Enemy.rawValue | CollisionType.Civilian.rawValue
                 return shot
             }
         }

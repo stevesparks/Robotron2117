@@ -19,7 +19,7 @@ class Bullet: GameNode {
         bullet.position = node.position
         let body = SKPhysicsBody(rectangleOf: size)
         body.categoryBitMask = CollisionType.Bullet.rawValue
-        body.contactTestBitMask = CollisionType.Player.rawValue
+        body.contactTestBitMask = CollisionType.Player.rawValue | CollisionType.Civilian.rawValue
         body.collisionBitMask = 0x0
         bullet.physicsBody = body
         node.universe.addChild(bullet)

@@ -91,6 +91,37 @@ extension GameUniverse {
         showLabel("GAME OVER", block: block)
     }
 
+    func tallyRemainingFriendlies(_ block: @escaping () -> Void) {
+        stopGame()
+        var seq = [SKAction]()
+        for friendly in friendlies {
+            if let civ = friendly as? Civilian {
+                seq.append(SKAction.run({
+                    self.recordPointsForCivilian(civ)
+                }))
+                seq.append(SKAction.wait(forDuration: 0.25))
+            }
+        }
+        seq.append(SKAction.wait(forDuration: 1))
+        run(SKAction.sequence(seq)) {
+            block()
+        }
+    }
+
+    func recordPointsForCivilian(_ civ : Civilian) {
+        score += civ.pointValue
+        let lbl = SKLabelNode(text: "\(civ.pointValue)")
+        lbl.position = civ.position
+        lbl.fontName = UIFont.customFontName
+        addChild(lbl)
+        lbl.run(SKAction.group([SKAction.move(by: CGVector(dx:0,dy:100), duration: 0.5), SKAction.fadeOut(withDuration: 1)])) {
+            lbl.removeFromParent()
+        }
+        civ.run(SKAction.scale(to: 0.01, duration: 0.1)) {
+            civ.removeFromParent()
+        }
+    }
+    
     func showLabel(_ text: String, block: @escaping () -> Void) {
         let label = SKLabelNode(text: text)
         label.fontName = UIFont.customFontName

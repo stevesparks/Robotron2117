@@ -14,6 +14,7 @@ enum CollisionType : UInt32 {
     case Enemy = 0x02
     case Bullet = 0x08
     case Wall = 0x10
+    case Civilian = 0x20
 }
 
 class GameNode : SKSpriteNode {

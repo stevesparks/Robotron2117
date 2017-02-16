@@ -99,7 +99,9 @@ class GameStateMachine : GKStateMachine, GameLevelDelegate, AttractScreenDelegat
         if let sm = universe.stateMachine, let state = sm.currentState {
             switch (state) {
             case sm.won:
-                nextLevel()
+                universe.tallyRemainingFriendlies {
+                    self.nextLevel()
+                }
                 break
             case sm.lost:
                 lives -= 1
@@ -182,8 +184,10 @@ class GameStateMachine : GKStateMachine, GameLevelDelegate, AttractScreenDelegat
     func removeController(_ controller: GCController) {
         if playerOneController?.controller == controller, let playerOne = currentUniverse?.playerOne {
             playerOne.controller = nil
-        } else if playerTwoController?.controller == controller {
-            
+            playerOneController = nil
+        } else if playerTwoController?.controller == controller, let playerTwo = currentUniverse?.playerTwo {
+            playerTwo.controller = nil
+            playerTwoController = nil
         }
     }
 

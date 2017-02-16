@@ -9,7 +9,6 @@
 import SpriteKit
 
 class Civilian: Hittable {
-    
     enum CivilianType : String {
         case lady = "lady"
         case man = "man"
@@ -43,8 +42,10 @@ class Civilian: Hittable {
     }
     
     func setupCivilian() {
-        self.physicsBody?.contactTestBitMask = CollisionType.Wall.rawValue
-        self.physicsBody?.categoryBitMask = CollisionType.Player.rawValue
+        self.physicsBody = SKPhysicsBody(rectangleOf: self.size)
+        self.physicsBody?.collisionBitMask = 0x0
+        self.physicsBody?.contactTestBitMask = CollisionType.Wall.rawValue | CollisionType.Bullet.rawValue
+        self.physicsBody?.categoryBitMask = CollisionType.Civilian.rawValue
         didChangeDirection(.south)
         nextSprite()
         self.walkContext = WanderingNodeContext(self)
@@ -59,6 +60,14 @@ class Civilian: Hittable {
         }
     }()
     
+    var pointValue : Int {
+        switch(type) {
+        case .lady: return 300
+        case .man: return 200
+        case .boy: return 100
+        }
+    }
+
 
     lazy var textureBanks : Dictionary<String, Array<SKTexture>> = {
         return textureDictionary[self.type.rawValue]!

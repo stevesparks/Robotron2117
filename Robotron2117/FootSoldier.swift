@@ -24,7 +24,7 @@ class FootSoldier: Enemy, Shooter {
         if((arc4random()%20)==0) { // 5% chance
             let shotVector = universe.directionToNearestPlayer(from: self)
             let shot = Bullet.aimedAt(shotVector, by: self)
-            shot.physicsBody?.contactTestBitMask = CollisionType.Player.rawValue
+            shot.physicsBody?.contactTestBitMask = CollisionType.Player.rawValue | CollisionType.Civilian.rawValue
             return shot
         }
         return nil

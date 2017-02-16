@@ -78,6 +78,11 @@ extension GameUniverse {
         blowUp(player)
     }
     
+    func gameEndedByNoMoreFriendlies() {
+        stateMachine?.lose()
+        blowUp(playerOne)
+    }
+    
     func blowUp(_ target: Hittable) {
         if let player = target as? Player {
             stopGame()
@@ -87,6 +92,9 @@ extension GameUniverse {
             })
         } else if let enemy = target as? Enemy {
             explode(at: enemy.position, for: 0.25, completion: {
+            })
+        } else if let civ = target as? Civilian {
+            explode(at: civ.position, for: 0.5, completion: {
             })
         }
     }
@@ -147,11 +155,22 @@ extension GameUniverse :SKPhysicsContactDelegate {
                     }
                 }
                 enemy.removeFromParent()
+            } else if let civ = target as? Civilian {
+                blowUp(civ)
+                civ.removeFromParent()
+                if let friendlyIndex = friendlies.index(of: civ) {
+                    friendlies.remove(at: friendlyIndex)
+                }
+                if friendlies.count == 0 {
+                    gameEndedByNoMoreFriendlies()
+                }
             } else if let player = target as? Player {
                 guard stateMachine?.currentState != stateMachine?.lost else {
                     return
                 }
                 gameEndedByShootingPlayer(player, bullet: bullet)
+            } else {
+                print("Something funky")
             }
         }
     }
