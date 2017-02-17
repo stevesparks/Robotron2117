@@ -29,8 +29,8 @@ class GameStateMachine : GKStateMachine, GameLevelDelegate, AttractScreenDelegat
     
     var level = 0
     var lives = 3
-    let enemiesPerLevel    = [2,4,5,6,7, 8,10,12,14,16, 18,20,22,24,26, 28,30,32]
-    let friendliesPerLevel = [16,16,15,14,13, 12,11,10,8,8, 8,8,8,8,8, 8,8,8]
+
+    let levels = GameLevel.baseLevels
     
     let playing = Playing()
     let gameOver = GameOver()
@@ -126,14 +126,15 @@ class GameStateMachine : GKStateMachine, GameLevelDelegate, AttractScreenDelegat
     
     func startCurrentLevel() {
         var levelElement = level - 1
-        if(levelElement >= enemiesPerLevel.count) {
-            levelElement = enemiesPerLevel.count - 1
+        if(levelElement >= levels.count) {
+            levelElement = levels.count - 1
         }
         if let view = scenekitView {
+            let levelDescriptor = levels[levelElement]
             let newUniverse = GameUniverse(size: view.bounds.size)
             newUniverse.stateMachine.levelDelegate = self
-            newUniverse.friendlyCount = friendliesPerLevel[levelElement]
-            newUniverse.enemyCount = enemiesPerLevel[levelElement]
+            newUniverse.friendlyCount = levelDescriptor.numberOfFriendlies
+            newUniverse.enemyCount = levelDescriptor.numberOfFootSoldiers
             newUniverse.score = currentUniverse?.score ?? 0
             newUniverse.livesLeft = lives
             newUniverse.level = level
@@ -167,16 +168,13 @@ class GameStateMachine : GKStateMachine, GameLevelDelegate, AttractScreenDelegat
         
         if let prio = playerOneController?.priority, prio > control.priority {
             // replacing the existing controller with the new one
-            print("Replace P1 Controller -> \(control)")
             playerOneController = control
             assignControllers()
         } else if playerOneController == nil {
             // setting it is easy
-            print("Initial P1 Controller -> \(control)")
             playerOneController = control
             assignControllers()
         } else {
-            print("Ignore P1 Controller -> \(control)")
             // a second player!!
         }
     }

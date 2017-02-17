@@ -24,18 +24,17 @@ extension GCController {
 extension GameUniverse {
     func addController(_ controller: GCController) {
         var control : Control!
-        if controller.microGamepad != nil,
-            controller.extendedGamepad == nil {
-            control = RemoteControl(controller)
-        } else if controller.extendedGamepad != nil {
+
+        if controller.extendedGamepad != nil {
             control = ExtendedGamepadControl(controller)
+        } else if controller.microGamepad != nil {
+            control = RemoteControl(controller)
         } else {
             return
         }
         
         if let prio = playerOne.controller?.priority, prio > control.priority {
             // replacing the existing controller with the new one
-            print("P1 Controller -> \(control)")
             playerOne.controller = control
         } else if playerOne.controller == nil {
             // setting it is easy
@@ -49,9 +48,9 @@ extension GameUniverse {
     
     func removeController(_ controller: GCController) {
         if playerOne.controller?.controller == controller {
-            
+           playerOne.controller = nil
         } else if playerTwo.controller?.controller == controller {
-
+            playerTwo.controller = nil
         }
         if let idx = controllers.index(of: controller) {
             controllers.remove(at: idx)
