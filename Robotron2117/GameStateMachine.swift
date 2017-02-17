@@ -7,7 +7,6 @@
 //
 
 import GameplayKit
-import GameKit
 import GameController
 
 protocol GameDelegate : NSObjectProtocol {
@@ -18,19 +17,6 @@ protocol GameDelegate : NSObjectProtocol {
 class GameStateMachine : GKStateMachine, GameLevelDelegate, AttractScreenDelegate {
     weak var scenekitView : SKView?
     weak var gameDelegate : GameDelegate?
-    
-    var me : GKLocalPlayer = {
-        let x = GKLocalPlayer.localPlayer()
-        x.authenticateHandler = { vc, error in
-            if let vc = vc {
-                print("\(vc)")
-            } else if let error = error {
-                print("\(error)")
-            }
-        }
-        print("\(x.displayName)")
-        return x
-    }()
     
     var attractScreen : AttractScreen?
     var currentUniverse : GameUniverse?
@@ -162,8 +148,7 @@ class GameStateMachine : GKStateMachine, GameLevelDelegate, AttractScreenDelegat
             print("Assigning \(playerOneController)!")
             universe.playerOne.controller = playerOneController
             universe.playerTwo.controller = playerTwoController
-        } else {
-            print("No Universe! Attracting?")
+        } else if attractScreen != nil {
         }
     }
     

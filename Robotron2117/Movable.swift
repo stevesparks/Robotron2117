@@ -106,7 +106,6 @@ class Movable : GameNode {
     
     func nextSprite() {
         guard spriteTextures.count >= 2 else {
-            NSLog("No textures")
             return
         }
         
