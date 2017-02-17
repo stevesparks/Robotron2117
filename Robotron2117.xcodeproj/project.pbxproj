@@ -338,7 +338,12 @@
 					0E42C1FD1E4DFEA20069B1D4 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = LPR82YBESG;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.GameControllers.appletvos = {
+								enabled = 1;
+							};
+						};
 					};
 					0E985AE11E53B63B00612EEA = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -560,6 +565,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bignerdranch.game.Robotron2117;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "562173ed-9964-4c65-bf53-a089b4e7f28b";
+				PROVISIONING_PROFILE_SPECIFIER = "TVOS for Dumb Xcodes";
 				SWIFT_VERSION = 3.0;
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
@@ -577,6 +584,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bignerdranch.game.Robotron2117;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "562173ed-9964-4c65-bf53-a089b4e7f28b";
+				PROVISIONING_PROFILE_SPECIFIER = "TVOS for Dumb Xcodes";
 				SWIFT_VERSION = 3.0;
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};

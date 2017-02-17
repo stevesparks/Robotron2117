@@ -18,7 +18,6 @@ class GameStateMachine : GKStateMachine, GameLevelDelegate, AttractScreenDelegat
     weak var scenekitView : SKView?
     weak var gameDelegate : GameDelegate?
     
-    
     var attractScreen : AttractScreen?
     var currentUniverse : GameUniverse?
     let initialLives = 3
@@ -150,8 +149,7 @@ class GameStateMachine : GKStateMachine, GameLevelDelegate, AttractScreenDelegat
             print("Assigning \(playerOneController)!")
             universe.playerOne.controller = playerOneController
             universe.playerTwo.controller = playerTwoController
-        } else {
-            print("No Universe! Attracting?")
+        } else if attractScreen != nil {
         }
     }
     
