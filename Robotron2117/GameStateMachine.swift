@@ -76,6 +76,9 @@ class GameStateMachine : GKStateMachine, GameLevelDelegate, AttractScreenDelegat
                 nextLevel()
                 break
             case is GameOver.Type:
+                if let finalScore = currentUniverse?.score {
+                    LeaderboardManager.shared.report(finalScore)
+                }
                 currentUniverse?.showGameOverLabel {
                     _ = self.enter(Attract.self)
                 }

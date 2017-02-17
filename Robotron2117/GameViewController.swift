@@ -44,6 +44,7 @@ class GameViewController: UIViewController, GameDelegate {
         }()
         NotificationCenter.default.addObserver(forName: NSNotification.Name(GKPlayerAuthenticationDidChangeNotificationName), object: nil, queue: OperationQueue.main, using: { _ in
             print("Updated! \(self.me.debugDescription)")
+            print("\(LeaderboardManager.shared)")
         })
     }
     

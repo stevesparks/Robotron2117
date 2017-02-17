@@ -79,4 +79,10 @@ class AttractScreen: GameUniverse {
 extension UIFont {
     static var customFontName : String { return "Robotaur" }
     static var customFont : UIFont { return UIFont(name: customFontName, size: 48)! }
+    
+    static var highScoreFontName : String { return "Robotaur" }
+    static var highScoreFont : UIFont {
+        return UIFont(name: highScoreFontName, size: 20)!
+    }
+    
 }
