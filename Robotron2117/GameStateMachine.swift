@@ -180,16 +180,13 @@ class GameStateMachine : GKStateMachine, GameLevelDelegate, AttractScreenDelegat
         
         if let prio = playerOneController?.priority, prio > control.priority {
             // replacing the existing controller with the new one
-            print("Replace P1 Controller -> \(control)")
             playerOneController = control
             assignControllers()
         } else if playerOneController == nil {
             // setting it is easy
-            print("Initial P1 Controller -> \(control)")
             playerOneController = control
             assignControllers()
         } else {
-            print("Ignore P1 Controller -> \(control)")
             // a second player!!
         }
     }
