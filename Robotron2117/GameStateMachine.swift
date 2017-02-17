@@ -7,6 +7,7 @@
 //
 
 import GameplayKit
+import GameKit
 import GameController
 
 protocol GameDelegate : NSObjectProtocol {
@@ -18,6 +19,18 @@ class GameStateMachine : GKStateMachine, GameLevelDelegate, AttractScreenDelegat
     weak var scenekitView : SKView?
     weak var gameDelegate : GameDelegate?
     
+    var me : GKLocalPlayer = {
+        let x = GKLocalPlayer.localPlayer()
+        x.authenticateHandler = { vc, error in
+            if let vc = vc {
+                print("\(vc)")
+            } else if let error = error {
+                print("\(error)")
+            }
+        }
+        print("\(x.displayName)")
+        return x
+    }()
     
     var attractScreen : AttractScreen?
     var currentUniverse : GameUniverse?
