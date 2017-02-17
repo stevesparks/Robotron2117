@@ -41,7 +41,7 @@ class AttractScreen: GameUniverse {
         title.fontColor = UIColor.white
         title.color = UIColor.clear
         let sz = self.frame.size
-        title.position = CGPoint(x: sz.width/2.0, y: sz.height*0.65)
+        title.position = CGPoint(x: sz.width/2.0, y: sz.height*0.85)
         addChild(title)
 
         let subtitle = SKLabelNode(text: "PRESS PLAY TO BEGIN")
@@ -49,7 +49,7 @@ class AttractScreen: GameUniverse {
         subtitle.fontSize = 35
         subtitle.fontColor = UIColor.white
         subtitle.color = UIColor.clear
-        subtitle.position = CGPoint(x: sz.width/2.0, y: sz.height*0.5)
+        subtitle.position = CGPoint(x: sz.width/2.0, y: sz.height*0.75)
         
         subtitle.run(SKAction.repeatForever(SKAction.sequence([SKAction.scale(to: 1.1, duration: 0.5), SKAction.scale(to: 0.91, duration: 0.5)])))
         addChild(subtitle)
@@ -58,6 +58,11 @@ class AttractScreen: GameUniverse {
         self.enemyCount = 1
         self.level = 0
         _ = stateMachine.enter(GameStateMachine.Playing.self)
+
+        let scores = HighScoresNode()
+        scores.position = CGPoint(x: 300, y:650)
+        addChild(scores)
+        scores.populate()
     }
 
     override func allDead() -> Bool {

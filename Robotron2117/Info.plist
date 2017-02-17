@@ -47,7 +47,9 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>robotaur.ttf</string>
+        <string>robotaur.ttf</string>
+        <string>Pixeled.ttf</string>
+        <string>robotastic.ttf</string>
 	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>

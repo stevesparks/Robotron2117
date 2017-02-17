@@ -14,7 +14,6 @@ import GameController
 
 class GameViewController: UIViewController, GameDelegate {
     var currentGame : GameStateMachine?
-    var me : GKLocalPlayer!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -29,23 +28,6 @@ class GameViewController: UIViewController, GameDelegate {
         }
         self.startWatchingForControllers()
         
-        me = {
-            let x = GKLocalPlayer.localPlayer()
-            x.authenticateHandler = { vc, error in
-                if let vc = vc {
-                    print("\(vc)")
-                    self.present(vc, animated: true)
-                } else if let error = error {
-                    print("\(error)")
-                }
-            }
-            print("Me: \(x.debugDescription)")
-            return x
-        }()
-        NotificationCenter.default.addObserver(forName: NSNotification.Name(GKPlayerAuthenticationDidChangeNotificationName), object: nil, queue: OperationQueue.main, using: { _ in
-            print("Updated! \(self.me.debugDescription)")
-            print("\(LeaderboardManager.shared)")
-        })
     }
     
     override func viewWillDisappear(_ animated: Bool) {

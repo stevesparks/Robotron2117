@@ -8,15 +8,43 @@
 
 import GameKit
 
+typealias LeaderboardResultsBlock = ([GKScore]) -> Void
+
 class LeaderboardManager {
+    var me : GKLocalPlayer!
+
     var board : GKLeaderboard?
-    
+    var scores = [GKScore]()
     var isReady = false
     
+    var notifyBlocks = [LeaderboardResultsBlock]()
     static var shared = LeaderboardManager()
     
     init() {
-        getBoard()
+        authenticate()
+    }
+    
+    func authenticate() {
+        me = {
+            let x = GKLocalPlayer.localPlayer()
+            x.authenticateHandler = { vc, error in
+                if let vc = vc {
+                    print("\(vc)")
+                    if let window = UIApplication.shared.keyWindow, let root = window.rootViewController {
+                        root.present(vc, animated: true)
+                    }
+                } else if let error = error {
+                    print("\(error)")
+                }
+            }
+            print("Me: \(x.debugDescription)")
+            return x
+        }()
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(GKPlayerAuthenticationDidChangeNotificationName), object: nil, queue: OperationQueue.main, using: { _ in
+            print("Updated! \(self.me.debugDescription)")
+            print("\(LeaderboardManager.shared)")
+            self.getBoard()
+        })
     }
     
     public func getBoard() {
@@ -33,21 +61,30 @@ class LeaderboardManager {
     }
     
     func loadScores() {
-        print("BOARD: \(self.board)")
+        isReady = false
         self.board?.loadScores() { scores, error in
             if let error = error {
                 print("Error loading leaderboard: \(error)")
             } else if let scores = scores {
-                print("SCORES: \(scores)")
+                self.scores = scores
                 self.isReady = true
+                self.executeBlocksWhenReady()
             } else {
-                print("NO BOARD, NO SCORES")
                 self.isReady = true
+                self.executeBlocksWhenReady()
             }
         }
     }
     
-    
+    func executeBlocksWhenReady() {
+        guard isReady == true else {
+            return
+        }
+        for block in notifyBlocks {
+            block(scores)
+        }
+        notifyBlocks.removeAll()
+    }
     func report(_ score: Int) {
         guard let board = board, let ident = board.identifier else {
             return
@@ -57,10 +94,20 @@ class LeaderboardManager {
         GKScore.report([newScore]) { error in
             if let error = error {
                 print("NEW SCORE ERROR \(error)")
+            } else {
+                self.loadScores()
             }
         }
     }
     
+    func scores(_ completion: @escaping LeaderboardResultsBlock) {
+        if(isReady) {
+            completion(scores)
+        } else {
+            notifyBlocks.append(completion)
+            executeBlocksWhenReady()
+        }
+    }
 
 
 }
