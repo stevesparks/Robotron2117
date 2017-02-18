@@ -25,7 +25,7 @@ class GameUniverse: SKScene {
     static var shared = GameUniverse(size: CGSize(width: 1920, height: 1080))
     
     var stateMachine : GameLevelStateMachine!
-    var speedModifier = 1.0
+    var speedModifier : CGFloat = 1.0
     
     var scoreLabel : SKLabelNode = {
         let label = SKLabelNode(text: "")

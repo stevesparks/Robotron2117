@@ -54,6 +54,12 @@
 		0EED1AEA1E57474E0061B7D4 /* LeaderboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EED1AE91E57474E0061B7D4 /* LeaderboardManager.swift */; };
 		0EED1AED1E577EA50061B7D4 /* ScoreNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EED1AEC1E577EA50061B7D4 /* ScoreNode.swift */; };
 		0EED1AEF1E57A4CC0061B7D4 /* HighScoresNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EED1AEE1E57A4CC0061B7D4 /* HighScoresNode.swift */; };
+		0EED1AF61E57E5330061B7D4 /* civ-boom.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0EED1AF21E57E5330061B7D4 /* civ-boom.wav */; };
+		0EED1AF71E57E5330061B7D4 /* player-boom.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0EED1AF31E57E5330061B7D4 /* player-boom.wav */; };
+		0EED1AF81E57E5330061B7D4 /* enemy-boom.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0EED1AF41E57E5330061B7D4 /* enemy-boom.wav */; };
+		0EED1AF91E57E5330061B7D4 /* laser.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0EED1AF51E57E5330061B7D4 /* laser.wav */; };
+		0EED1AFB1E57EB0B0061B7D4 /* robo-start.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0EED1AFA1E57EB0B0061B7D4 /* robo-start.wav */; };
+		0EED1AFE1E57ECF70061B7D4 /* points.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0EED1AFD1E57ECF70061B7D4 /* points.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,6 +134,12 @@
 		0EED1AE91E57474E0061B7D4 /* LeaderboardManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LeaderboardManager.swift; path = Robotron2117/LeaderboardManager.swift; sourceTree = "<group>"; };
 		0EED1AEC1E577EA50061B7D4 /* ScoreNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreNode.swift; sourceTree = "<group>"; };
 		0EED1AEE1E57A4CC0061B7D4 /* HighScoresNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighScoresNode.swift; sourceTree = "<group>"; };
+		0EED1AF21E57E5330061B7D4 /* civ-boom.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "civ-boom.wav"; sourceTree = "<group>"; };
+		0EED1AF31E57E5330061B7D4 /* player-boom.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "player-boom.wav"; sourceTree = "<group>"; };
+		0EED1AF41E57E5330061B7D4 /* enemy-boom.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "enemy-boom.wav"; sourceTree = "<group>"; };
+		0EED1AF51E57E5330061B7D4 /* laser.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = laser.wav; sourceTree = "<group>"; };
+		0EED1AFA1E57EB0B0061B7D4 /* robo-start.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "robo-start.wav"; sourceTree = "<group>"; };
+		0EED1AFD1E57ECF70061B7D4 /* points.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = points.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +186,7 @@
 		0E42C2001E4DFEA20069B1D4 /* Robotron2117 */ = {
 			isa = PBXGroup;
 			children = (
+				0EED1AFC1E57ECEA0061B7D4 /* Sounds */,
 				0EED1AF01E57D3300061B7D4 /* Attract Screen */,
 				0EED1AF11E57D34F0061B7D4 /* Fonts */,
 				0E985ADA1E53B62400612EEA /* pic2.png */,
@@ -326,6 +339,19 @@
 			name = Fonts;
 			sourceTree = "<group>";
 		};
+		0EED1AFC1E57ECEA0061B7D4 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				0EED1AFD1E57ECF70061B7D4 /* points.wav */,
+				0EED1AF21E57E5330061B7D4 /* civ-boom.wav */,
+				0EED1AF31E57E5330061B7D4 /* player-boom.wav */,
+				0EED1AFA1E57EB0B0061B7D4 /* robo-start.wav */,
+				0EED1AF41E57E5330061B7D4 /* enemy-boom.wav */,
+				0EED1AF51E57E5330061B7D4 /* laser.wav */,
+			);
+			name = Sounds;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -388,7 +414,7 @@
 					0E985AE11E53B63B00612EEA = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = LPR82YBESG;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -417,10 +443,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E985ADD1E53B62400612EEA /* pic1.png in Resources */,
+				0EED1AF61E57E5330061B7D4 /* civ-boom.wav in Resources */,
+				0EED1AF81E57E5330061B7D4 /* enemy-boom.wav in Resources */,
+				0EED1AFE1E57ECF70061B7D4 /* points.wav in Resources */,
 				0EED1AE31E5740F70061B7D4 /* Pixeled.ttf in Resources */,
 				0EED1AE41E5740F70061B7D4 /* robotastic.ttf in Resources */,
 				0E42C2041E4DFEA20069B1D4 /* GameScene.sks in Resources */,
+				0EED1AFB1E57EB0B0061B7D4 /* robo-start.wav in Resources */,
 				0EC9F7421E51DE1500515A4B /* robotaur.ttf in Resources */,
+				0EED1AF71E57E5330061B7D4 /* player-boom.wav in Resources */,
+				0EED1AF91E57E5330061B7D4 /* laser.wav in Resources */,
 				0E985ADC1E53B62400612EEA /* pic2.png in Resources */,
 				0E42C2081E4DFEA20069B1D4 /* Game.xcassets in Resources */,
 				0E42C20F1E4DFEA20069B1D4 /* Main.storyboard in Resources */,
@@ -639,14 +671,14 @@
 		0E985AED1E53B63B00612EEA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = LPR82YBESG;
 				INFOPLIST_FILE = TopShelfExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bignerdranch.game.Robotron2117.TopShelfExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "49b7777b-50ef-40ab-be86-e66a206d2bcc";
-				PROVISIONING_PROFILE_SPECIFIER = "XC tvOS: *";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
 			};
@@ -655,14 +687,14 @@
 		0E985AEE1E53B63B00612EEA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = LPR82YBESG;
 				INFOPLIST_FILE = TopShelfExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bignerdranch.game.Robotron2117.TopShelfExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "49b7777b-50ef-40ab-be86-e66a206d2bcc";
-				PROVISIONING_PROFILE_SPECIFIER = "XC tvOS: *";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
 			};

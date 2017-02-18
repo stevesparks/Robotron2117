@@ -114,6 +114,7 @@ extension GameUniverse {
         lbl.position = civ.position
         lbl.fontName = UIFont.customFontName
         addChild(lbl)
+        lbl.run(SKAction.playSoundFileNamed("points.wav", waitForCompletion: false))
         lbl.run(SKAction.group([SKAction.move(by: CGVector(dx:0,dy:100), duration: 0.5), SKAction.fadeOut(withDuration: 1)])) {
             lbl.removeFromParent()
         }

@@ -8,11 +8,11 @@
 
 import UIKit
 import SpriteKit
+import AVKit
 
 class Bullet: GameNode {
     
     static var bullets : [Bullet] = []
-    
     static func aimedAt(_ vector: CGVector, by node: GameNode) -> Bullet {
         let size = CGSize(width: 5, height: 30)
         let bullet = Bullet(texture: nil, color: UIColor.red, size: size)
@@ -25,6 +25,7 @@ class Bullet: GameNode {
         node.universe.addChild(bullet)
         bullets.append(bullet)
         let bulletAction = SKAction.sequence([
+            SKAction.playSoundFileNamed("laser.wav", waitForCompletion: false),
             SKAction.move(by: vector.bulletVector, duration: 2.5),
             SKAction.removeFromParent()
             ])

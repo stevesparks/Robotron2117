@@ -70,6 +70,7 @@ class GameStateMachine : GKStateMachine, GameLevelDelegate, AttractScreenDelegat
         if(ret) {
             switch(stateClass) {
             case is Playing.Type:
+                attractScreen?.run(SKAction.playSoundFileNamed("robo-start.wav", waitForCompletion: false))
                 attractScreen = nil
                 level = 0
                 lives = initialLives

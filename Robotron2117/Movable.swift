@@ -13,7 +13,7 @@ class Movable : GameNode {
     var walkContext : WalkContext?
     
     var dead = false
-    var speedModifier = 1.0
+    var speedModifier : CGFloat = 1.0
     
     enum WalkDirection : String {
         case north = "north"
@@ -82,8 +82,8 @@ class Movable : GameNode {
         }
         previousPosition = position
         var vec = direction
-        vec.dx *= nodeSpeed * speedModifier
-        vec.dy *= nodeSpeed * speedModifier
+        vec.dx *= (nodeSpeed * speedModifier)
+        vec.dy *= (nodeSpeed * speedModifier)
         var pos = position
         pos.x = pos.x + vec.dx
         pos.y = pos.y + vec.dy
