@@ -14,8 +14,9 @@ enum PlayerNumber {
     case two
 }
 
-class Player: Hittable {
+class Player: Hittable, Shooter {
     var shotCountdown = 0
+    var playerNumber : PlayerNumber = .one
     
     convenience init() {
         self.init(texture: SKTexture(imageNamed: "dude-front-1"), color: UIColor.black, size: CGSize(width: 15*3, height: 32*3))
@@ -43,17 +44,11 @@ class Player: Hittable {
     }
 
     var controller : Control? {
-        willSet {
-            if var ctrl = controller {
-                ctrl.valueChangedBlock = nil
-            }
+        switch(playerNumber) {
+        case .one: return ControllerManager.shared.playerOneController
+        case .two: return ControllerManager.shared.playerTwoController
         }
-        didSet {
-            if var ctrl = controller {
-                ctrl.valueChangedBlock = { move, shoot in
-                }
-            }
-        }
+        
     }
     
     var step = Int(arc4random()%4)
@@ -81,9 +76,7 @@ class Player: Hittable {
         let set = direction.spriteSet()
         spriteTextures = Player.textures[set]!
     }
-}
 
-extension Player : Shooter {
     func shoot()  -> Bullet? {
         if(shotCountdown > 0) {
             shotCountdown -= 1

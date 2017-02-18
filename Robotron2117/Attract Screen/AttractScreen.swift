@@ -82,7 +82,29 @@ class AttractScreen: GameUniverse {
         }
     }
     
+    override func addPlayer() {
+        playerOne = DemoPlayer()
+        super.addPlayer()
+    }
+    
 }
+
+class DemoPlayer : Player {
+    class DemoContext : PlayerContext {
+        override func walk() { }
+    }
+
+    override func setupPlayer() {
+        super.setupPlayer()
+        self.walkContext = DemoContext(self)
+    }
+    override func shoot() -> Bullet? {
+        return nil
+    }
+}
+
+
+
 
 extension UIFont {
     static var customFontName : String { return "Robotaur" }

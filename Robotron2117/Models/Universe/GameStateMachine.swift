@@ -22,8 +22,6 @@ class GameStateMachine : GKStateMachine, GameLevelDelegate, AttractScreenDelegat
     var currentUniverse : GameUniverse?
     let initialLives = 3
     
-    var playerOneController : Control?
-    var playerTwoController : Control?
     var benchedController : [Control] = []
     
     var level = 0
@@ -146,52 +144,8 @@ class GameStateMachine : GKStateMachine, GameLevelDelegate, AttractScreenDelegat
             newUniverse.run(SKAction.playSoundFileNamed("robo-start.wav", waitForCompletion: false))
             GameUniverse.shared = newUniverse
             currentUniverse = newUniverse
-            assignControllers()
         }
     }
-    
-    func assignControllers() {
-        if let universe = currentUniverse {
-            universe.playerOne.controller = playerOneController
-            universe.playerTwo.controller = playerTwoController
-        } else if attractScreen != nil {
-        }
-    }
-    
-    func addController(_ controller: GCController) {
-        var control : Control!
-        if controller.microGamepad != nil,
-            controller.extendedGamepad == nil {
-            control = RemoteControl(controller)
-        } else if controller.extendedGamepad != nil {
-            control = ExtendedGamepadControl(controller)
-        } else {
-            return
-        }
-        
-        if let prio = playerOneController?.priority, prio > control.priority {
-            // replacing the existing controller with the new one
-            playerOneController = control
-            assignControllers()
-        } else if playerOneController == nil {
-            // setting it is easy
-            playerOneController = control
-            assignControllers()
-        } else {
-            // a second player!!
-        }
-    }
-    
-    func removeController(_ controller: GCController) {
-        if playerOneController?.controller == controller, let playerOne = currentUniverse?.playerOne {
-            playerOne.controller = nil
-            playerOneController = nil
-        } else if playerTwoController?.controller == controller, let playerTwo = currentUniverse?.playerTwo {
-            playerTwo.controller = nil
-            playerTwoController = nil
-        }
-    }
-
     
     func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
         if let attract = attractScreen {

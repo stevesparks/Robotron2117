@@ -26,17 +26,14 @@ class GameViewController: UIViewController, GameDelegate {
             view.showsFPS = true
             view.showsNodeCount = true
         }
-        self.startWatchingForControllers()
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        self.stopWatchingForControllers()
     }
     
     override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
         if presses.first?.type == .menu {
-            if let ctrl = currentGame?.playerOneController, ctrl.buttonAPressed {
+            if let ctrl = ControllerManager.shared.playerOneController, ctrl.buttonAPressed {
                 return
             }
             super.pressesBegan(presses, with: event)
@@ -58,25 +55,6 @@ class GameViewController: UIViewController, GameDelegate {
         }
     }
 
-    func startWatchingForControllers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(GameViewController.notify), name: .GCControllerDidConnect, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(GameViewController.notify), name: .GCControllerDidDisconnect, object: nil)
-        GCController.startWirelessControllerDiscovery(completionHandler: {})
-    }
-    
-    func stopWatchingForControllers() {
-        GCController.stopWirelessControllerDiscovery()
-    }
-    
-    func notify(note: Notification) {
-        if note.name == .GCControllerDidConnect, let ctrl = note.object as? GCController {
-            currentGame?.addController(ctrl)
-        } else if note.name == .GCControllerDidDisconnect {
-            if let ctrl = note.object as? GCController {
-                currentGame?.removeController(ctrl)
-            }
-        }
-    }
     
     func gameStateDidChange(_ game: GameStateMachine) {
         

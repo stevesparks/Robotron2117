@@ -7,7 +7,6 @@
 //
 
 import SpriteKit
-import GameController
 
 enum CollisionType : UInt32 {
     case Player = 0x01
@@ -47,7 +46,6 @@ class GameUniverse: SKScene {
         return label
     }()
     
-    var controllers : [GCController] = []
     
     var level = 1
     var livesLeft = 0 {
