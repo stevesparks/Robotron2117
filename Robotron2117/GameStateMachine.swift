@@ -1,6 +1,6 @@
 //
 //  GameStateMachine.swift
-//  Robotron2117
+//  Nerdotron2117
 //
 //  Created by Steve Sparks on 2/15/17.
 //  Copyright © 2017 Big Nerd Ranch. All rights reserved.
@@ -76,11 +76,13 @@ class GameStateMachine : GKStateMachine, GameLevelDelegate, AttractScreenDelegat
                 nextLevel()
                 break
             case is GameOver.Type:
-                if let finalScore = currentUniverse?.score {
-                    LeaderboardManager.shared.report(finalScore)
-                }
-                currentUniverse?.showGameOverLabel {
-                    _ = self.enter(Attract.self)
+                if let univ = currentUniverse {
+                    let finalScore = univ.score
+                    LeaderboardManager.shared.report(finalScore) {
+                        univ.showGameOverLabel {
+                            _ = self.enter(Attract.self)
+                        }
+                    }
                 }
                 break
             default: // attract
@@ -149,7 +151,6 @@ class GameStateMachine : GKStateMachine, GameLevelDelegate, AttractScreenDelegat
     
     func assignControllers() {
         if let universe = currentUniverse {
-            print("Assigning \(playerOneController)!")
             universe.playerOne.controller = playerOneController
             universe.playerTwo.controller = playerTwoController
         } else if attractScreen != nil {

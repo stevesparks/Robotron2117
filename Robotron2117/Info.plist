@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>Nerdotron:2117</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -20,10 +22,10 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>com.bignerdranch.robotron</string>
+			<string>com.bignerdranch.Nerdotron</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>robotron</string>
+				<string>Nerdotron</string>
 			</array>
 		</dict>
 	</array>
@@ -42,14 +44,15 @@
 	</array>
 	<key>GCSupportsControllerUserInteraction</key>
 	<true/>
-    <key>ITSAppUsesNonExemptEncryption</key><false/>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
-        <string>robotaur.ttf</string>
-        <string>Pixeled.ttf</string>
-        <string>robotastic.ttf</string>
+		<string>robotaur.ttf</string>
+		<string>Pixeled.ttf</string>
+		<string>robotastic.ttf</string>
 	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>

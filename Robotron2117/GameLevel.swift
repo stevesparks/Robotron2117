@@ -1,6 +1,6 @@
 //
 //  GameLevel.swift
-//  Robotron2117
+//  Nerdotron2117
 //
 //  Created by Steve Sparks on 2/17/17.
 //  Copyright © 2017 Big Nerd Ranch. All rights reserved.
@@ -30,15 +30,24 @@ class GameLevel {
             GameLevel(soldiers: 12, friendlies: 12),
             GameLevel(soldiers: 14, friendlies: 14),
             GameLevel(soldiers: 16, friendlies: 16),
-            GameLevel(soldiers: 18, friendlies: 18),
             GameLevel(soldiers: 20, friendlies: 0),
+            GameLevel(soldiers: 18, friendlies: 18),
             GameLevel(soldiers: 20, friendlies: 0, speed: 1.4),
             GameLevel(soldiers: 20, friendlies: 0, speed: 2.0),
             GameLevel(soldiers: 20, friendlies: 20),
             GameLevel(soldiers: 20, friendlies: 20),
             GameLevel(soldiers: 20, friendlies: 20),
             GameLevel(soldiers: 20, friendlies: 20),
-            GameLevel(soldiers: 20, friendlies: 20),
+            GameLevel(soldiers: 20, friendlies: 20, speed: 1.2),
+            GameLevel(soldiers: 20, friendlies: 20, speed: 1.4),
+            GameLevel(soldiers: 20, friendlies: 20, speed: 1.6),
+            GameLevel(soldiers: 20, friendlies: 20, speed: 1.8),
+            GameLevel(soldiers: 20, friendlies: 20, speed: 2.0),
+            GameLevel(soldiers: 20, friendlies: 20, speed: 2.2),
+            GameLevel(soldiers: 20, friendlies: 20, speed: 2.4),
+            GameLevel(soldiers: 20, friendlies: 20, speed: 2.6),
+            GameLevel(soldiers: 20, friendlies: 20, speed: 3.0),
+            GameLevel(soldiers: 20, friendlies: 20, speed: 4.0), // you ain't surviving that
         ]
     }
 }

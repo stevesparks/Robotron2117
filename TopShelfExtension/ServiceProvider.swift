@@ -34,7 +34,7 @@ class ServiceProvider: NSObject, TVTopShelfProvider {
             ident)!
         item.imageURL = Bundle.main.url(forResource:
             "pic1", withExtension: "png")
-        item.displayURL = URL(string: "robotron://play")
+        item.displayURL = URL(string: "Nerdotron://play")
         return item
     }()
 
@@ -45,7 +45,7 @@ class ServiceProvider: NSObject, TVTopShelfProvider {
             ident)!
         item.imageURL = Bundle.main.url(forResource:
             "pic2", withExtension: "png")
-        item.displayURL = URL(string: "robotron://play")
+        item.displayURL = URL(string: "Nerdotron://play")
         return item
     }()
 }

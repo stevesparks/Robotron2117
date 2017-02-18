@@ -1,6 +1,6 @@
 //
 //  GameUniverse.swift
-//  Robotron2117
+//  Nerdotron2117
 //
 //  Created by Steve Sparks on 2/11/17.
 //  Copyright © 2017 Big Nerd Ranch. All rights reserved.
@@ -25,7 +25,8 @@ class GameUniverse: SKScene {
     static var shared = GameUniverse(size: CGSize(width: 1920, height: 1080))
     
     var stateMachine : GameLevelStateMachine!
-
+    var speedModifier = 1.0
+    
     var scoreLabel : SKLabelNode = {
         let label = SKLabelNode(text: "")
         label.fontName = UIFont.customFontName

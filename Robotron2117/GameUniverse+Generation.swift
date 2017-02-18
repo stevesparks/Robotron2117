@@ -1,6 +1,6 @@
 //
 //  GameUniverse+Generation.swift
-//  Robotron2117
+//  Nerdotron2117
 //
 //  Created by Steve Sparks on 2/13/17.
 //  Copyright © 2017 Big Nerd Ranch. All rights reserved.
@@ -107,6 +107,7 @@ extension GameUniverse {
         
         while(enemiesRemaining>0) {
             if let enemy = findEmptySpace({ return FootSoldier() }, avoiding: centerBlock.frame) as? Enemy {
+                enemy.speedModifier = speedModifier
                 enemy.name = "FootSoldier-\(enemiesRemaining)"
                 addChild(enemy)
                 enemies.append(enemy)

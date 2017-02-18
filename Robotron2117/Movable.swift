@@ -1,6 +1,6 @@
 //
 //  Movable.swift
-//  Robotron2117
+//  Nerdotron2117
 //
 //  Created by Steve Sparks on 2/12/17.
 //  Copyright © 2017 Big Nerd Ranch. All rights reserved.
@@ -13,7 +13,8 @@ class Movable : GameNode {
     var walkContext : WalkContext?
     
     var dead = false
-
+    var speedModifier = 1.0
+    
     enum WalkDirection : String {
         case north = "north"
         case south = "south"
@@ -81,8 +82,8 @@ class Movable : GameNode {
         }
         previousPosition = position
         var vec = direction
-        vec.dx *= nodeSpeed
-        vec.dy *= nodeSpeed
+        vec.dx *= nodeSpeed * speedModifier
+        vec.dy *= nodeSpeed * speedModifier
         var pos = position
         pos.x = pos.x + vec.dx
         pos.y = pos.y + vec.dy

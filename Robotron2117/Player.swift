@@ -1,6 +1,6 @@
 //
 //  Player.swift
-//  Robotron2117
+//  Nerdotron2117
 //
 //  Created by Steve Sparks on 2/10/17.
 //  Copyright © 2017 Big Nerd Ranch. All rights reserved.
@@ -18,7 +18,7 @@ class Player: Hittable {
     var shotCountdown = 0
     
     convenience init() {
-        self.init(texture: SKTexture(imageNamed: "dude-front-1"), color: UIColor.black, size: CGSize(width: 14*3, height: 24*3))
+        self.init(texture: SKTexture(imageNamed: "dude-front-1"), color: UIColor.black, size: CGSize(width: 15*3, height: 32*3))
     }
 
     override init(texture: SKTexture?, color: UIColor, size: CGSize) {
@@ -60,9 +60,16 @@ class Player: Hittable {
     
     static let textures : [String : [SKTexture]] = {
         var ret : [String : [SKTexture]] = [:]
-        for set in ["back", "front", "right", "left"] {
+        for set in ["back", "front"] {
             var arr : [SKTexture] = []
             for frame in [ 1, 2, 3, 2 ] {
+                arr.append(SKTexture(imageNamed: "dude-\(set)-\(frame)"))
+            }
+            ret[set] = arr
+        }
+        for set in ["right", "left"] {
+            var arr : [SKTexture] = []
+            for frame in [ 1, 2, 3, 4 ] {
                 arr.append(SKTexture(imageNamed: "dude-\(set)-\(frame)"))
             }
             ret[set] = arr

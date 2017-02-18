@@ -1,6 +1,6 @@
 //
 //  AttractScreen.swift
-//  Robotron2117
+//  Nerdotron2117
 //
 //  Created by Steve Sparks on 2/15/17.
 //  Copyright © 2017 Big Nerd Ranch. All rights reserved.
@@ -35,13 +35,14 @@ class AttractScreen: GameUniverse {
     }
 
     func setupAttract() {
-        let title = SKLabelNode(text: "ROBOTRON 2117")
+        let title = SKLabelNode(text: "Nerdotron:2117")
         title.fontName = UIFont.customFontName
         title.fontSize = 100
         title.fontColor = UIColor.white
         title.color = UIColor.clear
+        title.zPosition = 30
         let sz = self.frame.size
-        title.position = CGPoint(x: sz.width/2.0, y: sz.height*0.85)
+        title.position = CGPoint(x: sz.width/2.0, y: sz.height*0.83)
         addChild(title)
 
         let subtitle = SKLabelNode(text: "PRESS PLAY TO BEGIN")
@@ -49,6 +50,7 @@ class AttractScreen: GameUniverse {
         subtitle.fontSize = 35
         subtitle.fontColor = UIColor.white
         subtitle.color = UIColor.clear
+        subtitle.zPosition = 30
         subtitle.position = CGPoint(x: sz.width/2.0, y: sz.height*0.75)
         
         subtitle.run(SKAction.repeatForever(SKAction.sequence([SKAction.scale(to: 1.1, duration: 0.5), SKAction.scale(to: 0.91, duration: 0.5)])))
@@ -60,7 +62,8 @@ class AttractScreen: GameUniverse {
         _ = stateMachine.enter(GameStateMachine.Playing.self)
 
         let scores = HighScoresNode()
-        scores.position = CGPoint(x: 300, y:650)
+        scores.zPosition = 100
+        scores.position = CGPoint(x: 300, y:620)
         addChild(scores)
         scores.populate()
     }
@@ -85,7 +88,7 @@ extension UIFont {
     static var customFontName : String { return "Robotaur" }
     static var customFont : UIFont { return UIFont(name: customFontName, size: 48)! }
     
-    static var highScoreFontName : String { return "Robotaur" }
+    static var highScoreFontName : String { return "Pixeled" }
     static var highScoreFont : UIFont {
         return UIFont(name: highScoreFontName, size: 20)!
     }

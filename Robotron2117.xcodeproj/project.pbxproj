@@ -115,7 +115,7 @@
 		0E985AE31E53B63B00612EEA /* TVServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TVServices.framework; path = System/Library/Frameworks/TVServices.framework; sourceTree = SDKROOT; };
 		0E985AE61E53B63B00612EEA /* ServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProvider.swift; sourceTree = "<group>"; };
 		0E985AE81E53B63B00612EEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0E985AF21E548C5F00612EEA /* AttractScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttractScreen.swift; sourceTree = "<group>"; };
+		0E985AF21E548C5F00612EEA /* AttractScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AttractScreen.swift; path = Robotron2117/AttractScreen.swift; sourceTree = "<group>"; };
 		0E985AF41E548EB000612EEA /* GameStateMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameStateMachine.swift; sourceTree = "<group>"; };
 		0EC5FA731E4FAA1C006AC1A4 /* Control.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Control.swift; sourceTree = "<group>"; };
 		0EC5FA761E4FAAEA006AC1A4 /* RemoteControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteControl.swift; sourceTree = "<group>"; };
@@ -155,7 +155,6 @@
 		0E42C1F51E4DFEA20069B1D4 = {
 			isa = PBXGroup;
 			children = (
-				0EED1AEB1E577E850061B7D4 /* High Scores Panel */,
 				0E42C2001E4DFEA20069B1D4 /* Robotron2117 */,
 				0E985AE51E53B63B00612EEA /* TopShelfExtension */,
 				0E42C1FF1E4DFEA20069B1D4 /* Products */,
@@ -175,11 +174,10 @@
 		0E42C2001E4DFEA20069B1D4 /* Robotron2117 */ = {
 			isa = PBXGroup;
 			children = (
-				0EED1AE11E5740F70061B7D4 /* Pixeled.ttf */,
-				0EED1AE21E5740F70061B7D4 /* robotastic.ttf */,
+				0EED1AF01E57D3300061B7D4 /* Attract Screen */,
+				0EED1AF11E57D34F0061B7D4 /* Fonts */,
 				0E985ADA1E53B62400612EEA /* pic2.png */,
 				0E985ADB1E53B62400612EEA /* pic1.png */,
-				0EC9F7411E51DE1500515A4B /* robotaur.ttf */,
 				0E42C2011E4DFEA20069B1D4 /* AppDelegate.swift */,
 				0E42C2031E4DFEA20069B1D4 /* GameScene.sks */,
 				0E42C2071E4DFEA20069B1D4 /* Game.xcassets */,
@@ -188,6 +186,7 @@
 				0E42C2101E4DFEA20069B1D4 /* Assets.xcassets */,
 				0EC9F73F1E51D63100515A4B /* Explosion.sks */,
 				0E42C2121E4DFEA20069B1D4 /* Info.plist */,
+				0E985AF71E548EE600612EEA /* Sprites */,
 				0E42C21A1E4E01670069B1D4 /* Models */,
 				0EC5FA751E4FAAD7006AC1A4 /* Control Abstraction */,
 				0EED1ADD1E5737CB0061B7D4 /* Options.swift */,
@@ -199,9 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				0E65454C1E5209F8000CC5F0 /* Universe */,
-				0E985AF71E548EE600612EEA /* Sprites */,
 				0E42C2201E4F35C30069B1D4 /* Bullet.swift */,
-				0E985AF21E548C5F00612EEA /* AttractScreen.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -309,6 +306,26 @@
 			name = "High Scores Panel";
 			sourceTree = "<group>";
 		};
+		0EED1AF01E57D3300061B7D4 /* Attract Screen */ = {
+			isa = PBXGroup;
+			children = (
+				0EED1AEB1E577E850061B7D4 /* High Scores Panel */,
+				0E985AF21E548C5F00612EEA /* AttractScreen.swift */,
+			);
+			name = "Attract Screen";
+			path = ..;
+			sourceTree = "<group>";
+		};
+		0EED1AF11E57D34F0061B7D4 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				0EED1AE11E5740F70061B7D4 /* Pixeled.ttf */,
+				0EED1AE21E5740F70061B7D4 /* robotastic.ttf */,
+				0EC9F7411E51DE1500515A4B /* robotaur.ttf */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -371,7 +388,7 @@
 					0E985AE11E53B63B00612EEA = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = LPR82YBESG;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -622,11 +639,14 @@
 		0E985AED1E53B63B00612EEA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = LPR82YBESG;
 				INFOPLIST_FILE = TopShelfExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bignerdranch.game.Robotron2117.TopShelfExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "49b7777b-50ef-40ab-be86-e66a206d2bcc";
+				PROVISIONING_PROFILE_SPECIFIER = "XC tvOS: *";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
 			};
@@ -635,11 +655,14 @@
 		0E985AEE1E53B63B00612EEA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = LPR82YBESG;
 				INFOPLIST_FILE = TopShelfExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bignerdranch.game.Robotron2117.TopShelfExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "49b7777b-50ef-40ab-be86-e66a206d2bcc";
+				PROVISIONING_PROFILE_SPECIFIER = "XC tvOS: *";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
 			};

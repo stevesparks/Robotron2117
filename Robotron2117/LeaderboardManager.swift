@@ -1,6 +1,6 @@
 //
 //  LeaderboardManager.swift
-//  Robotron2117
+//  Nerdotron2117
 //
 //  Created by Steve Sparks on 2/17/17.
 //  Copyright © 2017 Big Nerd Ranch. All rights reserved.
@@ -60,7 +60,7 @@ class LeaderboardManager {
         }
     }
     
-    func loadScores() {
+    func loadScores(_ completion: @escaping () -> Void = {}) {
         isReady = false
         self.board?.loadScores() { scores, error in
             if let error = error {
@@ -73,6 +73,7 @@ class LeaderboardManager {
                 self.isReady = true
                 self.executeBlocksWhenReady()
             }
+            completion()
         }
     }
     
@@ -85,7 +86,7 @@ class LeaderboardManager {
         }
         notifyBlocks.removeAll()
     }
-    func report(_ score: Int) {
+    func report(_ score: Int, completion: @escaping () -> Void = {}) {
         guard let board = board, let ident = board.identifier else {
             return
         }
@@ -95,7 +96,7 @@ class LeaderboardManager {
             if let error = error {
                 print("NEW SCORE ERROR \(error)")
             } else {
-                self.loadScores()
+                self.loadScores(completion)
             }
         }
     }

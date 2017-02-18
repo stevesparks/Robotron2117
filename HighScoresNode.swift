@@ -1,7 +1,7 @@
 
 //
 //  HighScoresNode.swift
-//  Robotron2117
+//  Nerdotron2117
 //
 //  Created by Steve Sparks on 2/17/17.
 //  Copyright © 2017 Big Nerd Ranch. All rights reserved.
@@ -28,6 +28,7 @@ class HighScoresNode: SKNode {
         let lbl = SKLabelNode()
         lbl.fontColor = UIColor.white
         lbl.text = "HIGH SCORES"
+        lbl.fontSize = 24
         lbl.fontName = UIFont.highScoreFontName
         return lbl
     }()
@@ -44,7 +45,7 @@ class HighScoresNode: SKNode {
             self.removeAllChildren()
         }
         
-        self.highScoresLabel.position = convert(CGPoint(x: 660, y:50.0))
+        self.highScoresLabel.position = convert(CGPoint(x: 660, y:70.0))
         LeaderboardManager.shared.scores() { scores in
             var y = 0
             self.addChild(self.highScoresLabel)

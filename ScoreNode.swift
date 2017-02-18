@@ -1,6 +1,6 @@
 //
 //  HighScoreNode.swift
-//  Robotron2117
+//  Nerdotron2117
 //
 //  Created by Steve Sparks on 2/17/17.
 //  Copyright © 2017 Big Nerd Ranch. All rights reserved.
@@ -10,7 +10,8 @@ import SpriteKit
 import GameKit
 
 protocol Displayable {
-    var displayName : String? { get }
+    var name : String? { get }
+    var isMe : Bool { get }
 }
 protocol Scorable {
     var rank: Int { get }
@@ -18,7 +19,14 @@ protocol Scorable {
     var displayable : Displayable? { get }
 }
 
-extension GKPlayer : Displayable { }
+extension GKPlayer : Displayable {
+    var name : String? {
+        return self.alias
+    }
+    var isMe : Bool {
+        return "Me" == self.displayName
+    }
+}
 extension GKScore : Scorable {
     internal var displayable: Displayable? {
         return player
@@ -31,7 +39,8 @@ class DummyScore : Scorable {
     var rank : Int = 1
     var value : Int64 = 0
     class DummyName : Displayable {
-        var displayName: String? {
+        var isMe = false
+        var name: String? {
             get {
                 return "THIS COULD BE YOU"
             }
@@ -49,6 +58,7 @@ class ScoreNode: SKNode {
         lbl.fontColor = UIColor.white
         lbl.horizontalAlignmentMode = .left
         lbl.fontName = UIFont.highScoreFontName
+        lbl.fontSize = 18
         return lbl
     }()
     var nameLabel : SKLabelNode = {
@@ -56,6 +66,7 @@ class ScoreNode: SKNode {
         lbl.fontColor = UIColor.red
         lbl.horizontalAlignmentMode = .left
         lbl.fontName = UIFont.highScoreFontName
+        lbl.fontSize = 18
         return lbl
     }()
     let scoreLabel : SKLabelNode = {
@@ -63,6 +74,7 @@ class ScoreNode: SKNode {
         lbl.fontColor = UIColor.green
         lbl.horizontalAlignmentMode = .right
         lbl.fontName = UIFont.highScoreFontName
+        lbl.fontSize = 18
         return lbl
     }()
     
@@ -98,7 +110,10 @@ class ScoreNode: SKNode {
         
         
         placeLabel.text = "\(score.rank)"
-        nameLabel.text = score.displayable?.displayName
+        nameLabel.text = score.displayable?.name?.uppercased()
+        if (score.displayable?.isMe ?? false) {
+            nameLabel.fontColor = UIColor.yellow
+        }
         scoreLabel.text = "\(score.value)"
     }
 }
