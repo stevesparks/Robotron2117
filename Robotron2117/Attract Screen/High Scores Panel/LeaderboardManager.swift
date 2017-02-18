@@ -13,6 +13,8 @@ typealias LeaderboardResultsBlock = ([GKScore]) -> Void
 class LeaderboardManager {
     var me : GKLocalPlayer!
 
+    weak var rootViewController : UIViewController?
+    
     var board : GKLeaderboard?
     var scores = [GKScore]()
     var isReady = false
@@ -30,7 +32,7 @@ class LeaderboardManager {
             x.authenticateHandler = { vc, error in
                 if let vc = vc {
                     print("\(vc)")
-                    if let window = UIApplication.shared.keyWindow, let root = window.rootViewController {
+                    if let root = self.rootViewController {
                         root.present(vc, animated: true)
                     }
                 } else if let error = error {

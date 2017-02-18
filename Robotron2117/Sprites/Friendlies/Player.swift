@@ -40,6 +40,7 @@ class Player: Hittable, Shooter {
         bod.categoryBitMask = CollisionType.Player.rawValue
         self.physicsBody = bod
         nodeSpeed = 10
+        self.spriteStep = 1 // always start feet flat
         didChangeDirection(.south)
     }
 
@@ -75,6 +76,7 @@ class Player: Hittable, Shooter {
     override func didChangeDirection(_ direction: Movable.WalkDirection) {
         let set = direction.spriteSet()
         spriteTextures = Player.textures[set]!
+        super.didChangeDirection(direction)
     }
 
     func shoot()  -> Bullet? {

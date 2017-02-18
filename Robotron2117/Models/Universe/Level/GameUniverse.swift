@@ -25,6 +25,17 @@ class GameUniverse: SKScene {
     
     var stateMachine : GameLevelStateMachine!
     var speedModifier : CGFloat = 1.0
+    var scoring : Bool = true
+    
+    var levelDescriptor: GameLevel {
+        didSet {
+            friendlyCount = levelDescriptor.numberOfFriendlies
+            enemyCount = levelDescriptor.numberOfFootSoldiers
+            if let boolVal = levelDescriptor.options["scoring"] as? Bool {
+                scoring = boolVal
+            }
+        }
+    }
     
     var scoreLabel : SKLabelNode = {
         let label = SKLabelNode(text: "")
@@ -75,9 +86,9 @@ class GameUniverse: SKScene {
         }
     }
     
-    var enemyCount = 20
+    var enemyCount = GameLevel.demoLevel.numberOfFootSoldiers
     var barrierCount = 0
-    var friendlyCount = 10
+    var friendlyCount = GameLevel.demoLevel.numberOfFriendlies
     
     let enemySize = CGSize(width: 20, height: 20)
     let friendlySize = CGSize(width: 20, height: 20)
@@ -93,8 +104,16 @@ class GameUniverse: SKScene {
     var enemies : [Enemy] = []
     var barriers : [Barrier] = []
     var enemyIndex : Int = 0
-    
+
+    convenience init(size: CGSize, level: GameLevel) {
+        self.init(size: size)
+        levelDescriptor = level
+        friendlyCount = levelDescriptor.numberOfFriendlies
+        enemyCount = levelDescriptor.numberOfFootSoldiers
+    }
+
     override init(size: CGSize) {
+        levelDescriptor = GameLevel.demoLevel
         super.init(size: size)
         stateMachine = GameLevelStateMachine(self)
         addChild(scoreLabel)
@@ -102,6 +121,7 @@ class GameUniverse: SKScene {
     }
     
     required init?(coder aDecoder: NSCoder) {
+        levelDescriptor = GameLevel.demoLevel
         super.init(coder: aDecoder)
         stateMachine = GameLevelStateMachine(self)
         addChild(scoreLabel)

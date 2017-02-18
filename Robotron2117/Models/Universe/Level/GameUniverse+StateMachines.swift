@@ -93,17 +93,21 @@ extension GameUniverse {
 
     func tallyRemainingFriendlies(_ block: @escaping () -> Void) {
         stopGame()
-        var seq = [SKAction]()
-        for friendly in friendlies {
-            if let civ = friendly as? Civilian {
-                seq.append(SKAction.run({
-                    self.recordPointsForCivilian(civ)
-                }))
-                seq.append(SKAction.wait(forDuration: 0.25))
+        if(scoring) {
+            var seq = [SKAction]()
+            for friendly in friendlies {
+                if let civ = friendly as? Civilian {
+                    seq.append(SKAction.run({
+                        self.recordPointsForCivilian(civ)
+                    }))
+                    seq.append(SKAction.wait(forDuration: 0.25))
+                }
             }
-        }
-        seq.append(SKAction.wait(forDuration: 1))
-        run(SKAction.sequence(seq)) {
+            seq.append(SKAction.wait(forDuration: 1))
+            run(SKAction.sequence(seq)) {
+                block()
+            }
+        } else {
             block()
         }
     }

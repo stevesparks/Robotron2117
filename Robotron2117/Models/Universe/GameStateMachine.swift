@@ -134,9 +134,8 @@ class GameStateMachine : GKStateMachine, GameLevelDelegate, AttractScreenDelegat
         if let view = scenekitView {
             let levelDescriptor = levels[levelElement]
             let newUniverse = GameUniverse(size: view.bounds.size)
+            newUniverse.levelDescriptor = levelDescriptor
             newUniverse.stateMachine.levelDelegate = self
-            newUniverse.friendlyCount = levelDescriptor.numberOfFriendlies
-            newUniverse.enemyCount = levelDescriptor.numberOfFootSoldiers
             newUniverse.score = currentUniverse?.score ?? 0
             newUniverse.livesLeft = lives
             newUniverse.level = level

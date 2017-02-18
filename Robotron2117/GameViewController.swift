@@ -26,6 +26,7 @@ class GameViewController: UIViewController, GameDelegate {
             view.showsFPS = true
             view.showsNodeCount = true
         }
+        LeaderboardManager.shared.rootViewController = self
     }
     
     override func viewWillDisappear(_ animated: Bool) {

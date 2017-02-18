@@ -12,14 +12,16 @@ class GameLevel {
     var numberOfFootSoldiers : Int = 4
     var numberOfFriendlies : Int = 6
     var speedModifier : CGFloat = 1
+    var options = [String:Any]()
     
     init(soldiers: Int, friendlies: Int, options: Dictionary<String,Any> = [:], speed: CGFloat = 1.0) {
         numberOfFriendlies = friendlies
         numberOfFootSoldiers = soldiers
         speedModifier = speed
+        self.options = options
     }
     
-    static var baseLevels : [GameLevel] {
+    static let baseLevels : [GameLevel] = {
         return [
             GameLevel(soldiers: 3, friendlies: 2),
             GameLevel(soldiers: 4, friendlies: 4),
@@ -49,5 +51,9 @@ class GameLevel {
             GameLevel(soldiers: 20, friendlies: 20, speed: 3.0),
             GameLevel(soldiers: 20, friendlies: 20, speed: 4.0), // you ain't surviving that
         ]
-    }
+    }()
+    
+    static let demoLevel : GameLevel = {
+        return GameLevel(soldiers: 0, friendlies: 20)
+    }()
 }
