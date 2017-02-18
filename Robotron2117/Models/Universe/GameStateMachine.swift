@@ -70,7 +70,6 @@ class GameStateMachine : GKStateMachine, GameLevelDelegate, AttractScreenDelegat
         if(ret) {
             switch(stateClass) {
             case is Playing.Type:
-                attractScreen?.run(SKAction.playSoundFileNamed("robo-start.wav", waitForCompletion: false))
                 attractScreen = nil
                 level = 0
                 lives = initialLives
@@ -144,6 +143,7 @@ class GameStateMachine : GKStateMachine, GameLevelDelegate, AttractScreenDelegat
             newUniverse.livesLeft = lives
             newUniverse.level = level
             view.presentScene(newUniverse, transition: SKTransition.doorsOpenHorizontal(withDuration:  0.5))
+            newUniverse.run(SKAction.playSoundFileNamed("robo-start.wav", waitForCompletion: false))
             GameUniverse.shared = newUniverse
             currentUniverse = newUniverse
             assignControllers()
