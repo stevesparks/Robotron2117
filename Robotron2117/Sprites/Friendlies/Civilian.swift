@@ -85,15 +85,24 @@ extension Civilian {
         var dict : Dictionary<String, Dictionary<String, Array<SKTexture>>> = [:]
         
         for type in allTypeNames {
-            var collection : Dictionary<String, Array<SKTexture>> = [:]
-            for set in ["back", "front", "right", "left"] {
+            var ret : [String : [SKTexture]] = [:]
+            for set in ["back", "front"] {
                 var arr : [SKTexture] = []
                 for frame in [ 1, 2, 3, 2 ] {
                     arr.append(SKTexture(imageNamed: "\(type)-\(set)-\(frame)"))
                 }
-                collection[set] = arr
+                ret[set] = arr
             }
-            dict[type] = collection
+            for set in ["right", "left"] {
+                var arr : [SKTexture] = []
+                
+                let list = [1,2,3,4]
+                for frame in list {
+                    arr.append(SKTexture(imageNamed: "\(type)-\(set)-\(frame)"))
+                }
+                ret[set] = arr
+            }
+            dict[type] = ret
         }
         
         return dict
