@@ -111,6 +111,10 @@ class Movable : GameNode {
         }
         
         texture = spriteTextures[spriteStep]
+        if let sz = texture?.size() {
+            self.size = CGSize(width: sz.width*3, height: sz.height*3)
+        }
+        
         spriteStep = spriteStep + 1
         if(spriteStep >= spriteTextures.count) {
             spriteStep = 0

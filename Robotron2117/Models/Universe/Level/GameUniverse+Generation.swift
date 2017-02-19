@@ -109,6 +109,7 @@ extension GameUniverse {
             if let enemy = findEmptySpace({ return FootSoldier() }, avoiding: centerBlock.frame) as? Enemy {
                 enemy.speedModifier = speedModifier
                 enemy.name = "FootSoldier-\(enemiesRemaining)"
+                enemy.zPosition = CGFloat(enemiesRemaining)*0.25
                 addChild(enemy)
                 enemies.append(enemy)
                 enemiesRemaining = enemiesRemaining - 1
@@ -120,6 +121,7 @@ extension GameUniverse {
         var friendliesRemaining = friendlyCount
         while(friendliesRemaining>0) {
             if let friendly = findEmptySpace({ return Civilian() }) as? Civilian {
+                friendly.zPosition = CGFloat(friendliesRemaining) * -0.25
                 addChild(friendly)
                 friendlies.append(friendly)
                 friendliesRemaining = friendliesRemaining - 1
