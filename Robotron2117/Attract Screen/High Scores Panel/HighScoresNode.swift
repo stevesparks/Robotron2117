@@ -45,13 +45,13 @@ class HighScoresNode: SKNode {
             self.removeAllChildren()
         }
         
-        self.highScoresLabel.position = convert(CGPoint(x: 660, y:70.0))
+        self.highScoresLabel.position = convert(CGPoint(x: 0, y:370.0))
         LeaderboardManager.shared.scores() { scores in
-            var y = 0
+            var y = 300
             self.addChild(self.highScoresLabel)
             for score in scores {
                 let node = ScoreNode(score.rank, score: score)
-                node.position = self.convert(CGPoint(x: 300, y: y))
+                node.position = CGPoint(x: 0, y: y)
                 y -= 50
                 self.addChild(node)
             }
@@ -60,7 +60,7 @@ class HighScoresNode: SKNode {
                 let score = DummyScore()
                 score.rank = x
                 let node = ScoreNode(x, score: score)
-                node.position = self.convert(CGPoint(x: 300, y: y))
+                node.position = CGPoint(x: 0, y: y)
                 y -= 50
                 self.addChild(node)
                 x += 1

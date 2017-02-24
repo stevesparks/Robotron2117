@@ -36,7 +36,7 @@ class LeaderboardManager {
                         root.present(vc, animated: true)
                     }
                 } else if let error = error {
-                    print("\(error)")
+                    print("Authentication fail -> \(error)")
                 }
             }
             print("Me: \(x.debugDescription)")
@@ -97,7 +97,9 @@ class LeaderboardManager {
         GKScore.report([newScore]) { error in
             if let error = error {
                 print("NEW SCORE ERROR \(error)")
+                completion()
             } else {
+                print("SCORE REPORT SUCCESS \(error)")
                 self.loadScores(completion)
             }
         }

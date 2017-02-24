@@ -110,9 +110,14 @@ class PlayerContext : WalkContext {
         guard let player = player, let ctrl = player.controller else {
             return
         }
+        
         let vec = ctrl.moveVector
         if vec != .zero {
+            let lastVec = player.lastWalkVector.simplifiedVector
             _ = player.move(vec)
+            if vec.dx != lastVec.dx || vec.dy != lastVec.dy {
+                player.didChangeDirection(vec.walkDirection)
+            }
         }
     }
 }

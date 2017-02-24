@@ -63,9 +63,17 @@ class AttractScreen: GameUniverse {
 
         let scores = HighScoresNode()
         scores.zPosition = 100
-        scores.position = CGPoint(x: 300, y:620)
+        let ctr = center
+        scores.position = CGPoint(x: ctr.x, y: ctr.y - 200)
         addChild(scores)
         scores.populate()
+    }
+    
+    var center : CGPoint {
+        let pos = self.position
+        let size = self.size
+        return CGPoint(x: pos.x + (size.width/2.0),
+                       y: pos.y + (size.height/2.0))
     }
 
     override func allDead() -> Bool {
@@ -78,6 +86,7 @@ class AttractScreen: GameUniverse {
     
     override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
         if let type = presses.first?.type , (type == .playPause || type == .select) {
+            self.stopGame()
             attractScreenDelegate?.onePlayerStart()
         }
     }

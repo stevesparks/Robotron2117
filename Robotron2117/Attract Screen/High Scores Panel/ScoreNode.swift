@@ -99,13 +99,13 @@ class ScoreNode: SKNode {
     }
     
     func populate() {
-        placeLabel.position = convert(CGPoint(x: 0, y: 5))
+        placeLabel.position = convert(CGPoint(x: -360, y: 5))
         addChild(placeLabel)
 
-        nameLabel.position = convert(CGPoint(x: 70, y: 5))
+        nameLabel.position = convert(CGPoint(x: -290, y: 5))
         addChild(nameLabel)
 
-        scoreLabel.position = convert(CGPoint(x: 760, y: 5))
+        scoreLabel.position = convert(CGPoint(x: 400, y: 5))
         addChild(scoreLabel)
         
         
