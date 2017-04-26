@@ -78,9 +78,9 @@ class GameStateMachine : GKStateMachine, GameLevelDelegate, AttractScreenDelegat
                 if let univ = currentUniverse {
                     let finalScore = univ.score
                     LeaderboardManager.shared.report(finalScore) {
-                        univ.showGameOverLabel {
-                            _ = self.enter(Attract.self)
-                        }
+                    }
+                    univ.showGameOverLabel {
+                        _ = self.enter(Attract.self)
                     }
                 }
                 break

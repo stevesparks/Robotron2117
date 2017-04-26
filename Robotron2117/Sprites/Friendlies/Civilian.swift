@@ -9,6 +9,7 @@
 import SpriteKit
 
 class Civilian: Hittable {
+    var direction : WalkDirection = .south
     enum CivilianType : String {
         case lady = "lady"
         case man = "man"
@@ -78,11 +79,17 @@ class Civilian: Hittable {
         let textureBank : Array<SKTexture> = textureBanks[set]!
         self.spriteTextures = textureBank
     }
+
+    override func revert(_ obstacle: SKSpriteNode) {
+        super.revert(obstacle)
+        let dir = direction.reverse()
+        didChangeDirection(dir)
+    }
 }
 
 extension Civilian {
-    static let textureDictionary : Dictionary<String, Dictionary<String, Array<SKTexture>>> = {
-        var dict : Dictionary<String, Dictionary<String, Array<SKTexture>>> = [:]
+    static let textureDictionary : [String:[String:[SKTexture]]] = {
+        var dict : [String:[String:[SKTexture]]] = [:]
         
         for type in allTypeNames {
             var ret : [String : [SKTexture]] = [:]

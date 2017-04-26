@@ -8,9 +8,7 @@
 
 import SpriteKit
 
-class Wall : SKSpriteNode {
-    
-}
+class Wall : SKSpriteNode {}
 
 // MARK: Generation
 extension GameUniverse {
@@ -137,7 +135,7 @@ extension GameUniverse {
         addChild(p1)
         friendlies.append(p1)
         
-        playerTwo.position = CGPoint(x: CGFloat.greatestFiniteMagnitude, y: CGFloat.greatestFiniteMagnitude)
+//        playerTwo.position = CGPoint(x: CGFloat.greatestFiniteMagnitude, y: CGFloat.greatestFiniteMagnitude)
     }
     
     func clearUniverse() {
@@ -174,18 +172,11 @@ extension GameUniverse {
 
         addWall(CGRect(x:0, y:0, width: mySize.width, height: screenBorderWidth))
         addWall(CGRect(x:0, y:mySize.height-screenBorderWidth, width: mySize.width, height: screenBorderWidth))
-        
-//        let bod = SKPhysicsBody(edgeLoopFrom: borderRect)
-//        bod.categoryBitMask = CollisionType.Wall.rawValue
-//        bod.contactTestBitMask = CollisionType.Player.rawValue
-//        bod.collisionBitMask = CollisionType.Player.rawValue
-//        physicsBody = bod
     }
     
     func addWall(_ rect: CGRect) {
                 let wallNode = Wall(color: UIColor.red, size: rect.size)
         let bod = SKPhysicsBody(rectangleOf: rect.size)
-//        let bod = SKPhysicsBody(edgeLoopFrom: self.frame)
         bod.affectedByGravity = false
         bod.pinned = true
         bod.friction = 100000
@@ -195,10 +186,8 @@ extension GameUniverse {
         bod.categoryBitMask = CollisionType.Wall.rawValue
         bod.collisionBitMask = 0x00
         wallNode.physicsBody = bod
-        let center = CGPoint(x: rect.origin.x + (rect.size.width/2), y: rect.origin.y + (rect.size.height/2))
+        let center = CGPoint(x: rect.midX, y: rect.midY)
         wallNode.position = center
-        
-        
         addChild(wallNode)
     }
 }

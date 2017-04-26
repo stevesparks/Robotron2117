@@ -97,8 +97,8 @@ class GameUniverse: SKScene {
     
     let screenBorderWidth = CGFloat(50.0)
     
-    var playerOne : Player = Player()
-    var playerTwo : Player = Player()
+    var playerOne = Player()
+    var playerTwo = Player()
     
     var friendlies : [Hittable] = []
     var enemies : [Enemy] = []

@@ -101,7 +101,7 @@
 		0E42C2181E4E01620069B1D4 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		0E42C21C1E4E017C0069B1D4 /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = System/Library/Frameworks/GameController.framework; sourceTree = SDKROOT; };
 		0E42C21D1E4E017C0069B1D4 /* GameplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameplayKit.framework; path = System/Library/Frameworks/GameplayKit.framework; sourceTree = SDKROOT; };
-		0E42C2201E4F35C30069B1D4 /* Bullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bullet.swift; sourceTree = "<group>"; };
+		0E42C2201E4F35C30069B1D4 /* Bullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Bullet.swift; path = ../Models/Bullet.swift; sourceTree = "<group>"; };
 		0E42C2221E4F35D30069B1D4 /* Hittable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hittable.swift; sourceTree = "<group>"; };
 		0E42C2241E4F35E60069B1D4 /* Enemy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
 		0E42C2261E4F35EF0069B1D4 /* Civilian.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Civilian.swift; sourceTree = "<group>"; };
@@ -212,7 +212,6 @@
 			isa = PBXGroup;
 			children = (
 				0E65454C1E5209F8000CC5F0 /* Universe */,
-				0E42C2201E4F35C30069B1D4 /* Bullet.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -272,6 +271,7 @@
 		0E985AF71E548EE600612EEA /* Sprites */ = {
 			isa = PBXGroup;
 			children = (
+				0E42C2201E4F35C30069B1D4 /* Bullet.swift */,
 				0E47C2DD1E50B35D00AD999E /* Base Classes */,
 				0EC9F7431E51EC1100515A4B /* Enemies */,
 				0EC9F7441E51EC1C00515A4B /* Friendlies */,
@@ -404,7 +404,7 @@
 					0E42C1FD1E4DFEA20069B1D4 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = LPR82YBESG;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.GameControllers.appletvos = {
 								enabled = 1;
@@ -639,13 +639,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = LPR82YBESG;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Robotron2117/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bignerdranch.game.Robotron2117;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "562173ed-9964-4c65-bf53-a089b4e7f28b";
-				PROVISIONING_PROFILE_SPECIFIER = "TVOS for Dumb Xcodes";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
@@ -658,13 +658,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = LPR82YBESG;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Robotron2117/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bignerdranch.game.Robotron2117;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "562173ed-9964-4c65-bf53-a089b4e7f28b";
-				PROVISIONING_PROFILE_SPECIFIER = "TVOS for Dumb Xcodes";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};

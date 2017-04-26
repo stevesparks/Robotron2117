@@ -10,6 +10,5 @@ import SpriteKit
 
 protocol Shooter {
     func shoot() -> Bullet?
-    
 }
 

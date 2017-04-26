@@ -34,8 +34,16 @@ class ControllerManager {
     var controllers = [GCController]()
     var unusedControllers = [GCController]()
     
-    var playerOneController : Control?
-    var playerTwoController : Control?
+    var playerOneController : Control? {
+        didSet {
+            playerOneController?.controller.playerIndex = .index1
+        }
+    }
+    var playerTwoController : Control? {
+        didSet {
+            playerTwoController?.controller.playerIndex = .index2
+        }
+    }
 
     func startWatchingForControllers() {
         if state == .looking {
@@ -66,7 +74,9 @@ class ControllerManager {
     
     func addController(_ controller: GCController) {
         var control : Control!
-        
+
+        controller.playerIndex = .indexUnset
+
         if controller.extendedGamepad != nil {
             control = ExtendedGamepadControl(controller)
         } else if controller.microGamepad != nil {
@@ -75,20 +85,16 @@ class ControllerManager {
             return
         }
         
-        if let prio = playerOneController?.priority, prio > control.priority {
-            // replacing the existing controller with the new one
-            playerOneController = control
-            controller.playerIndex = .index1
-        } else if playerOneController == nil {
+        if playerOneController == nil {
             // setting it is easy
             playerOneController = control
-            controller.playerIndex = .index1
-//        } else if let prio = playerTwoController?.priority, prio > control.priority {
-//            playerTwoController = control
-//            controller.playerIndex = .index2
-//        } else if playerTwoController == nil {
-//            playerTwoController = control
-//            controller.playerIndex = .index2
+        } else if let prio = playerOneController?.priority, prio > control.priority {
+            // replacing the existing controller with the new one
+            playerOneController = control
+        } else if playerTwoController == nil {
+            playerTwoController = control
+        } else if let prio = playerTwoController?.priority, prio > control.priority {
+            playerTwoController = control
         } else {
             // a second player!!
             controller.playerIndex = .indexUnset
@@ -105,11 +111,14 @@ class ControllerManager {
             playerTwoController = nil
             dequeueUnusedController()
         }
+        if let idx = unusedControllers.index(of: controller) {
+            unusedControllers.remove(at: idx)
+        }
         if let idx = controllers.index(of: controller) {
             controllers.remove(at: idx)
         }
     }
-    
+
     func dequeueUnusedController() {
         if let ctrl = unusedControllers.first {
             unusedControllers.remove(at: 0)

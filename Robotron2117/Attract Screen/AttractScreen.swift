@@ -45,6 +45,18 @@ class AttractScreen: GameUniverse {
         title.position = CGPoint(x: sz.width/2.0, y: sz.height*0.83)
         addChild(title)
 
+        let repoURL = SKLabelNode(text: "http://github.com/stevesparks/Robotron2117")
+        repoURL.fontName = "Helvetica"
+        repoURL.fontSize = 35
+        repoURL.fontColor = UIColor.white
+        repoURL.color = UIColor.clear
+        repoURL.zPosition = 30
+        repoURL.position = CGPoint(x: sz.width/2.0, y: sz.height*0.1)
+
+        repoURL.run(SKAction.repeatForever(SKAction.sequence([SKAction.rotate(byAngle: 0.025, duration: 0.1), SKAction.rotate(byAngle: -0.05, duration: 0.2), SKAction.rotate(byAngle: 0.025, duration: 0.1)])))
+        addChild(repoURL)
+
+
         let subtitle = SKLabelNode(text: "PRESS PLAY TO BEGIN")
         subtitle.fontName = UIFont.customFontName
         subtitle.fontSize = 35

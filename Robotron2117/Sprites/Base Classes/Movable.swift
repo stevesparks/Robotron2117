@@ -80,7 +80,6 @@ class Movable : GameNode {
         guard !dead else {
             return false
         }
-        previousPosition = position
         var vec = direction
         vec.dx *= (nodeSpeed * speedModifier)
         vec.dy *= (nodeSpeed * speedModifier)
@@ -88,10 +87,7 @@ class Movable : GameNode {
         pos.x = pos.x + vec.dx
         pos.y = pos.y + vec.dy
         
-        let mySize = universe.frame.size
-        let screenBorderWidth = universe.screenBorderWidth
-        let borderRect = CGRect(x: screenBorderWidth*1.2, y: screenBorderWidth*2, width: mySize.width-(2.8*screenBorderWidth), height: mySize.height-(4*screenBorderWidth))
-        if borderRect.contains(pos) {
+        if isOnScreen(pos) {
             previousPosition = position
             lastWalkVector = vec
             position = pos
@@ -99,6 +95,15 @@ class Movable : GameNode {
             return true
         }
         return false
+    }
+
+
+
+    func isOnScreen(_ pos : CGPoint) -> Bool {
+        let mySize = universe.frame.size
+        let screenBorderWidth = universe.screenBorderWidth
+        let borderRect = CGRect(x: screenBorderWidth*1.2, y: screenBorderWidth*2, width: mySize.width-(2.8*screenBorderWidth), height: mySize.height-(4*screenBorderWidth))
+        return borderRect.contains(pos)
     }
 
     
