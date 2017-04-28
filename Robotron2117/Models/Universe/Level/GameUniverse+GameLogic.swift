@@ -69,37 +69,39 @@ extension GameUniverse {
     }
     
     func gameEndedByShootingPlayer(_ player: Player, bullet: Bullet) {
+        stopGame()
         stateMachine?.lose()
         blowUp(player)
     }
     
     func gameEndedByTouchingPlayer(_ player: Player, enemy: Enemy) {
+        stopGame()
         stateMachine?.lose()
         blowUp(player)
     }
     
     func gameEndedByNoMoreFriendlies() {
+        stopGame()
         stateMachine?.lose()
         blowUp(playerOne)
     }
     
     func blowUp(_ target: Hittable) {
-        if let player = target as? Player {
-            stopGame()
-            player.alpha = 0
-            explode(at: player.position, for: 2.5, color: UIColor.white) {
-                player.alpha = 1
-            }
-            run(SKAction.playSoundFileNamed("player-boom.wav", waitForCompletion: false))
-        } else if let enemy = target as? Enemy {
-            run(SKAction.playSoundFileNamed("enemy-boom.wav", waitForCompletion: false))
-            explode(at: enemy.position, for: 0.25) {
-            }
-        } else if let civ = target as? Civilian {
-            run(SKAction.playSoundFileNamed("civ-boom.wav", waitForCompletion: false))
-            explode(at: civ.position, for: 0.5, color: UIColor.red) {
-            }
-        }
+//        if let player = target as? Player {
+//            player.alpha = 0
+//            explode(at: player.position, for: 2.5, color: UIColor.white) {
+//                player.alpha = 1
+//            }
+//            run(SKAction.playSoundFileNamed("player-boom.wav", waitForCompletion: false))
+//        } else if let enemy = target as? Enemy {
+//            run(SKAction.playSoundFileNamed("enemy-boom.wav", waitForCompletion: false))
+//            explode(at: enemy.position, for: 0.25) {
+//            }
+//        } else if let civ = target as? Civilian {
+//            run(SKAction.playSoundFileNamed("civ-boom.wav", waitForCompletion: false))
+//            explode(at: civ.position, for: 0.5, color: UIColor.red) {
+//            }
+//        }
     }
     
     func explode(at point: CGPoint, for duration: TimeInterval, color: UIColor = UIColor.boomColor, completion block: @escaping () -> Swift.Void) {

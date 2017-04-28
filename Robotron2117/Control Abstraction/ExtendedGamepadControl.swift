@@ -28,17 +28,16 @@ class ExtendedGamepadControl: Control {
     }
     
     var leftThumbstickVector : CGVector {
-        return CGVector(dx: Double(pad.leftThumbstick.xAxis.value),
-                        dy: Double(pad.leftThumbstick.yAxis.value))
+        return pad.leftThumbstick.vector
     }
     
     var dpadVector : CGVector {
-        return CGVector(dx: Double(pad.dpad.xAxis.value),
-                        dy: Double(pad.dpad.yAxis.value))
+        return pad.dpad.vector
     }
     
     var moveVector : CGVector {
         let thumb = leftThumbstickVector
+        print("thumb \(thumb)");
         if thumb == .zero {
             return dpadVector.simplifiedVector
         }
@@ -65,4 +64,11 @@ class ExtendedGamepadControl: Control {
 //        return (pad.buttonB.isPressed || pad.rightTrigger.isPressed || pad.leftTrigger.isPressed)
     }
 
+}
+
+extension GCControllerDirectionPad {
+    var vector : CGVector {
+        return CGVector(dx: Double(xAxis.value),
+                        dy: Double(yAxis.value))
+    }
 }

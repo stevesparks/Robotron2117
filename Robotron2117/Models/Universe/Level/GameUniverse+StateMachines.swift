@@ -113,8 +113,8 @@ extension GameUniverse {
     }
 
     func recordPointsForCivilian(_ civ : Civilian) {
-        score += civ.pointValue
-        let lbl = SKLabelNode(text: "\(civ.pointValue)")
+        score += civ.type.pointValue
+        let lbl = SKLabelNode(text: "\(civ.type.pointValue)")
         lbl.position = civ.position
         lbl.fontName = UIFont.customFontName
         addChild(lbl)

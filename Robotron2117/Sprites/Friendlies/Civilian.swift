@@ -14,12 +14,20 @@ class Civilian: Hittable {
         case lady = "lady"
         case man = "man"
         case boy = "boy"
+
+        var pointValue : Int {
+            switch(self) {
+            case .lady: return 300
+            case .man: return 200
+            case .boy: return 100
+            }
+        }
+        static var allTypes : [CivilianType] = [.lady, .man, .boy]
+        static var allTypeNames : [String] = {
+            return allTypes.map() { return $0.rawValue }
+        }()
     }
     
-    static var allTypes : [CivilianType] = [.lady, .man, .boy]
-    static var allTypeNames : [String] = {
-        return allTypes.map() { return $0.rawValue }
-    }()
 
     convenience init() {
         self.init(texture: SKTexture(imageNamed: "lady-front-1"), color: UIColor.green, size: CGSize(width: 14*3, height: 28*3))
@@ -61,14 +69,6 @@ class Civilian: Hittable {
         }
     }()
     
-    var pointValue : Int {
-        switch(type) {
-        case .lady: return 300
-        case .man: return 200
-        case .boy: return 100
-        }
-    }
-
 
     lazy var textureBanks : Dictionary<String, Array<SKTexture>> = {
         return textureDictionary[self.type.rawValue]!
@@ -91,7 +91,7 @@ extension Civilian {
     static let textureDictionary : [String:[String:[SKTexture]]] = {
         var dict : [String:[String:[SKTexture]]] = [:]
         
-        for type in allTypeNames {
+        for type in CivilianType.allTypeNames {
             var ret : [String : [SKTexture]] = [:]
             for set in ["back", "front"] {
                 var arr : [SKTexture] = []

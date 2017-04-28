@@ -21,10 +21,9 @@ class FootSoldier: Enemy, Shooter {
         guard !dead else {
             return nil
         }
-        if((arc4random()%40)==0) { // 5% chance
+        if((arc4random()%20)==0) { // 5% chance
             let shotVector = universe.directionToNearestPlayer(from: self)
             let shot = Bullet.aimedAt(shotVector, by: self)
-            shot.physicsBody?.contactTestBitMask = CollisionType.Player.rawValue | CollisionType.Civilian.rawValue
             return shot
         }
         return nil

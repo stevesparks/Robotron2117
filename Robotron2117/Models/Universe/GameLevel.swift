@@ -23,7 +23,7 @@ class GameLevel {
     
     static let baseLevels : [GameLevel] = {
         return [
-            GameLevel(soldiers: 3, friendlies: 2),
+            GameLevel(soldiers: 0, friendlies: 2),
             GameLevel(soldiers: 4, friendlies: 4),
             GameLevel(soldiers: 5, friendlies: 6),
             GameLevel(soldiers: 6, friendlies: 8),

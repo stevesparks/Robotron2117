@@ -50,8 +50,8 @@ class Movable : GameNode {
         
         func spriteSet() -> String {
             switch self {
-            case .north: return "front"
-            case .south: return "back" 
+            case .north: return "back"
+            case .south: return "front"
             case .east: return "right"
             case .west: return "left"
             }
