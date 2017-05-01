@@ -42,7 +42,7 @@ class AttractScreen: GameUniverse {
         title.color = UIColor.clear
         title.zPosition = 30
         let sz = self.frame.size
-        title.position = CGPoint(x: sz.width/2.0, y: sz.height*0.83)
+        title.position = CGPoint(x: self.frame.midX, y: sz.height*0.83)
         addChild(title)
 
         let repoURL = SKLabelNode(text: "http://github.com/stevesparks/Robotron2117")
@@ -51,7 +51,7 @@ class AttractScreen: GameUniverse {
         repoURL.fontColor = UIColor.white
         repoURL.color = UIColor.clear
         repoURL.zPosition = 30
-        repoURL.position = CGPoint(x: sz.width/2.0, y: sz.height*0.1)
+        repoURL.position = CGPoint(x: self.frame.midX, y: sz.height*0.1)
 
         repoURL.run(SKAction.repeatForever(SKAction.sequence([SKAction.rotate(byAngle: 0.025, duration: 0.1), SKAction.rotate(byAngle: -0.05, duration: 0.2), SKAction.rotate(byAngle: 0.025, duration: 0.1)])))
         addChild(repoURL)
@@ -63,7 +63,7 @@ class AttractScreen: GameUniverse {
         subtitle.fontColor = UIColor.white
         subtitle.color = UIColor.clear
         subtitle.zPosition = 30
-        subtitle.position = CGPoint(x: sz.width/2.0, y: sz.height*0.75)
+        subtitle.position = CGPoint(x: self.frame.midX, y: sz.height*0.75)
         
         subtitle.run(SKAction.repeatForever(SKAction.sequence([SKAction.scale(to: 1.1, duration: 0.5), SKAction.scale(to: 0.91, duration: 0.5)])))
         addChild(subtitle)
@@ -75,19 +75,12 @@ class AttractScreen: GameUniverse {
 
         let scores = HighScoresNode()
         scores.zPosition = 100
-        let ctr = center
+        let ctr = self.frame.center
         scores.position = CGPoint(x: ctr.x, y: ctr.y - 200)
         addChild(scores)
         scores.populate()
     }
     
-    var center : CGPoint {
-        let pos = self.position
-        let size = self.size
-        return CGPoint(x: pos.x + (size.width/2.0),
-                       y: pos.y + (size.height/2.0))
-    }
-
     override func allDead() -> Bool {
         return false
     }

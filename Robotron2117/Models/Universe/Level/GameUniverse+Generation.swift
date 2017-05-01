@@ -100,8 +100,7 @@ extension GameUniverse {
         var enemiesRemaining = enemyCount
         
         let centerBlock = SKSpriteNode(texture: nil, color: UIColor.clear, size: CGSize(width: 200, height: 200))
-        let mySize = self.frame.size
-        centerBlock.position = CGPoint(x: mySize.width/2.0, y: mySize.height/2.0)
+        centerBlock.position = self.frame.center
         
         while(enemiesRemaining>0) {
             if let enemy = findEmptySpace({ return FootSoldier() }, avoiding: centerBlock.frame) as? Enemy {
@@ -129,9 +128,8 @@ extension GameUniverse {
     
     func addPlayer() {
         let p1 = playerOne
-        let mySize = self.frame.size
         p1.name = "Player One"
-        p1.position = CGPoint(x: mySize.width/2.0, y: mySize.height/2.0)
+        p1.position = self.frame.center
         addChild(p1)
         friendlies.append(p1)
         
@@ -192,3 +190,8 @@ extension GameUniverse {
     }
 }
 
+extension CGRect {
+    var center : CGPoint {
+        return CGPoint(x: midX, y: midY)
+    }
+}

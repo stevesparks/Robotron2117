@@ -17,7 +17,9 @@ enum CollisionType : UInt32 {
 }
 
 class GameNode : SKSpriteNode {
-    weak var universe : GameUniverse!
+    var universe : GameUniverse {
+        return GameUniverse.shared
+    }
 }
 
 class GameUniverse: SKScene {
@@ -135,14 +137,7 @@ class GameUniverse: SKScene {
     
     var tockTimer : Timer?
     
-    override func addChild(_ node: SKNode) {
-        if let gameNode = node as? GameNode {
-            gameNode.universe = self
-        }
-        super.addChild(node)
-    }
-    
-    override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+    override func pressesEnded(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
         if presses.first?.type == .playPause {
             if(tockTimer == nil) {
                 startGame()
@@ -150,7 +145,7 @@ class GameUniverse: SKScene {
                 stopGame()
             }
         } else {
-            super.pressesBegan(presses, with: event)
+            super.pressesEnded(presses, with: event)
         }
     }
 }
