@@ -23,8 +23,8 @@ class Movable : GameNode {
         
         func vector() -> CGVector {
             switch self {
-            case .north: return CGVector(dx: 0, dy: -1)
-            case .south: return CGVector(dx: 0, dy: 1)
+            case .north: return CGVector(dx: 0, dy: 1)
+            case .south: return CGVector(dx: 0, dy: -1)
             case .east: return CGVector(dx: 1, dy: 0)
             case .west: return CGVector(dx: -1, dy: 0)
             }
