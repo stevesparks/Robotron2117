@@ -30,25 +30,23 @@ protocol Control {
 
 
 extension CGVector {
-    
     // returns a vector where dx = [-1, 0, 1] and dy = [-1, 0, 1]
     var simplifiedVector : CGVector {
-        var ret = CGVector(dx: 0, dy: 0)
-        let biasX = (fabs(dx) > fabs(dy*2))
-        let biasY = (fabs(dy) > fabs(dx*2))
-        if(!biasY) {
-            switch (dx) {
-            case let(me) where 0 > me : ret.dx = -1
-            case let(me) where 0 < me : ret.dx = 1
-            default: break
+        func sign(_ val: CGFloat) -> CGFloat {
+            switch (val) {
+            case let(val) where 0 > val : return -1
+            case let(val) where 0 < val : return 1
+            default: return 0
             }
         }
-        if(!biasX) {
-            switch (dy) {
-            case let(me) where 0 > me : ret.dy = -1
-            case let(me) where 0 < me : ret.dy = 1
-            default: break
-            }
+        var ret = CGVector(dx: 0, dy: 0)
+        let isHoriz = (fabs(dx) > fabs(dy*2))
+        if(!isHoriz) {
+            ret.dy = sign(dy)
+        }
+        let isVert = (fabs(dy) > fabs(dx*2))
+        if(!isVert) {
+            ret.dx = sign(dx)
         }
         return ret
     }

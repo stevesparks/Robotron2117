@@ -83,6 +83,7 @@ class Civilian: Hittable {
     override func revert(_ obstacle: SKSpriteNode) {
         super.revert(obstacle)
         let dir = direction.reverse()
+        direction = dir
         didChangeDirection(dir)
     }
 }

@@ -120,10 +120,7 @@ class Movable : GameNode {
             self.size = CGSize(width: sz.width*3, height: sz.height*3)
         }
         
-        spriteStep = spriteStep + 1
-        if(spriteStep >= spriteTextures.count) {
-            spriteStep = 0
-        }
+        spriteStep = (spriteStep + 1) % spriteTextures.count
     }
 }
 
