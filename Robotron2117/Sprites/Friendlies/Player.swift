@@ -33,7 +33,6 @@ class Player: Hittable, Shooter {
     }
     
     func setupPlayer() {
-        self.walkContext = PlayerContext(self)
         let bod = SKPhysicsBody(rectangleOf: size)
         bod.collisionBitMask = 0x0
         bod.contactTestBitMask = CollisionType.Enemy.rawValue
@@ -94,6 +93,21 @@ class Player: Hittable, Shooter {
             }
         }
         return nil
+    }
+
+    override func walk() {
+        guard let ctrl = controller else {
+            return
+        }
+
+        let vec = ctrl.moveVector
+        if vec != .zero {
+            let lastVec = lastWalkVector.simplifiedVector
+            _ = move(vec)
+            if vec.dx != lastVec.dx || vec.dy != lastVec.dy {
+                direction = vec.walkDirection
+            }
+        }
     }
 }
 

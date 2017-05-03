@@ -9,7 +9,6 @@
 import SpriteKit
 
 class Civilian: Hittable {
-    var direction : WalkDirection = .south
     enum CivilianType : String {
         case lady = "lady"
         case man = "man"
@@ -57,7 +56,6 @@ class Civilian: Hittable {
         self.physicsBody?.categoryBitMask = CollisionType.Civilian.rawValue
         didChangeDirection(.south)
         nextSprite()
-        self.walkContext = WanderingNodeContext(self)
         nodeSpeed = 3
     }
     
@@ -76,15 +74,57 @@ class Civilian: Hittable {
 
     override func didChangeDirection(_ direction: Movable.WalkDirection) {
         let set = direction.spriteSet()
+        print("\(String(describing:name)) : \(direction) -> \(set)");
         let textureBank : Array<SKTexture> = textureBanks[set]!
         self.spriteTextures = textureBank
+        super.didChangeDirection(direction)
     }
 
     override func revert(_ obstacle: SKSpriteNode) {
-        super.revert(obstacle)
         let dir = direction.reverse()
         direction = dir
-        didChangeDirection(dir)
+        walk()
+    }
+
+
+    // MARK: Walking
+    var stepCount = 0
+    var stepDelay = 0 // step every Nth frame
+
+    override func walk() {
+        if(stepDelay == 0) {
+            if(!move(direction.vector())) { // hit a wall
+                direction = direction.reverse()
+            }
+
+            if(stepCount <= 0) {
+                newDirection()
+            }
+            stepCount = stepCount - 1
+        }
+        stepDelay = (stepDelay + 1) % 4
+        super.walk()
+    }
+
+    func newDirection() {
+        stepCount = 10 + Int(arc4random()%20)
+        direction = Movable.WalkDirection.random()
+    }
+}
+
+extension GameUniverse {
+    func directionToCenter(from node: GameNode) -> Movable.WalkDirection {
+        let c1 = node.position
+        let c2 = self.frame.center
+        let diff = CGVector(dx: c2.x - c1.x, dy: c2.y - c1.y)
+
+        switch (diff.dx, diff.dy) {
+        case let (dx,dy) where dx > 0 && dx > fabs(dy): return .east
+        case let (dx,dy) where dx < 0 && fabs(dx) < fabs(dy) : return .west
+        case let (dx,dy) where dy > 0 && dy > fabs(dx): return .north
+        case let (dx,dy) where dy < 0 && fabs(dy) < fabs(dx) : return .south
+        default: return .north
+        }
     }
 }
 

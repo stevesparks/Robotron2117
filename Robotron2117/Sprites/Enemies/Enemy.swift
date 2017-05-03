@@ -28,5 +28,4 @@ class Enemy: Hittable {
         bod.contactTestBitMask = CollisionType.Player.rawValue
         self.physicsBody = bod
     }
-
 }

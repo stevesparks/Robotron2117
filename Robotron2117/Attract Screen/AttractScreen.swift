@@ -12,10 +12,6 @@ protocol AttractScreenDelegate : NSObjectProtocol {
     func onePlayerStart()
 }
 
-class AttractContext : WalkContext {
-    
-}
-
 class AttractScreen: GameUniverse {
 
     weak var attractScreenDelegate : AttractScreenDelegate?
@@ -104,14 +100,12 @@ class AttractScreen: GameUniverse {
 }
 
 class DemoPlayer : Player {
-    class DemoContext : PlayerContext {
-        override func walk() { }
-    }
-
     override func setupPlayer() {
         super.setupPlayer()
-        self.walkContext = DemoContext(self)
     }
+
+    override func walk() { }
+
     override func shoot() -> Bullet? {
         return nil
     }

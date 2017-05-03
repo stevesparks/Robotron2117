@@ -13,7 +13,6 @@ class FootSoldier: Enemy, Shooter {
         self.init(texture: SKTexture(imageNamed: "robo-center"), color: UIColor.black, size: CGSize(width: 18*3, height: 28*3))
         self.physicsBody?.contactTestBitMask = CollisionType.Player.rawValue
         self.nodeSpeed = 5
-        self.walkContext = PursuitContext(self)
         self.spriteTextures = FootSoldier.soldierTextures
     }
 
@@ -35,6 +34,16 @@ class FootSoldier: Enemy, Shooter {
                 SKTexture(imageNamed: "robo-right"),
                 SKTexture(imageNamed: "robo-center")]
     }()
-    
+
+    override func walk() {
+        let vec = universe.directionToNearestPlayer(from: self)
+        let lastVec = lastWalkVector.simplifiedVector
+        if vec.dx == lastVec.dx && vec.dy == lastVec.dy {
+            // same same
+        } else {
+            direction = vec.walkDirection
+        }
+        _ = move(vec)
+    }
 }
 

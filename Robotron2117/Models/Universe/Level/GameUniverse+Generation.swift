@@ -119,6 +119,7 @@ extension GameUniverse {
         while(friendliesRemaining>0) {
             if let friendly = findEmptySpace({ return Civilian() }) as? Civilian {
                 friendly.zPosition = CGFloat(friendliesRemaining) * -0.25
+                friendly.name = "Friendly-\(friendliesRemaining)"
                 addChild(friendly)
                 friendlies.append(friendly)
                 friendliesRemaining = friendliesRemaining - 1

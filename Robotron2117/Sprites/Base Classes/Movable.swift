@@ -10,8 +10,7 @@ import SpriteKit
 
 class Movable : GameNode {
     var previousPosition : CGPoint = .zero
-    var walkContext : WalkContext?
-    
+
     var dead = false
     var speedModifier : CGFloat = 1.0
     
@@ -59,13 +58,15 @@ class Movable : GameNode {
     }
     
     var nodeSpeed : CGFloat = 1.0
-    var stepDelay = 0
     var lastWalkVector : CGVector = .zero
-    
-    public func walk() {
-        walkContext?.walk()
-        
+
+    var direction : WalkDirection = .south {
+        didSet {
+            didChangeDirection(direction)
+        }
     }
+
+    public func walk() {  } // subclasses override
     
     public func didChangeDirection(_ direction: Movable.WalkDirection) {
         nextSprite()
@@ -87,23 +88,17 @@ class Movable : GameNode {
         pos.x = pos.x + vec.dx
         pos.y = pos.y + vec.dy
         
-        if isOnScreen(pos) {
-            previousPosition = position
-            lastWalkVector = vec
-            position = pos
-            nextSprite()
-            return true
-        }
-        return false
+        lastWalkVector = vec
+        previousPosition = position
+        position = pos
+        nextSprite()
+        return true
     }
 
 
 
     func isOnScreen(_ pos : CGPoint) -> Bool {
-        let mySize = universe.frame.size
-        let screenBorderWidth = universe.screenBorderWidth
-        let borderRect = CGRect(x: screenBorderWidth*1.2, y: screenBorderWidth*2, width: mySize.width-(2.8*screenBorderWidth), height: mySize.height-(4*screenBorderWidth))
-        return borderRect.contains(pos)
+        return universe.playfieldFrame.contains(pos)
     }
 
     
