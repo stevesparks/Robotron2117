@@ -41,10 +41,10 @@ extension GameUniverse {
         return SKColor(red: rndRed, green: rndGreen, blue: rndBlue, alpha: 1.0)
     }
     
-    func randomPointWithinSize(_ size: CGSize) -> CGPoint {
-        let x = (CGFloat(Int(arc4random())%Int(size.width)))
-        let y = (CGFloat(Int(arc4random())%Int(size.height)))
-        return CGPoint(x: x, y: y)
+    func randomPointWithinPlayfield(forSize size: CGSize = .zero) -> CGPoint {
+        let x = (CGFloat(Int(arc4random())%Int(playfieldFrame.size.width - size.width)))
+        let y = (CGFloat(Int(arc4random())%Int(playfieldFrame.size.height - size.height)))
+        return CGPoint(x: x + size.width/2, y: y + size.height/2)
     }
     
     func findEmptySpace(_ t : (Void) -> SKSpriteNode) -> SKSpriteNode? {
@@ -52,17 +52,13 @@ extension GameUniverse {
     }
     
     func findEmptySpace(_ t : (Void) -> SKSpriteNode, avoiding space: CGRect?) -> SKSpriteNode? {
-        let mySize = self.frame.size
-        let possible = CGSize(width: mySize.width-(4*screenBorderWidth), height: mySize.height-(4*screenBorderWidth))
-        
         var result : SKSpriteNode?
         var triesRemaining = 100
         
+        let test = t()
         repeat {
-            let test = t()
-            let newLoc = randomPointWithinSize(possible)
-            let offs = screenBorderWidth + screenBorderWidth
-            test.position = CGPoint(x: newLoc.x + offs, y: newLoc.y + offs)
+            let newLoc = randomPointWithinPlayfield(forSize: test.size)
+            test.position = newLoc
             let frame = test.frame
             if let rect = space, test.frame.intersects(rect) {
                 // false
@@ -181,7 +177,7 @@ extension GameUniverse {
         bod.friction = 100000
         bod.linearDamping = 1000
         bod.angularDamping = 1000
-        bod.contactTestBitMask = CollisionType.Player.rawValue
+        bod.contactTestBitMask = CollisionType.Player.rawValue | CollisionType.Civilian.rawValue
         bod.categoryBitMask = CollisionType.Wall.rawValue
         bod.collisionBitMask = 0x00
         wallNode.physicsBody = bod

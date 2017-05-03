@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0E264AF31E55D87900013568 /* WalkContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E264AF21E55D87900013568 /* WalkContext.swift */; };
 		0E264AFB1E56545E00013568 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E264AFA1E56545E00013568 /* GameKit.framework */; };
 		0E42C2021E4DFEA20069B1D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E42C2011E4DFEA20069B1D4 /* AppDelegate.swift */; };
 		0E42C2041E4DFEA20069B1D4 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0E42C2031E4DFEA20069B1D4 /* GameScene.sks */; };
@@ -88,7 +87,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0E264AF21E55D87900013568 /* WalkContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalkContext.swift; sourceTree = "<group>"; };
 		0E264AFA1E56545E00013568 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		0E42C1FE1E4DFEA20069B1D4 /* Robotron2117.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Robotron2117.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E42C2011E4DFEA20069B1D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -276,7 +274,6 @@
 				0EC9F7431E51EC1100515A4B /* Enemies */,
 				0EC9F7441E51EC1C00515A4B /* Friendlies */,
 				0E42C2281E4F35FE0069B1D4 /* Barrier.swift */,
-				0E264AF21E55D87900013568 /* WalkContext.swift */,
 			);
 			path = Sprites;
 			sourceTree = "<group>";
@@ -488,7 +485,6 @@
 				0E42C2291E4F35FE0069B1D4 /* Barrier.swift in Sources */,
 				0EED1AE01E57383C0061B7D4 /* GameLevel.swift in Sources */,
 				0EED1AEA1E57474E0061B7D4 /* LeaderboardManager.swift in Sources */,
-				0E264AF31E55D87900013568 /* WalkContext.swift in Sources */,
 				0E42C2231E4F35D30069B1D4 /* Hittable.swift in Sources */,
 				0E47C2DA1E50AF7F00AD999E /* Shooter.swift in Sources */,
 				0E42C2191E4E01620069B1D4 /* Player.swift in Sources */,

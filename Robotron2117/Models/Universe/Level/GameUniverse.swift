@@ -28,7 +28,11 @@ class GameUniverse: SKScene {
     var stateMachine : GameLevelStateMachine!
     var speedModifier : CGFloat = 1.0
     var scoring : Bool = true
-    
+
+    var playfieldFrame : CGRect {
+        return CGRect(x: screenBorderWidth, y: screenBorderWidth, width: frame.size.width - (2*screenBorderWidth), height: frame.size.height - (2*screenBorderWidth))
+    }
+
     var levelDescriptor: GameLevel {
         didSet {
             friendlyCount = levelDescriptor.numberOfFriendlies
