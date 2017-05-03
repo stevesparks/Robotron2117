@@ -74,15 +74,14 @@ class Civilian: Hittable {
 
     override func didChangeDirection(_ direction: Movable.WalkDirection) {
         let set = direction.spriteSet()
-        print("\(String(describing:name)) : \(direction) -> \(set)");
         let textureBank : Array<SKTexture> = textureBanks[set]!
         self.spriteTextures = textureBank
         super.didChangeDirection(direction)
     }
 
     override func revert(_ obstacle: SKSpriteNode) {
-        let dir = direction.reverse()
-        direction = dir
+        direction = direction.reverse()
+        stepCount = 50
         walk()
     }
 
