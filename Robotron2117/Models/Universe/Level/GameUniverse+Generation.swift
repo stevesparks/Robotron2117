@@ -8,7 +8,6 @@
 
 import SpriteKit
 
-class Wall : SKSpriteNode {}
 
 // MARK: Generation
 extension GameUniverse {
@@ -162,15 +161,17 @@ extension GameUniverse {
     
     func addBorder() {
         let mySize = self.frame.size
-        addWall(CGRect(x:0, y:0, width: screenBorderWidth, height: mySize.height))
-        addWall(CGRect(x:mySize.width-screenBorderWidth, y:0, width: screenBorderWidth, height: mySize.height))
+        addWall(CGRect(x:0, y:0, width: screenBorderWidth, height: mySize.height), name: "West Wall", type: .west)
+        addWall(CGRect(x:mySize.width-screenBorderWidth, y:0, width: screenBorderWidth, height: mySize.height), name: "East Wall", type: .east)
 
-        addWall(CGRect(x:0, y:0, width: mySize.width, height: screenBorderWidth))
-        addWall(CGRect(x:0, y:mySize.height-screenBorderWidth, width: mySize.width, height: screenBorderWidth))
+        addWall(CGRect(x:0, y:0, width: mySize.width, height: screenBorderWidth), name: "South Wall", type: .south)
+        addWall(CGRect(x:0, y:mySize.height-screenBorderWidth, width: mySize.width, height: screenBorderWidth), name: "North Wall", type: .north)
     }
     
-    func addWall(_ rect: CGRect) {
-                let wallNode = Wall(color: UIColor.red, size: rect.size)
+    func addWall(_ rect: CGRect, name: String? = nil, type: Wall.WallType) {
+        let wallNode = Wall(color: UIColor.red, size: rect.size)
+        wallNode.name = name
+        wallNode.type = type
         let bod = SKPhysicsBody(rectangleOf: rect.size)
         bod.affectedByGravity = false
         bod.pinned = true

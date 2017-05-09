@@ -37,6 +37,7 @@ class LeaderboardManager {
                     }
                 } else if let error = error {
                     print("Authentication fail -> \(error)")
+                    self.failOut()
                 }
             }
             print("Me: \(x.debugDescription)")
@@ -48,7 +49,32 @@ class LeaderboardManager {
             self.getBoard()
         })
     }
-    
+
+    func failOut() {
+        class FakePlayer : GKPlayer {
+            override var alias: String? {
+                return "Log in to Game Center"
+            }
+        }
+        class FakeScore : GKScore {
+            var index : Int = 0
+            override var rank: Int {
+                return index
+            }
+            override var player: GKPlayer? {
+                return FakePlayer()
+            }
+        }
+        scores =  []
+        for index in 1...10 {
+            let score = FakeScore(leaderboardIdentifier: "bogus")
+            score.index = index
+            scores.append(score)
+        }
+        isReady = true
+        executeBlocksWhenReady()
+    }
+
     public func getBoard() {
         GKLeaderboard.loadLeaderboards() { boards, error in
             if let error = error {

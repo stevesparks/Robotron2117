@@ -87,10 +87,17 @@ class Movable : GameNode {
         var pos = position
         pos.x = pos.x + vec.dx
         pos.y = pos.y + vec.dy
-        
+
         lastWalkVector = vec
-        previousPosition = position
+        let originalPosition = position
         position = pos
+        if !universe.playfieldFrame.contains(frame) {
+            position = originalPosition
+            return false
+        } else {
+            previousPosition = originalPosition
+        }
+
         nextSprite()
         return true
     }

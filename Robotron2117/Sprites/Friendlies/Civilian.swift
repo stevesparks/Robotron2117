@@ -80,7 +80,19 @@ class Civilian: Hittable {
     }
 
     override func revert(_ obstacle: SKSpriteNode) {
-        direction = direction.reverse()
+        let guess = universe.directionToCenter(from: self)
+        let reverse = direction.reverse()
+
+        direction = reverse
+        if let wall = obstacle as? Wall {
+            let safe = wall.safeDirection
+            if safe != reverse {
+                print("OVERRIDE!-----")
+                print("\(name ?? "No name") hit \(obstacle.name ?? "nothing") heading \(direction) ")
+                print("safe=\(safe) reverse=\(reverse) angular=\(guess)!!")
+                direction = safe
+            }
+        }
         stepCount = 50
         walk()
     }
@@ -88,7 +100,7 @@ class Civilian: Hittable {
 
     // MARK: Walking
     var stepCount = 0
-    var stepDelay = 0 // step every Nth frame
+    var stepDelay = 0 // arc4random() % 4 // step every Nth frame
 
     override func walk() {
         if(stepDelay == 0) {
@@ -101,7 +113,7 @@ class Civilian: Hittable {
             }
             stepCount = stepCount - 1
         }
-        stepDelay = (stepDelay + 1) % 4
+//        stepDelay = (stepDelay + 1) % 4
         super.walk()
     }
 
@@ -115,7 +127,8 @@ extension GameUniverse {
     func directionToCenter(from node: GameNode) -> Movable.WalkDirection {
         let c1 = node.position
         let c2 = self.frame.center
-        let diff = CGVector(dx: c2.x - c1.x, dy: c2.y - c1.y)
+        let aspect = frame.size.width / frame.size.height
+        let diff = CGVector(dx: (c2.x - c1.x) / aspect, dy: c2.y - c1.y)
 
         switch (diff.dx, diff.dy) {
         case let (dx,dy) where dx > 0 && dx > fabs(dy): return .east

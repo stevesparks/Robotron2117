@@ -43,6 +43,7 @@
 		0E985AF81E5494F200612EEA /* robotaur.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0EC9F7411E51DE1500515A4B /* robotaur.ttf */; };
 		0EC5FA741E4FAA1C006AC1A4 /* Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5FA731E4FAA1C006AC1A4 /* Control.swift */; };
 		0EC5FA771E4FAAEA006AC1A4 /* RemoteControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC5FA761E4FAAEA006AC1A4 /* RemoteControl.swift */; };
+		0EC810771EBB66C6004F0542 /* Wall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC810761EBB66C6004F0542 /* Wall.swift */; };
 		0EC9F7401E51D63100515A4B /* Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0EC9F73F1E51D63100515A4B /* Explosion.sks */; };
 		0EC9F7421E51DE1500515A4B /* robotaur.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0EC9F7411E51DE1500515A4B /* robotaur.ttf */; };
 		0EED1ADE1E5737CB0061B7D4 /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EED1ADD1E5737CB0061B7D4 /* Options.swift */; };
@@ -123,6 +124,7 @@
 		0E985AF41E548EB000612EEA /* GameStateMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameStateMachine.swift; sourceTree = "<group>"; };
 		0EC5FA731E4FAA1C006AC1A4 /* Control.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Control.swift; sourceTree = "<group>"; };
 		0EC5FA761E4FAAEA006AC1A4 /* RemoteControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteControl.swift; sourceTree = "<group>"; };
+		0EC810761EBB66C6004F0542 /* Wall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wall.swift; sourceTree = "<group>"; };
 		0EC9F73F1E51D63100515A4B /* Explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Explosion.sks; sourceTree = "<group>"; };
 		0EC9F7411E51DE1500515A4B /* robotaur.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = robotaur.ttf; sourceTree = "<group>"; };
 		0EED1ADD1E5737CB0061B7D4 /* Options.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Options.swift; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 				0EC9F7431E51EC1100515A4B /* Enemies */,
 				0EC9F7441E51EC1C00515A4B /* Friendlies */,
 				0E42C2281E4F35FE0069B1D4 /* Barrier.swift */,
+				0EC810761EBB66C6004F0542 /* Wall.swift */,
 			);
 			path = Sprites;
 			sourceTree = "<group>";
@@ -484,6 +487,7 @@
 				0E42C22B1E4F40CB0069B1D4 /* GameUniverse.swift in Sources */,
 				0E42C2291E4F35FE0069B1D4 /* Barrier.swift in Sources */,
 				0EED1AE01E57383C0061B7D4 /* GameLevel.swift in Sources */,
+				0EC810771EBB66C6004F0542 /* Wall.swift in Sources */,
 				0EED1AEA1E57474E0061B7D4 /* LeaderboardManager.swift in Sources */,
 				0E42C2231E4F35D30069B1D4 /* Hittable.swift in Sources */,
 				0E47C2DA1E50AF7F00AD999E /* Shooter.swift in Sources */,
