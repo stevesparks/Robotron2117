@@ -9,12 +9,7 @@
 import SpriteKit
 
 class Wall : SKSpriteNode {
-    enum WallType {
-        case north
-        case south
-        case east
-        case west
-    }
+    enum WallType { case north, south, east, west }
     var type : WallType = .north
 
     var safeDirection : Movable.WalkDirection {

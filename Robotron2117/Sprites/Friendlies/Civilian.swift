@@ -80,18 +80,11 @@ class Civilian: Hittable {
     }
 
     override func revert(_ obstacle: SKSpriteNode) {
-        let guess = universe.directionToCenter(from: self)
-        let reverse = direction.reverse()
-
-        direction = reverse
+        super.revert(obstacle)
         if let wall = obstacle as? Wall {
-            let safe = wall.safeDirection
-            if safe != reverse {
-                print("OVERRIDE!-----")
-                print("\(name ?? "No name") hit \(obstacle.name ?? "nothing") heading \(direction) ")
-                print("safe=\(safe) reverse=\(reverse) angular=\(guess)!!")
-                direction = safe
-            }
+            direction = wall.safeDirection
+        } else {
+            direction = direction.reverse()
         }
         stepCount = 50
         walk()
@@ -104,39 +97,18 @@ class Civilian: Hittable {
 
     override func walk() {
         if(stepDelay == 0) {
-            if(!move(direction.vector())) { // hit a wall
-                direction = direction.reverse()
-            }
-
             if(stepCount <= 0) {
                 newDirection()
             }
             stepCount = stepCount - 1
+            _ = move(direction.vector())
         }
-//        stepDelay = (stepDelay + 1) % 4
         super.walk()
     }
 
     func newDirection() {
         stepCount = 10 + Int(arc4random()%20)
         direction = Movable.WalkDirection.random()
-    }
-}
-
-extension GameUniverse {
-    func directionToCenter(from node: GameNode) -> Movable.WalkDirection {
-        let c1 = node.position
-        let c2 = self.frame.center
-        let aspect = frame.size.width / frame.size.height
-        let diff = CGVector(dx: (c2.x - c1.x) / aspect, dy: c2.y - c1.y)
-
-        switch (diff.dx, diff.dy) {
-        case let (dx,dy) where dx > 0 && dx > fabs(dy): return .east
-        case let (dx,dy) where dx < 0 && fabs(dx) < fabs(dy) : return .west
-        case let (dx,dy) where dy > 0 && dy > fabs(dx): return .north
-        case let (dx,dy) where dy < 0 && fabs(dy) < fabs(dx) : return .south
-        default: return .north
-        }
     }
 }
 
